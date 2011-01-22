@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory
+	android:title="@string/rom_repository">
+	<EditTextPreference
+		android:key="repository_url"
+		android:title="@string/repository_url_manual"
+		android:summary="@string/repository_url_manual_summary"
+		android:defaultValue=""
+	/>
+	<Preference
+		android:key="repository_url_qr"
+		android:title="@string/repository_url_qr"
+		android:summary="@string/repository_url_qr_summary"
+		android:defaultValue=""
+	/>
+</PreferenceCategory>
+<PreferenceCategory
+	android:title="@string/backup_rom">
+	<EditTextPreference
+		android:key="backup_folder"
+		android:title="@string/backup_folder_title"
+		android:summary="@string/backup_folder_summary"
+		android:defaultValue="clockworkmod/backup"
+	/>
+</PreferenceCategory>
+<PreferenceCategory
+	android:title="@string/pref_other">
+	<CheckBoxPreference
+		android:key="anon_stats"
+		android:title="@string/send_anon_title"
+		android:summary="@string/send_anon_summary" android:defaultValue="false"/>
+</PreferenceCategory>
+</PreferenceScreen>

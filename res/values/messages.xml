@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="mod_unknown">Your mod is unknown (proper format: ModName-v.VERSION). You\'ll be able to download only full (non-incremental) files</string>
+<string name="no_repository">You haven\'t set the ROM repository from the settings menu. Clicking on Ok the Settings window will appear.</string>
+<string name="changelog_toast">Long press to view the changelog</string>
+<string name="repository_changed_toast">The ROM repository URL has been changed</string><string name="repository_unreachable">The ROM repository is currently unreachable. Please check it, or try again later.</string>
+
+<string name="barcode_scanner_not_found">It seems that Barcode Scanner (com.google.zxing.client.android) is not installed.</string>
+<string name="wipe_cache_message">The phone will reboot into recovery mode and it will perform the wipe.</string>
+<string name="wipe_data_message">The phone will reboot into recovery mode and it will perform the wipe.</string>
+<string name="backup_rom_message">The phone will reboot into recovery mode and it will perform the backup.</string>
+<string name="recovery_message">The phone will reboot into recovery mode.</string>
+<string name="repository_file_not_found">The file you\'re trying to download is unreachable or unavailable. Please try again later, or contact the repository maintainer.</string>
+<string name="upgrade_confirmation">Are you sure you want to apply the update?</string>
+<string name="modname_mismatch">Your mod seems to be different from the repository one. You\'ll be able to download only the full versions.</string>
+<string name="version_descriptor_not_found_message">The version descriptor file has not been found.</string>
+<string name="rom_is_updated">Your ROM is already updated to the latest version.</string>
+<string name="anon_send_message">Would you like to help the developer know more about the ROM name and version you\'ll download? You can anonymously send this data. If you want, you can find the setting under the preferences pane.</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">ROM Updater</string>
+<string name="view_versions_list">Versions list</string>
+<string name="view_available_updates">Available update types</string><string name="view_preferences">Preferences</string>
+<string name="check_for_updates">Check for updates</string><string name="settings">Settings</string><string name="wipe_cache">Wipe cache</string><string name="wipe_data">Wipe data</string><string name="backup_rom">Backup the ROM</string><string name="recovery">Recovery mode</string><string name="rom_repository">ROM Repository</string>
+<string name="pref_other">Other settings</string><string name="send_anon_title">Send anonymous data</string><string name="send_anon_summary">Anonymously send the ROM name, version and URL to the app author. No personal data will be used.</string><string name="repository_url_manual">Repository URL (manual)</string>
+<string name="repository_url_manual_summary">Manually insert the repository URL in a textbox</string>
+<string name="backup_folder_title">Backup folder</string><string name="backup_folder_summary">SDCard folder, i.e. clockworkmod/backup for /sdcard/clockworkmod/backup</string><string name="repository_url_qr">Respository URL (QR code)</string>
+<string name="repository_url_qr_summary">Set the repository URL via Barcode Scanner (must be installed)</string>
+
+
+
+
+
+
+<string name="OK">OK</string>
+<string name="cancel">Cancel</string>
+<string name="wipe">Wipe</string>
+
+
+
+
+
+<string name="backup">Backup</string>
+<string name="recovery_ok">Recovery</string>
+<string name="upgrade_ok">Update</string>
+<string name="menu_info_title">Informations</string>
+<string name="menu_info_exit">Exit</string>
+<string name="capital_version">Version</string>
+<string name="version_descriptor_not_found_title">Descriptor not found</string>
+
+
+
+</resources>

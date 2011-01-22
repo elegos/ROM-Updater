@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="org.elegosproject.romupdater"
+      android:versionCode="8" android:versionName="1.6">
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher_romupdater">
+        <activity android:name=".ROMUpdater"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    <activity android:name=".VersionSelector" android:label="@string/view_available_updates"></activity>
+    <activity android:name=".VersionsList" android:label="@string/view_versions_list"></activity>
+    <activity android:name=".Preferences" android:label="@string/view_preferences"></activity>
+</application>
+    <uses-sdk android:minSdkVersion="7" />
+    <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+</manifest> 

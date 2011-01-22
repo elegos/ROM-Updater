@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="mod_unknown">La tua mod è sconosciuta (dev\'essere così formattata: NomeMod-v.VERSIONE). Sarai in grado di scaricare solo le versioni complete (non incrementali) delle ROM</string>
+<string name="no_repository">Non hai ancora impostato la ROM repository dal menu delle impostazioni. Clickando su OK verrà mostrata la relativa finestra.</string>
+<string name="changelog_toast">Premi a lungo per visualizzare il changelog</string>
+<string name="repository_changed_toast">L\'URL della ROM repository è stato cambiato</string><string name="repository_unreachable">The ROM repository is currently unreachable. Please check it, or try again later.</string>
+
+<string name="barcode_scanner_not_found">Sembra che Barcode Scanner (com.google.zxing.client.android) non sia installato.</string>
+<string name="wipe_cache_message">Il telefono si riavvierà in modalità recovery e cancellerà la cache di sistema.</string>
+<string name="wipe_data_message">Il telefono si riavvierà in modalità recovery e cancellerà i dati dell\'utente.</string><string name="backup_rom_message">Il telefono si riavvierà in modalità recovery ed effettuerà una copia di backup dell\'attuale ROM.</string>
+<string name="recovery_message">Il telefono si riavvierà in modalità recovery.</string>
+<string name="repository_file_not_found">Il file che stai cercando di scaricare non è raggiungibile, oppure non esiste. Per favore riprova più tardi o contatta il maintainer del repository.</string><string name="upgrade_confirmation">Sei sicuro di voler installare l\'aggiornamento?</string>
+<string name="modname_mismatch">Il nome della mod attualmente sul telefono è differente da quella del repository. Sarai in grado di scaricare solo le versioni complete (non incrementali).</string>
+<string name="version_descriptor_not_found_message">Il file descrittore della versione non è stato trovato.</string>
+<string name="rom_is_updated">La ROM installata è già all\'ultima versione disponibile.</string><string name="anon_send_message">Vuoi aiutare lo sviluppatore inviando in modo anonimo il nome e la versione delle ROM che scarichi con il programma? Se vuoi puoi farlo, trovando l\'impostazione sotto il menu delle impostazioni.</string>
+</resources>

@@ -1,0 +1,16 @@
+ROMUpdater is meant to be an Android universal ROM updater.
+It checks for the build.prop's ro.build.display.id and
+downloads a series of JSON files that describe and give
+a link to the available versions (from the next one
+upwards, if available). It can also execute the most
+common Recovery actions (via /cache/recovery/command
+and extendedcommand), for example Nandroid backup,
+cache/data wipe, or simply enter the removery mode.
+
+This application requires root.
+
+ROMUpdater is a free software and its source code
+is being distributed under the GNU GPL v.3.
+
+You can find the final APK in the market as
+"ROMUpdater" by Giacomo Furlan

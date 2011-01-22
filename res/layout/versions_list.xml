@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+  		<TextView
+  			android:id="@+id/programNameTextView"
+  			android:layout_width="fill_parent"
+  			android:layout_height="50sp"
+  			android:textSize="32sp"
+  			android:text="List of ROM version(s)"
+  		/>
+		<ListView android:id="@+id/versionsList"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    	/>
+</LinearLayout>
