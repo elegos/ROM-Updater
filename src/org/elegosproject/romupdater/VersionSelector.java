@@ -94,7 +94,7 @@ public class VersionSelector extends Activity {
         		
        			DownloadPackage download = new DownloadPackage();
         		
-        		if(!download.downloadFile(url,versionUri,file,VersionSelector.this)) {
+        		if(!download.downloadFile(JSONMod, url, versionUri, file, VersionSelector.this)) {
         			AlertDialog.Builder errorDialog = new AlertDialog.Builder(VersionSelector.this);
 		    		errorDialog.setMessage(getString(R.string.repository_file_not_found))
 		    			.setCancelable(false)

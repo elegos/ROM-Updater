@@ -17,13 +17,10 @@
 
 package org.elegosproject.romupdater;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.util.Vector;
 
 import org.apache.http.HttpResponse;
@@ -45,11 +42,12 @@ public class JSONParser {
 	public ROMVersions parsedVersions;
 	
 	public static boolean checkRepository(String repository_url) {
+		if(!repository_url.startsWith("http://"))
+			repository_url = "http://"+repository_url;
 		if(!repository_url.endsWith("/"))
 			repository_url += "/";
 		repository_url += "main.json";
-		if(DownloadPackage.checkHttpFile(repository_url)) return true;
-		return false;
+		return DownloadPackage.checkHttpFile(repository_url);
 	}
 	
 	public InputStream getJSONData(String url) {

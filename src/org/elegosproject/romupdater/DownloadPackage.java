@@ -22,15 +22,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DownloadPackage {
@@ -53,7 +57,39 @@ public class DownloadPackage {
 		return true;
 	}
 	
-	public boolean downloadFile(String repository, String path, final String fileName, final Context theContext) {
+	public static boolean sendAnonymousData(String romName) {
+		String link = "http://www.elegosproject.org/android/upload.php";
+		String data;
+		
+		if(!checkHttpFile(link)) return false;
+		try {
+			data = URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(android.os.Build.MODEL, "UTF-8");
+			data += "&"+URLEncoder.encode("rom_name", "UTF-8") + "=" + URLEncoder.encode(romName, "UTF-8");
+			
+			URL url = new URL(link);
+			url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			PrintWriter out = new PrintWriter(conn.getOutputStream());
+			out.println(data);
+			out.close();
+			
+			int status = Integer.parseInt(conn.getHeaderField("ROMUpdater-status"));
+			if(status == 1)
+				return true;
+
+			Log.e(TAG, "It was impossible to send data to the stastistics server ("+conn.getHeaderField("ROMUpdater-error")+").");
+			return false;
+				
+		} catch (Exception e) {
+			Log.e(TAG, "It was impossible to send data to the stastistics server.");
+			Log.e(TAG, "Error: "+e.toString());
+			return false;
+		}
+	}
+	
+	public boolean downloadFile(final String romName, String repository, String path, final String fileName, final Context theContext) {
 		if(!repository.substring(repository.length()-1).equals("/"))
 			repository += "/";
 		if(!path.substring(path.length()-1).equals("/"))
@@ -85,6 +121,11 @@ public class DownloadPackage {
 			    			.setCancelable(true)
 			    			.setPositiveButton(theContext.getString(R.string.upgrade_ok), new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
+									SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(theContext);
+									if(preferences.getBoolean("anon_stats", false)) {
+										Log.i(TAG, "Sending anonymous data.");
+										sendAnonymousData(romName);
+									}
 									RecoveryManager.applyUpdate(download_path+fileName);
 								}
 							})
