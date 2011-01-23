@@ -48,18 +48,8 @@ public class JSONParser {
 		if(!repository_url.endsWith("/"))
 			repository_url += "/";
 		repository_url += "main.json";
-		try {
-			Log.i(TAG,"Testing "+repository_url+"...");
-			URL theUrl = new URL(repository_url);
-			HttpURLConnection connection = (HttpURLConnection) theUrl.openConnection();
-			if(connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				connection.disconnect();
-			} else { Log.i(TAG,"HTTP Response code: "+connection.getResponseCode()); return false; }
-		} catch (IOException e) {
-			Log.e(TAG,e.toString());
-			return false;
-		}
-		return true;
+		if(DownloadPackage.checkHttpFile(repository_url)) return true;
+		return false;
 	}
 	
 	public InputStream getJSONData(String url) {
