@@ -83,6 +83,7 @@ public class JSONParser {
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
         } catch(Exception e) {
             e.printStackTrace();
+            return new Vector<ROMVersion>();
         }
         
         modName = parsedVersions.getName();
