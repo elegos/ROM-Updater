@@ -1,0 +1,18 @@
+This folder contains tools created to make your (ROM maintainer) life easier :)
+
+incremental.php:
+ this file can be executed in terminal by BASH users (like OSX or Linux)
+ just make sure to add executive permissions to the files, if needed.
+ 
+ It auto-magically creates an incremental update, starting from an old unzipped (full) update
+ to the new unzipped (full) update.
+ 
+ usage: ./incremental.php -o OLD_FULL_ROM_DIR -n NEW_FULL_ROM_DIR -w
+  -o: old rom folder
+  -n: new rom folder
+  -w: if you want to create a folder named "incremental" (remember to delete
+      it first if exists) with all the changes in it. Please check its updater-script
+      file (META-INF/com/google/android/), it's automatically generated and may
+      contain errors or useless code (up to you). If not specified, it will only
+      list the removed, new and changed files.
+  -h: a list of available arguments
