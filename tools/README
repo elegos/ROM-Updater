@@ -1,6 +1,9 @@
 This folder contains tools created to make your (ROM maintainer) life easier :)
 
-incremental.php:
+
+
+
+-- incremental.php:
  this file can be executed in terminal by BASH users (like OSX or Linux)
  just make sure to add executive permissions to the files, if needed.
  
@@ -16,3 +19,26 @@ incremental.php:
       contain errors or useless code (up to you). If not specified, it will only
       list the removed, new and changed files.
   -h: a list of available arguments
+
+
+
+
+-- incremental.jar
+ it's just the same of incremental.php, but written in java (may be easier to use for someone).
+ it has some cool extra options. Source code included in java_incremental_src.
+ Here is reported the help command:
+ 
+ EleGoS ROM incremental creator
+ Usage: (option=value or option)
+    	-h, --help	print this help
+ 	-o		previous (old) version directory
+ 	-n		new version directory
+ 	-i		(optional) incremental version directory
+ 			it must not exist (default: incremental).
+ 	-w		(optional, no value) write the incremental folder (useless if -i is set)
+ 	--app2sd	(optional, no value) enables app2sd in the updater-script
+ 	--sdType	(optional) type of the app2sd partition (default: ext3)
+ 	--sdMountPoint	(optional) mount point of the app2sd partition (default: /system/sd)
+ 	--sdBlock	(optional) app2sd partition block (default: mmcblk0p2)
+ 
+ example: java -jar incremental.jar -o=OLD_DIR -n=NEW_DIR -i=MyIncrementalFolder --app2sd --sdType=ext3 --sdMountPoint=/system/sd --sdBlock=mmcblk0p2
