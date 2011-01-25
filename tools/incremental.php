@@ -62,7 +62,7 @@ function createUpdaterScript($deleted, $destRoot) {
 
 	fwrite($fp,"ui_print(\"Deleting old files...\");\n");
 	foreach($deleted as $file) {
-		fwrite($fp,"delete(\"/$file\")\n");
+		fwrite($fp,"delete(\"/$file\");\n");
 	}
 
 	if(is_dir("$destRoot/system")) {
