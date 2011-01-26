@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="mod_unknown">La tua mod è sconosciuta (dev\'essere così formattata: NomeMod-v.VERSIONE). Sarai in grado di scaricare solo le versioni complete (non incrementali) delle ROM</string>
+
 <string name="no_repository">Non hai ancora impostato la ROM repository dal menu delle impostazioni. Clickando su OK verrà mostrata la relativa finestra.</string>
 <string name="changelog_toast">Premi a lungo per visualizzare il changelog</string>
 <string name="repository_changed_toast">L\'URL della ROM repository è stato cambiato</string><string name="repository_unreachable">The ROM repository is currently unreachable. Please check it, or try again later.</string>

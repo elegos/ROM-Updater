@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="mod_unknown">Your mod is unknown (proper format: ModName-v.VERSION). You\'ll be able to download only full (non-incremental) files</string>
+
 <string name="no_repository">You haven\'t set the ROM repository from the settings menu. Clicking on Ok the Settings window will appear.</string>
 <string name="changelog_toast">Long press to view the changelog</string>
 <string name="repository_changed_toast">The ROM repository URL has been changed</string><string name="repository_unreachable">The ROM repository is currently unreachable. Please check it, or try again later.</string>

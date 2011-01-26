@@ -22,6 +22,8 @@ import java.util.List;
 public class ROMVersions {
 	private String name;
 	private List<ROMVersion> versions;
+	private String phoneModel;
+	private List<String> mirrorList;
 	
 	public String getName() {
 		return name;
@@ -37,5 +39,13 @@ public class ROMVersions {
 	
 	public void setVersions(List<ROMVersion> ROMList) {
 		versions = ROMList;
+	}
+	
+	public String getPhoneModel() {
+		return phoneModel;
+	}
+	
+	public List<String> getMirrorList() {
+		return mirrorList;
 	}
 }

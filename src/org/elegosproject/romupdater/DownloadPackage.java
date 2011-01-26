@@ -57,14 +57,25 @@ public class DownloadPackage {
 		return true;
 	}
 	
-	public static boolean sendAnonymousData(String romName) {
+	public static boolean sendAnonymousData() {
 		String link = "http://www.elegosproject.org/android/upload.php";
 		String data;
 		
+		SharedData shared = SharedData.getInstance();
+		String romName = shared.getRepositoryROMName();
+		String romVersion = shared.getDownloadVersion();
+		String romPhone = shared.getRepositoryModel();
+		
+		if(romName.equals("") || romVersion.equals("") || romPhone.equals("")) {
+			Log.e(TAG,"Internal error - missing system variables.");
+			return false;
+		}
+		
 		if(!checkHttpFile(link)) return false;
 		try {
-			data = URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(android.os.Build.MODEL, "UTF-8");
+			data = URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(romPhone, "UTF-8");
 			data += "&"+URLEncoder.encode("rom_name", "UTF-8") + "=" + URLEncoder.encode(romName, "UTF-8");
+			data += "&"+URLEncoder.encode("rom_version", "UTF-8") + "=" + URLEncoder.encode(romVersion,"UTF-8");
 			
 			URL url = new URL(link);
 			url.openConnection();
@@ -89,9 +100,11 @@ public class DownloadPackage {
 		}
 	}
 	
-	public boolean downloadFile(final String romName, String repository, String path, final String fileName, final Context theContext) {
-		if(!repository.substring(repository.length()-1).equals("/"))
-			repository += "/";
+	public boolean downloadFile(String path, final String fileName, final Context theContext) {
+		SharedData shared = SharedData.getInstance();
+		
+		String repository = shared.getRepositoryUrl();
+		
 		if(!path.substring(path.length()-1).equals("/"))
 			path += "/";
 		Log.i(TAG,"Trying to get file "+repository+path+fileName);
@@ -124,7 +137,7 @@ public class DownloadPackage {
 									SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(theContext);
 									if(preferences.getBoolean("anon_stats", false)) {
 										Log.i(TAG, "Sending anonymous data.");
-										sendAnonymousData(romName);
+										sendAnonymousData();
 									}
 									RecoveryManager.applyUpdate(download_path+fileName);
 								}

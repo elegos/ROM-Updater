@@ -81,6 +81,10 @@ public class JSONParser {
     	Reader r = new InputStreamReader(this.getJSONData(url));
         try{
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
+        	
+        	SharedData shared = SharedData.getInstance();
+        	shared.setRepositoryROMName(parsedVersions.getName());
+        	shared.setRespositoryModel(parsedVersions.getPhoneModel());
         } catch(Exception e) {
             e.printStackTrace();
             return new Vector<ROMVersion>();
