@@ -114,7 +114,7 @@ public class VersionsList extends Activity {
 				String changelog = "";
 				ROMVersion currentVersion = new ROMVersion();
 				Iterator<ROMVersion> iVersion = modVersions.iterator();
-		 
+				
 				while(iVersion.hasNext()) {
 					currentVersion = iVersion.next();
 					if(currentVersion.getVersion().equals(version)) {
@@ -159,9 +159,11 @@ public class VersionsList extends Activity {
 		if(!repositoryUrl.equals("")) {
 			modVersions = myParser.getROMVersions(repositoryUrl+"main.json");
 		
-			/* Global variables */
-			shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
-			shared.setRepositoryROMName(myParser.parsedVersions.getName());
+			if(!myParser.failed) {
+				/* Global variables */
+				shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
+				shared.setRepositoryROMName(myParser.parsedVersions.getName());
+			}
 		}
 		
 		Vector<String>versionsList = new Vector<String>();
@@ -171,15 +173,15 @@ public class VersionsList extends Activity {
 		String iteratorVersion = "";
 		while(versionsIterator.hasNext()) {
 			iteratorVersion = versionsIterator.next().getVersion();
-			if(!myParser.modName.equals(modName) ||
-					(myParser.modName.equals(modName) && Integer.parseInt(modVersion) < Integer.parseInt(iteratorVersion)))
+			if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) ||
+					(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
 				versionsList.add(myParser.modName+" "+iteratorVersion);
 		}
 		
 		Comparator<String> r = Collections.reverseOrder();
 		Collections.sort(versionsList,r);
 		
-		if(!myParser.modName.equals(modName)) {
+		if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName())) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(VersionsList.this);
 			builder.setCancelable(true)
 				.setMessage(getString(R.string.modname_mismatch))

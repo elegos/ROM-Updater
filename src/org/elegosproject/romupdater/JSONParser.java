@@ -40,6 +40,7 @@ public class JSONParser {
 	public String modName = "";
 	public AvailableVersions parsedAvailableVersions;
 	public ROMVersions parsedVersions;
+	public Boolean failed = false;
 	
 	public static boolean checkRepository(String repository_url) {
 		if(!repository_url.startsWith("http://"))
@@ -80,6 +81,7 @@ public class JSONParser {
     	Gson gson = new Gson();
     	Reader r = new InputStreamReader(this.getJSONData(url));
         try{
+        	parsedVersions = new ROMVersions();
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
         	
         	SharedData shared = SharedData.getInstance();
@@ -87,6 +89,7 @@ public class JSONParser {
         	shared.setRespositoryModel(parsedVersions.getPhoneModel());
         } catch(Exception e) {
             e.printStackTrace();
+            failed = true;
             return new Vector<ROMVersion>();
         }
         

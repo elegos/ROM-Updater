@@ -114,7 +114,7 @@ public class VersionSelector extends Activity {
 		if(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()))
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
-				if(Integer.parseInt(SharedData.LOCAL_ROMNAME) == Integer.parseInt(iteratorVersion)) {
+				if(Integer.parseInt(SharedData.LOCAL_VERSION) == Integer.parseInt(iteratorVersion)) {
 					versionsList.add("Incremental");
 					break;
 				}

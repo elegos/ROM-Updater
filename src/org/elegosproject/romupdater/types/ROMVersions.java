@@ -25,6 +25,11 @@ public class ROMVersions {
 	private String phoneModel;
 	private List<String> mirrorList;
 	
+	public ROMVersions() {
+		name = "";
+		phoneModel = "";
+	}
+
 	public String getName() {
 		return name;
 	}
