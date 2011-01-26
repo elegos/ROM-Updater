@@ -46,9 +46,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 public class VersionsList extends Activity {
 	private static final String TAG = "ROM Updater (VersionsList.class)";
-
-	private String modName = "";
-	private String modVersion = "";
 	
 	private SharedPreferences preferences;
 	private SharedData shared;
