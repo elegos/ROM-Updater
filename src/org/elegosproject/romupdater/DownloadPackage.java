@@ -65,8 +65,12 @@ public class DownloadPackage {
 		String romName = shared.getRepositoryROMName();
 		String romVersion = shared.getDownloadVersion();
 		String romPhone = shared.getRepositoryModel();
+		String romRepository = shared.getRepositoryUrl();
 		
-		if(romName.equals("") || romVersion.equals("") || romPhone.equals("")) {
+		if(romName.equals("") ||
+				romVersion.equals("") ||
+				romPhone.equals("") ||
+				romRepository.equals("")) {
 			Log.e(TAG,"Internal error - missing system variables.");
 			return false;
 		}
@@ -76,6 +80,7 @@ public class DownloadPackage {
 			data = URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(romPhone, "UTF-8");
 			data += "&"+URLEncoder.encode("rom_name", "UTF-8") + "=" + URLEncoder.encode(romName, "UTF-8");
 			data += "&"+URLEncoder.encode("rom_version", "UTF-8") + "=" + URLEncoder.encode(romVersion,"UTF-8");
+			data += "&"+URLEncoder.encode("rom_repository", "UTF-8") + "=" + URLEncoder.encode(romRepository,"UTF-8");
 			
 			URL url = new URL(link);
 			url.openConnection();
