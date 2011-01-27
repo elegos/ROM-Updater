@@ -86,6 +86,7 @@ public class DownloadPackage {
 			url.openConnection();
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
+			conn.setRequestProperty("User-Agent", "ROMUpdater");
 			conn.setDoOutput(true);
 			PrintWriter out = new PrintWriter(conn.getOutputStream());
 			out.println(data);
