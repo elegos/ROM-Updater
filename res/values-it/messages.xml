@@ -7,15 +7,16 @@
 
 <string name="barcode_scanner_not_found">Sembra che Barcode Scanner (com.google.zxing.client.android) non sia installato.</string>
 <string name="wipe_cache_message">Il telefono si riavvierà in modalità recovery e cancellerà la cache di sistema.</string>
-<string name="wipe_data_message">Il telefono si riavvierà in modalità recovery e cancellerà i dati dell\'utente.</string><string name="backup_rom_message">Il telefono si riavvierà in modalità recovery ed effettuerà una copia di backup dell\'attuale ROM.</string>
+<string name="wipe_data_message">Il telefono si riavvierà in modalità recovery e cancellerà i dati dell\'utente.</string>
+<string name="backup_rom_message">Il telefono si riavvierà in modalità recovery ed effettuerà una copia di backup dell\'attuale ROM.</string>
 <string name="recovery_message">Il telefono si riavvierà in modalità recovery.</string>
-<string name="repository_file_not_found">Il file che stai cercando di scaricare non è raggiungibile, oppure non esiste. Per favore riprova più tardi o contatta il maintainer del repository.</string><string name="upgrade_confirmation">Sei sicuro di voler installare l\'aggiornamento?</string>
+<string name="repository_file_not_found">Il file che stai cercando di scaricare non è raggiungibile, oppure non esiste. Per favore riprova più tardi o contatta il maintainer del repository.</string>
+<string name="upgrade_confirmation">Sei sicuro di voler installare l\'aggiornamento?</string>
 <string name="modname_mismatch">Il nome della mod attualmente sul telefono è differente da quella del repository. Sarai in grado di scaricare solo le versioni complete (non incrementali).</string>
 <string name="version_descriptor_not_found_message">Il file descrittore della versione non è stato trovato.</string>
-<<<<<<< HEAD
-<string name="rom_is_updated">La ROM installata è già all\'ultima versione disponibile.</string><string name="anon_send_message">Vuoi aiutare lo sviluppatore inviando in modo anonimo il nome e la versione delle ROM che scarichi con il programma? Se vuoi puoi farlo, trovando l\'impostazione sotto il menu delle impostazioni.</string>
-<string name="repo_phone_mismatch">La versione del tuo cellulare non è compatibile con questa ROM.</string><string name="no_repository_available">Non ci sono attualmente repository nella lista. Condividi il tuo mandando dati anonimi!</string>
-=======
-<string name="rom_is_updated">La ROM installata è già all\'ultima versione disponibile.</string><string name="anon_send_message">Vuoi aiutare lo sviluppatore inviando in modo anonimo il nome e la versione delle ROM che scarichi con il programma? Se vuoi puoi farlo, trovando l\'impostazione sotto il menu delle impostazioni.</string><string name="error_model_mismatch">Attenzione: stai cercando di installare una ROM creata per un altro cellulare. Azione fallita.</string>
->>>>>>> e163fe438da335613d1ef67faee98e2db0e8c61a
+<string name="rom_is_updated">La ROM installata è già all\'ultima versione disponibile.</string>
+<string name="anon_send_message">Vuoi aiutare lo sviluppatore inviando in modo anonimo il nome e la versione delle ROM che scarichi con il programma? Se vuoi puoi farlo, trovando l\'impostazione sotto il menu delle impostazioni.</string>
+<string name="repo_phone_mismatch">La versione del tuo cellulare non è compatibile con questa ROM.</string>
+<string name="no_repository_available">Non ci sono attualmente repository nella lista. Condividi il tuo mandando dati anonimi!</string>
+<string name="error_model_mismatch">Attenzione: stai cercando di installare una ROM creata per un altro cellulare. Azione fallita.</string>
 </resources>
