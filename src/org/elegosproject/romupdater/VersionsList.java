@@ -160,6 +160,21 @@ public class VersionsList extends Activity {
 				/* Global variables */
 				shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
 				shared.setRepositoryROMName(myParser.parsedVersions.getName());
+				
+				// the repository is not for the current model
+				if(!shared.getRepositoryModel().equals(SharedData.LOCAL_MODEL)) {
+					AlertDialog.Builder modelAlert = new AlertDialog.Builder(this);
+					modelAlert.setCancelable(false)
+						.setMessage(getString(R.string.error_model_mismatch))
+						.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+								finish();
+							}
+						});
+					modelAlert.create().show();
+					return;
+				}
 			}
 		}
 		
