@@ -30,6 +30,7 @@ import org.elegosproject.romupdater.types.AvailableVersion;
 import org.elegosproject.romupdater.types.AvailableVersions;
 import org.elegosproject.romupdater.types.ROMVersion;
 import org.elegosproject.romupdater.types.ROMVersions;
+import org.elegosproject.romupdater.types.RepoList;
 
 import com.google.gson.Gson;
 
@@ -51,7 +52,7 @@ public class JSONParser {
 		return DownloadPackage.checkHttpFile(repository_url);
 	}
 	
-	public InputStream getJSONData(String url) {
+	public static InputStream getJSONData(String url) {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		URI uri;
         InputStream data = null;
@@ -79,7 +80,7 @@ public class JSONParser {
 		Vector<ROMVersion> versions = new Vector<ROMVersion>();
     	Log.i(TAG,"Requesting "+url+"...");
     	Gson gson = new Gson();
-    	Reader r = new InputStreamReader(this.getJSONData(url));
+    	Reader r = new InputStreamReader(JSONParser.getJSONData(url));
         try{
         	parsedVersions = new ROMVersions();
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
@@ -109,7 +110,7 @@ public class JSONParser {
 		Vector<AvailableVersion> versions = new Vector<AvailableVersion>();
 		Log.i(TAG,"Requesting "+url+"...");
 		Gson gson = new Gson();
-		Reader r = new InputStreamReader(this.getJSONData(url));
+		Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 		try {
 			parsedAvailableVersions = gson.fromJson(r, AvailableVersions.class);
 		} catch (Exception e) {
@@ -122,6 +123,20 @@ public class JSONParser {
 		}
 		
 		return versions;
+	}
+	
+	public static RepoList[] getRepositoriesFromJSON(String url) {
+		RepoList[] theList = null;
+		Gson gson = new Gson();
+		Reader r = new InputStreamReader(JSONParser.getJSONData(url));
+		try {
+			theList = gson.fromJson(r, RepoList[].class);
+		} catch (Exception e) {
+			Log.e(TAG, "Failed to parse "+url);
+			e.printStackTrace();
+		}
+		
+		return theList;
 	}
 	
 	public String getUrlForVersion(String version) {

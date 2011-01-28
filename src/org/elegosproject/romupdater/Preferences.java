@@ -45,6 +45,16 @@ public class Preferences extends PreferenceActivity {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		Preference barcode = findPreference("repository_url_qr");
+		Preference romList = findPreference("repository_list");
+		
+		romList.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent repoList = new Intent(Preferences.this, RepositoriesList.class);
+				startActivity(repoList);
+				return false;
+			}
+		});
 		
 		barcode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {

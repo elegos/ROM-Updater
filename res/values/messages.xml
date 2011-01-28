@@ -15,5 +15,7 @@
 <string name="modname_mismatch">Your mod seems to be different from the repository one. You\'ll be able to download only the full versions.</string>
 <string name="version_descriptor_not_found_message">The version descriptor file has not been found.</string>
 <string name="rom_is_updated">Your ROM is already updated to the latest version.</string>
-<string name="anon_send_message">Would you like to help the developer know more about the ROM name and version you\'ll download? You can anonymously send this data. If you want, you can find the setting under the preferences pane.</string>
+<string name="anon_send_message">Would you like to help the developer know more about the ROM name and version you\'ll download? You can anonymously send this data. If you want, you can find the setting under the preferences pane.</string><string name="repo_phone_mismatch">Your phone is not compatible with this repository.</string>
+
+<string name="no_repository_available">There are actually no available repositories. Share yours sending anonymous data!</string>
 </resources>

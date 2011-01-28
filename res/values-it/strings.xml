@@ -3,12 +3,12 @@
     
     <string name="app_name">ROM Updater</string>
 <string name="view_versions_list">Lista delle versioni</string>
-<string name="view_available_updates">Tipi di aggiornamento disponibili</string><string name="view_preferences">Preferenze</string>
+<string name="view_available_updates">Tipi di aggiornamento disponibili</string><string name="view_preferences">Preferenze</string><string name="view_repositories">Lista di repository</string>
 <string name="check_for_updates">Controlla per aggiornamenti</string><string name="settings">Impostazioni</string><string name="wipe_cache">Svuota cache</string><string name="wipe_data">Cancella i dati</string><string name="backup_rom">Backup della ROM</string><string name="recovery">Modalità recovery</string><string name="rom_repository">ROM Repository</string><string name="pref_other">Altre impostazioni</string><string name="send_anon_title">Invia dati anonimi</string><string name="send_anon_summary">Invia il nome, la versione e l\'URL della ROM allo sviluppatore.</string>
 <string name="repository_url_manual">Repository URL (manuale)</string>
 <string name="repository_url_manual_summary">Inserisci manualmente l\'URL della repository</string><string name="backup_folder_title">Cartella di backup</string><string name="backup_folder_summary">Nella SD card, ad esempio clockworkmod/backup per /sdcard/clockworkmod/backup</string>
 <string name="repository_url_qr">Respository URL (codice QR)</string>
-<string name="repository_url_qr_summary">Imposta l\'URL tramite Barcode Scanner (dev\'essere installato)</string>
+<string name="repository_url_qr_summary">Imposta l\'URL tramite Barcode Scanner (dev\'essere installato)</string><string name="repository_list_summary">Una lista di ROM, creata grazie ai dati anonimi.</string>
 
 
 
@@ -16,11 +16,13 @@
 
 
 <string name="OK">OK</string>
-<string name="cancel">Annulla</string>
-<string name="wipe">Wipe</string><string name="backup">Backup</string><string name="recovery_ok">Recovery</string>
+<string name="cancel">Annulla</string><string name="yes">Sì</string>
+<string name="no">No</string><string name="wipe">Wipe</string><string name="backup">Backup</string><string name="recovery_ok">Recovery</string>
 <string name="upgrade_ok">Installa</string>
 <string name="menu_info_title">Informazioni</string>
 <string name="menu_info_exit">Esci</string>
 <string name="capital_version">Versione</string>
-<string name="version_descriptor_not_found_title">Descrittore non trovato</string>
+<string name="version_descriptor_not_found_title">Descrittore non trovato</string><string name="apply_repo">Sei sicuro di impostare questa ROM come repository?</string>
+
+<string name="alert">Attenzione</string>
 </resources>

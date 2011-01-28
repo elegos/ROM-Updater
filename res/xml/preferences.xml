@@ -15,6 +15,7 @@
 		android:summary="@string/repository_url_qr_summary"
 		android:defaultValue=""
 	/>
+<Preference android:key="repository_list" android:title="@string/view_repositories" android:summary="@string/repository_list_summary"></Preference>
 </PreferenceCategory>
 <PreferenceCategory
 	android:title="@string/backup_rom">

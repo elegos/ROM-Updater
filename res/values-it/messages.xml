@@ -13,4 +13,5 @@
 <string name="modname_mismatch">Il nome della mod attualmente sul telefono è differente da quella del repository. Sarai in grado di scaricare solo le versioni complete (non incrementali).</string>
 <string name="version_descriptor_not_found_message">Il file descrittore della versione non è stato trovato.</string>
 <string name="rom_is_updated">La ROM installata è già all\'ultima versione disponibile.</string><string name="anon_send_message">Vuoi aiutare lo sviluppatore inviando in modo anonimo il nome e la versione delle ROM che scarichi con il programma? Se vuoi puoi farlo, trovando l\'impostazione sotto il menu delle impostazioni.</string>
+<string name="repo_phone_mismatch">La versione del tuo cellulare non è compatibile con questa ROM.</string><string name="no_repository_available">Non ci sono attualmente repository nella lista. Condividi il tuo mandando dati anonimi!</string>
 </resources>
