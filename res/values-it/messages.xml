@@ -3,7 +3,7 @@
 
 <string name="no_repository">Non hai ancora impostato la ROM repository dal menu delle impostazioni. Clickando su OK verrà mostrata la relativa finestra.</string>
 <string name="changelog_toast">Premi a lungo per visualizzare il changelog</string>
-<string name="repository_changed_toast">L\'URL della ROM repository è stato cambiato</string><string name="repository_unreachable">The ROM repository is currently unreachable. Please check it, or try again later.</string>
+<string name="repository_changed_toast">L\'URL della ROM repository è stato cambiato</string><string name="repository_unreachable">Il repository della ROM non è al momento raggiungibile. Per favore ricontrollalo, o riprova.</string>
 
 <string name="barcode_scanner_not_found">Sembra che Barcode Scanner (com.google.zxing.client.android) non sia installato.</string>
 <string name="wipe_cache_message">Il telefono si riavvierà in modalità recovery e cancellerà la cache di sistema.</string>
