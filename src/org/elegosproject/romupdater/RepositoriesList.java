@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,10 +63,14 @@ public class RepositoriesList extends Activity {
 						public void onClick(DialogInterface dialog, int which) {
 							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RepositoriesList.this);
 							Editor editor = prefs.edit();
-							editor.putString("repository_url", rawList[groupPosition].getRepositories()[childPosition].getUrl());
+							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
+							while(!url.endsWith("/")) {
+								url = url.substring(0,url.length()-1); // trim the last character until it finishes with "/"
+							}
+							editor.putString("repository_url", url);
 							editor.commit();
 							
-							Toast t = Toast.makeText(RepositoriesList.this, getString(R.string.repository_changed_toast)+" ("+rawList[groupPosition].getRepositories()[childPosition].getUrl()+")",Toast.LENGTH_LONG);
+							Toast t = Toast.makeText(RepositoriesList.this, getString(R.string.repository_changed_toast)+" ("+url+")",Toast.LENGTH_LONG);
 					        t.show();
 					        
 					        dialog.dismiss();
