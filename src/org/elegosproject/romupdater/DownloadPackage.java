@@ -145,7 +145,9 @@ public class DownloadPackage {
 										Log.i(TAG, "Sending anonymous data.");
 										sendAnonymousData();
 									}
-									RecoveryManager.applyUpdate(download_path+fileName);
+									RecoveryManager.setupExtendedCommand();
+									RecoveryManager.addUpdate(download_path+fileName);
+									RecoveryManager.rebootRecovery();
 								}
 							})
 							.setNegativeButton(theContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {

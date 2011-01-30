@@ -28,71 +28,50 @@ import android.util.Log;
 
 public class RecoveryManager {
 	private static String TAG = "ROM Updater (Recovery Manager)";
-	public static void applyUpdate(String file) {
+	
+	public static void rebootRecovery() {
+		try {
+			Process p = Runtime.getRuntime().exec("su");
+			OutputStream os = p.getOutputStream();
+			
+			os.write("reboot recovery\n".getBytes());
+			os.flush();
+		} catch(Exception e) {
+			Log.e(TAG, "Unable to reboot into recovery");
+		}
+		
+	}
+	
+	// Extended command section
+	
+	public static void setupExtendedCommand() {
+		try {
+			Process p = Runtime.getRuntime().exec("su");
+			OutputStream os = p.getOutputStream();
+
+			os.write("mkdir -p /cache/recovery/\n".getBytes());
+			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
+			os.write("echo 'print ROM Updater by elegos\n' > /cache/recovery/extendedcommand\n".getBytes());
+			
+			os.flush();
+		} catch (Exception e) {
+			Log.e(TAG, "Unable to setup extendedcommand file!");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addUpdate(String file) {
 		try {
 			// request super user rights
 			Process p = Runtime.getRuntime().exec("su");
 			OutputStream os = p.getOutputStream();
 			
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
-			os.write("echo 'print ROM Updater by elegos\n' > /cache/recovery/extendedcommand\n".getBytes());
-			String cmd = "echo 'install_zip SDCARD:"+file+"' >> /cache/recovery/extendedcommand\n";
+			String cmd = "echo 'install_zip SDCARD:"+file+"\n' >> /cache/recovery/extendedcommand\n";
 			os.write(cmd.getBytes());
-			
-			os.write("reboot recovery\n".getBytes());
+
 			os.flush();
 		} catch (Exception e) {
 			Log.e(TAG,"Unable to reboot into Recovery mode for applying package");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void wipeCache() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
-			String cmd = "echo '--wipe_cache' >> /cache/recovery/command\n";
-			os.write(cmd.getBytes());
-			
-			os.write("reboot recovery\n".getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode for wiping cache");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void wipeData() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
-			String cmd = "echo '--wipe_data' >> /cache/recovery/command\n";
-			os.write(cmd.getBytes());
-			
-			os.write("reboot recovery\n".getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode for wiping data");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void recoveryMode() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			os.write("reboot recovery\n".getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode");
 			e.printStackTrace();
 		}
 	}
@@ -110,19 +89,65 @@ public class RecoveryManager {
 			Process p = Runtime.getRuntime().exec("su");
 			OutputStream os = p.getOutputStream();
 			
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
 			String mkdirCmd = "mkdir -p "+backupFolder+"\n";
 			os.write(mkdirCmd.getBytes());
 			
-			os.write("rm /cache/recovery/command\n".getBytes());
-			os.write("echo 'print \"ROM Updater Backup script\"\n' > /cache/recovery/extendedcommand".getBytes());
-			String backupCommand = "echo 'backup_rom "+backupFolder+format.format(date)+"' >> /cache/recovery/extendedcommand\n";
+			String backupCommand = "echo 'backup_rom "+backupFolder+format.format(date)+"\n' >> /cache/recovery/extendedcommand\n";
 			os.write(backupCommand.getBytes());
 
 			os.write("reboot recovery\n".getBytes());
 			os.flush();
 		} catch (Exception e) {
 			Log.e(TAG,"Unable to reboot into recovery for backup");
+			e.printStackTrace();
+		}
+	}
+	
+	// Command section
+	
+	public static void setupCommand() {
+		try {
+			Process p = Runtime.getRuntime().exec("su");
+			OutputStream os = p.getOutputStream();
+			
+			os.write("mkdir -p /cache/recovery/\n".getBytes());
+			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
+			
+			os.flush();
+		} catch (Exception e) {
+			Log.e(TAG,"Unable to reboot into Recovery mode for wiping cache");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void wipeCache() {
+		try {
+			Process p = Runtime.getRuntime().exec("su");
+			OutputStream os = p.getOutputStream();
+			
+			String cmd = "echo '--wipe_cache' >> /cache/recovery/command\n";
+			os.write(cmd.getBytes());
+			
+			os.write("reboot recovery\n".getBytes());
+			os.flush();
+		} catch (Exception e) {
+			Log.e(TAG,"Unable to reboot into Recovery mode for wiping cache");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void wipeData() {
+		try {
+			Process p = Runtime.getRuntime().exec("su");
+			OutputStream os = p.getOutputStream();
+			
+			String cmd = "echo '--wipe_data' >> /cache/recovery/command\n";
+			os.write(cmd.getBytes());
+			
+			os.write("reboot recovery\n".getBytes());
+			os.flush();
+		} catch (Exception e) {
+			Log.e(TAG,"Unable to reboot into Recovery mode for wiping data");
 			e.printStackTrace();
 		}
 	}

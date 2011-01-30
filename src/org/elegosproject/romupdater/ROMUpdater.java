@@ -98,7 +98,9 @@ public class ROMUpdater extends Activity {
 		    			.setCancelable(true)
 		    			.setPositiveButton(getString(R.string.wipe), new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
+								RecoveryManager.setupCommand();
 								RecoveryManager.wipeCache();
+								RecoveryManager.rebootRecovery();
 							}
 						})
 						.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -117,7 +119,9 @@ public class ROMUpdater extends Activity {
 		    			.setCancelable(true)
 		    			.setPositiveButton(getString(R.string.wipe), new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
+								RecoveryManager.setupCommand();
 								RecoveryManager.wipeData();
+								RecoveryManager.rebootRecovery();
 							}
 						})
 						.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -136,7 +140,9 @@ public class ROMUpdater extends Activity {
 		    			.setCancelable(true)
 		    			.setPositiveButton(getString(R.string.backup), new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
+								RecoveryManager.setupExtendedCommand();
 								RecoveryManager.doBackup(ROMUpdater.this);
+								RecoveryManager.rebootRecovery();
 							}
 						})
 						.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -155,7 +161,7 @@ public class ROMUpdater extends Activity {
 		    			.setCancelable(true)
 		    			.setPositiveButton(getString(R.string.recovery_ok), new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
-								RecoveryManager.recoveryMode();
+								RecoveryManager.rebootRecovery();
 							}
 						})
 						.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
