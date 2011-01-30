@@ -94,11 +94,10 @@ public class RecoveryManager {
 			
 			String backupCommand = "echo 'backup_rom "+backupFolder+format.format(date)+"\n' >> /cache/recovery/extendedcommand\n";
 			os.write(backupCommand.getBytes());
-
-			os.write("reboot recovery\n".getBytes());
+			
 			os.flush();
 		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into recovery for backup");
+			Log.e(TAG,"Unable to setup environment for Nandroid backup");
 			e.printStackTrace();
 		}
 	}
