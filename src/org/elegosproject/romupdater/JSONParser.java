@@ -52,7 +52,7 @@ public class JSONParser {
 		return DownloadPackage.checkHttpFile(repository_url);
 	}
 	
-	public static InputStream getJSONData(String url) {
+	public static InputStream getJSONData(String url) throws Exception {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		URI uri;
         InputStream data = null;
@@ -63,7 +63,7 @@ public class JSONParser {
             data = response.getEntity().getContent();
         } catch (Exception e) {
             Log.e(TAG,"Unable to download file: "+e);
-            data = null;
+            throw e;
         }
         return data;
 	}
@@ -80,8 +80,10 @@ public class JSONParser {
 		Vector<ROMVersion> versions = new Vector<ROMVersion>();
     	Log.i(TAG,"Requesting "+url+"...");
     	Gson gson = new Gson();
-    	Reader r = new InputStreamReader(JSONParser.getJSONData(url));
-        try{
+    	Reader r;
+		try {
+			r = new InputStreamReader(JSONParser.getJSONData(url));
+
         	parsedVersions = new ROMVersions();
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
         	
@@ -110,8 +112,8 @@ public class JSONParser {
 		Vector<AvailableVersion> versions = new Vector<AvailableVersion>();
 		Log.i(TAG,"Requesting "+url+"...");
 		Gson gson = new Gson();
-		Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 		try {
+			Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 			parsedAvailableVersions = gson.fromJson(r, AvailableVersions.class);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,18 +127,18 @@ public class JSONParser {
 		return versions;
 	}
 	
-	public static RepoList[] getRepositoriesFromJSON(String url) {
-		RepoList[] theList = null;
+	public static RepoList[] getRepositoriesFromJSON(String url) throws Exception {
+		RepoList[] theList;
 		Gson gson = new Gson();
-		Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 		try {
+			Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 			theList = gson.fromJson(r, RepoList[].class);
+			return theList;
 		} catch (Exception e) {
 			Log.e(TAG, "Failed to parse "+url);
 			e.printStackTrace();
+			throw e;
 		}
-		
-		return theList;
 	}
 	
 	public String getUrlForVersion(String version) {

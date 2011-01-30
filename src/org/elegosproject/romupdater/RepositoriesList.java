@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 
 public class RepositoriesList extends Activity {
 	private static final String repoUrl = "http://www.elegosproject.org/android/repositories.php";
+	private RepoList[] rawList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +27,19 @@ public class RepositoriesList extends Activity {
 		
 		setContentView(R.layout.repo_list);
 		ExpandableListView theList = (ExpandableListView) findViewById(R.id.repositoriesExpandableList);
-
-		final RepoList[] rawList = JSONParser.getRepositoriesFromJSON(repoUrl);
+		Boolean gotList = true;
 		
-		if(rawList.length == 0) {
+		try {
+			rawList = JSONParser.getRepositoriesFromJSON(repoUrl);
+		} catch (Exception e) {
+			gotList = false;
+			e.printStackTrace();
+		}
+		
+		if(!gotList) {
 			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 			alert.setTitle(getString(R.string.alert))
-				.setMessage(getString(R.string.no_repository_available))
+				.setMessage(getString(R.string.error_download_list))
 				.setCancelable(false)
 				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					@Override
