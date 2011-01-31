@@ -20,4 +20,5 @@
 <string name="no_repository_available">There are actually no available repositories. Share yours sending anonymous data!</string>
 <string name="error_model_mismatch">Attention: you\'re attempting to install a ROM not designed for your phone model. Abort.</string>
 <string name="error_download_list">There was an error downloading the list of the repositories. Please try again later.</string>
+<string name="wipe_sdext_too">Do you want to wipe the SD-EXT partition too?</string>
 </resources>

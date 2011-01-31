@@ -35,6 +35,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
 public class DownloadPackage {
@@ -107,7 +108,7 @@ public class DownloadPackage {
 	}
 	
 	public boolean downloadFile(String path, final String fileName, final Context theContext) {
-		SharedData shared = SharedData.getInstance();
+		final SharedData shared = SharedData.getInstance();
 		
 		String repository = shared.getRepositoryUrl();
 		
@@ -145,6 +146,7 @@ public class DownloadPackage {
 										Log.i(TAG, "Sending anonymous data.");
 										sendAnonymousData();
 									}
+									shared.setRecoveryOperations(2);
 									RecoveryManager.setupExtendedCommand();
 									RecoveryManager.addUpdate(download_path+fileName);
 									RecoveryManager.rebootRecovery();

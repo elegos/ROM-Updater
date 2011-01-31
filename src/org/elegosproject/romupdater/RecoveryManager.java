@@ -30,11 +30,17 @@ public class RecoveryManager {
 	private static String TAG = "ROM Updater (Recovery Manager)";
 	
 	public static void rebootRecovery() {
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getRecoveryCounter() < sdata.getRecoveryOperations()) {
+			while(sdata.getLockProcess());
+		}
+		
+		sdata.addRecoveryMessage("reboot recovery\n");
 		try {
 			Process p = Runtime.getRuntime().exec("su");
 			OutputStream os = p.getOutputStream();
-			
-			os.write("reboot recovery\n".getBytes());
+			os.write(sdata.getRecoveryMessage().getBytes());
 			os.flush();
 		} catch(Exception e) {
 			Log.e(TAG, "Unable to reboot into recovery");
@@ -45,35 +51,30 @@ public class RecoveryManager {
 	// Extended command section
 	
 	public static void setupExtendedCommand() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
+		
+		sdata.addRecoveryMessage("mkdir -p /cache/recovery/\n");
+		sdata.addRecoveryMessage("echo 'boot-recovery' >/cache/recovery/command\n");
+		sdata.addRecoveryMessage("echo 'print ROM Updater by elegos' > /cache/recovery/extendedcommand\n");
 
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			os.write("echo 'boot-recovery' >/cache/recovery/command\n".getBytes());
-			os.write("echo 'print ROM Updater by elegos\n' > /cache/recovery/extendedcommand\n".getBytes());
-			
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG, "Unable to setup extendedcommand file!");
-			e.printStackTrace();
-		}
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
 	}
 	
 	public static void addUpdate(String file) {
-		try {
-			// request super user rights
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			String cmd = "echo 'install_zip SDCARD:"+file+"\n' >> /cache/recovery/extendedcommand\n";
-			os.write(cmd.getBytes());
-
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode for applying package");
-			e.printStackTrace();
-		}
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
+		
+		sdata.addRecoveryMessage("print Installing file SDCARD:"+file+"\n");
+		sdata.addRecoveryMessage("echo 'install_zip SDCARD:"+file+"' >> /cache/recovery/extendedcommand\n");
+		
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
 	}
 	
 	public static void doBackup(Context context) {
@@ -82,24 +83,63 @@ public class RecoveryManager {
 		if(!backupFolder.endsWith("/"))
 			backupFolder += "/";
 		
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH.mm");
 			Date date = new Date();
 			
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			String mkdirCmd = "mkdir -p "+backupFolder+"\n";
-			os.write(mkdirCmd.getBytes());
-			
-			String backupCommand = "echo 'backup_rom "+backupFolder+format.format(date)+"\n' >> /cache/recovery/extendedcommand\n";
-			os.write(backupCommand.getBytes());
-			
-			os.flush();
+			sdata.addRecoveryMessage("mkdir -p "+backupFolder+"\n");
+			sdata.addRecoveryMessage("echo 'print Backing up the current ROM to \""+backupFolder+format.format(date)+"\"' >> /cache/recovery/extendedcommand\n");
+			sdata.addRecoveryMessage("echo 'backup_rom "+backupFolder+format.format(date)+"' >> /cache/recovery/extendedcommand\n");
 		} catch (Exception e) {
 			Log.e(TAG,"Unable to setup environment for Nandroid backup");
 			e.printStackTrace();
+		} finally {
+			sdata.incrementRecoveryCounter();
+			sdata.setLockProcess(false);
 		}
+	}
+	
+	public static void wipeCache() {
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
+		
+		sdata.addRecoveryMessage("echo 'print Wiping CACHE' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'delete_recursive DATA:dalvik-cache' >> /cache/recovery/extendedcommand\n");
+
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
+	}
+	
+	public static void wipeData() {
+		SharedData sdata = SharedData.getInstance();
+		while(sdata.getLockProcess());
+		
+		sdata.setLockProcess(true);
+		sdata.addRecoveryMessage("echo 'print Wiping USER DATA' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'delete_recursive DATA:' >> /cache/recovery/extendedcommand\n");
+		
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
+	}
+	
+	public static void wipeSDExt() {
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
+
+		sdata.addRecoveryMessage("echo 'print Wiping SD-EXT' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'delete_recursive SDEXT:app' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'delete_recursive SDEXT:app-private' >> /cache/recovery/extendedcommand\n");
+
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
 	}
 	
 	// Command section
@@ -115,38 +155,6 @@ public class RecoveryManager {
 			os.flush();
 		} catch (Exception e) {
 			Log.e(TAG,"Unable to reboot into Recovery mode for wiping cache");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void wipeCache() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			String cmd = "echo '--wipe_cache' >> /cache/recovery/command\n";
-			os.write(cmd.getBytes());
-			
-			os.write("reboot recovery\n".getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode for wiping cache");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void wipeData() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-			
-			String cmd = "echo '--wipe_data' >> /cache/recovery/command\n";
-			os.write(cmd.getBytes());
-			
-			os.write("reboot recovery\n".getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode for wiping data");
 			e.printStackTrace();
 		}
 	}

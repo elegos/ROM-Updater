@@ -19,4 +19,5 @@
 <string name="repo_phone_mismatch">La versione del tuo cellulare non è compatibile con questa ROM.</string>
 <string name="no_repository_available">Non ci sono attualmente repository nella lista. Condividi il tuo mandando dati anonimi!</string>
 <string name="error_model_mismatch">Attenzione: stai cercando di installare una ROM creata per un altro cellulare. Azione fallita.</string><string name="error_download_list">C\'è stato un errore scaricando la lista dei repository. Per favore riprova più tardi.</string>
+<string name="wipe_sdext_too">Vuoi cancellare anche la partizione SD-EXT?</string>
 </resources>

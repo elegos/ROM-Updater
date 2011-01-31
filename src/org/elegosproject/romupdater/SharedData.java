@@ -30,13 +30,27 @@ public class SharedData {
 	private String downloadVersion;
 	
 	private String repositoryUrl;
+	
+	private Boolean lockProcess; // synchronous operations
+	private Integer recoveryCounter;
+	private Integer recoveryOperations;
+	private String recoveryMessage;
 
 	private SharedData() {
 		setRepositoryROMName("");
 		setRespositoryModel("");
 		setDownloadVersion("");
+		
+		setLockProcess(false);
+		setRecoveryCounter(0);
+		setRecoveryOperations(0);
+		setRecoveryMessage("");
 	}
-
+	
+	//
+	//	SETTERS
+	//
+	
 	public static SharedData getInstance() {
 		synchronized (mLock) {
 			if (mInstance == null) {
@@ -66,6 +80,38 @@ public class SharedData {
 		repositoryUrl = url;
 	}
 	
+	public void setLockProcess(Boolean b) {
+		lockProcess = b;
+	}
+	
+	private void setRecoveryCounter(Integer i) {
+		recoveryCounter = i;
+	}
+	
+	public void incrementRecoveryCounter() {
+		recoveryCounter++;
+	}
+	
+	public void decrementRecoveryCounter() {
+		recoveryCounter--;
+	}
+	
+	public void setRecoveryOperations(Integer i) {
+		recoveryOperations = i;
+	}
+	
+	public void setRecoveryMessage(String s) {
+		recoveryMessage = s;
+	}
+	
+	public void addRecoveryMessage(String s) {
+		recoveryMessage += s;
+	}
+	
+	//
+	// GETTERS
+	//
+	
 	public String getRepositoryModel() {
 		return repositoryModel;
 	}
@@ -80,5 +126,21 @@ public class SharedData {
 	
 	public String getRepositoryUrl() {
 		return repositoryUrl;
+	}
+	
+	public Boolean getLockProcess() {
+		return lockProcess;
+	}
+	
+	public Integer getRecoveryCounter() {
+		return recoveryCounter;
+	}
+	
+	public Integer getRecoveryOperations() {
+		return recoveryOperations;
+	}
+	
+	public String getRecoveryMessage() {
+		return recoveryMessage;
 	}
 }
