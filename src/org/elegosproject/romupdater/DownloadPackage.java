@@ -35,7 +35,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
 public class DownloadPackage {
