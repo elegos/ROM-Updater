@@ -33,7 +33,7 @@ public class ROMSuperActivity extends Activity {
         	}
             AlertDialog.Builder builder = new AlertDialog.Builder(ROMSuperActivity.this);
             builder.setIcon(R.drawable.ic_menu_info)
-            	.setTitle(R.string.app_name+" v."+version)
+            	.setTitle("ROM Updater v."+version)
             	.setMessage(SharedData.ABOUT_LICENCE+"\n\nPlease donate via PayPal to giacomo.furlan@fastwebnet.it.\nThanks\n\nGiacomo 'elegos' Furlan")
             	.setCancelable(false)
             	.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
