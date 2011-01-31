@@ -22,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -108,6 +109,7 @@ public class Preferences extends PreferenceActivity {
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+	
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -116,10 +118,17 @@ public class Preferences extends PreferenceActivity {
             finish();
             return true;
         case R.id.menu_info:
+        	PackageManager pm = getPackageManager();
+        	String version = "";
+        	try {
+        		version = pm.getPackageInfo("org.elegosproject.romupdater", 0).versionName;
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
             AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
             builder.setIcon(R.drawable.ic_menu_info)
-            	.setTitle(R.string.menu_info_title)
-            	.setMessage("ROM Updater by elegos\n\nThis is a freeware, banner-free software.\nPlease donate via PayPal to giacomo.furlan@fastwebnet.it.\n\nThanks\nGiacomo 'elegos' Furlan")
+            	.setTitle(getString(R.string.app_name)+" v."+version)
+            	.setMessage(SharedData.ABOUT_LICENCE+"\n\nPlease donate via PayPal to giacomo.furlan@fastwebnet.it.\nThanks\n\nGiacomo 'elegos' Furlan")
             	.setCancelable(false)
             	.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {

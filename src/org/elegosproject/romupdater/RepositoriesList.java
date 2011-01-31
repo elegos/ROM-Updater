@@ -1,7 +1,6 @@
 package org.elegosproject.romupdater;
 
 import org.elegosproject.romupdater.types.RepoList;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -17,7 +16,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RepositoriesList extends Activity {
+public class RepositoriesList extends ROMSuperActivity {
 	private static final String repoUrl = "http://www.elegosproject.org/android/repositories.php";
 	private RepoList[] rawList;
 	

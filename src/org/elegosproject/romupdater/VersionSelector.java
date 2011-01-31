@@ -22,13 +22,9 @@ import java.util.Vector;
 
 import org.elegosproject.romupdater.types.AvailableVersion;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,7 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class VersionSelector extends Activity {
+public class VersionSelector extends ROMSuperActivity {
 	private SharedData shared;
 	
 	private String versionUri;
@@ -122,37 +118,5 @@ public class VersionSelector extends Activity {
 
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, versionsList);
 		versionsAvailableListView.setAdapter(adapter);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.menu_exit:
-			finish();
-			return true;
-		case R.id.menu_info:
-			AlertDialog.Builder builder = new AlertDialog.Builder(VersionSelector.this);
-			builder.setIcon(R.drawable.ic_menu_info)
-				.setTitle(R.string.menu_info_title)
-				.setMessage("ROM Updater by elegos\n\nThis is a freeware, banner-free software.\nPlease donate via PayPal to giacomo.furlan@fastwebnet.it.\n\nThanks\nGiacomo 'elegos' Furlan")
-				.setCancelable(false)
-				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-			AlertDialog dialog = builder.create();
-			dialog.show();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
 	}
 }
