@@ -26,6 +26,9 @@ import java.util.Vector;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.elegosproject.romupdater.types.AvailableVersion;
 import org.elegosproject.romupdater.types.AvailableVersions;
 import org.elegosproject.romupdater.types.ROMVersion;
@@ -53,6 +56,8 @@ public class JSONParser {
 	}
 	
 	public static InputStream getJSONData(String url) throws Exception {
+		HttpParams httpParameters = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		URI uri;
         InputStream data = null;
