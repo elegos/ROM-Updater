@@ -28,6 +28,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -44,6 +48,8 @@ public class DownloadPackage {
 	
 	public static boolean checkHttpFile(String url) {
 		try {
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
 			Log.i(TAG,"Testing "+url+"...");
 			URL theUrl = new URL(url);
 			HttpURLConnection connection = (HttpURLConnection) theUrl.openConnection();
@@ -81,6 +87,9 @@ public class DownloadPackage {
 			data += "&"+URLEncoder.encode("rom_name", "UTF-8") + "=" + URLEncoder.encode(romName, "UTF-8");
 			data += "&"+URLEncoder.encode("rom_version", "UTF-8") + "=" + URLEncoder.encode(romVersion,"UTF-8");
 			data += "&"+URLEncoder.encode("rom_repository", "UTF-8") + "=" + URLEncoder.encode(romRepository,"UTF-8");
+
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
 			
 			URL url = new URL(link);
 			url.openConnection();
@@ -118,6 +127,9 @@ public class DownloadPackage {
 			return false;
 		
 		try {
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
+			
 			URL url = new URL(repository+path+fileName);
 			final URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
