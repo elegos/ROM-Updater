@@ -103,6 +103,19 @@ public class RecoveryManager {
 		}
 	}
 	
+	public static void restoreBackup(String backupDirectory) {
+		SharedData sdata = SharedData.getInstance();
+		
+		while(sdata.getLockProcess());
+		sdata.setLockProcess(true);
+		
+		sdata.addRecoveryMessage("print Restoring ROM from SDCARD:"+backupDirectory+"\n");
+		sdata.addRecoveryMessage("echo 'restore_rom /sdcard/"+backupDirectory+"' >> /cache/recovery/extendedcommand\n");
+		
+		sdata.incrementRecoveryCounter();
+		sdata.setLockProcess(false);
+	}
+	
 	public static void wipeCache() {
 		SharedData sdata = SharedData.getInstance();
 		

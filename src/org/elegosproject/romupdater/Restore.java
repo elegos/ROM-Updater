@@ -10,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,6 +27,71 @@ public class Restore extends ROMSuperActivity {
         setContentView(R.layout.restore);
 		listOfRestores = (ListView) findViewById(R.id.listOfRestores);
 		createRestoreList();
+		
+		listOfRestores.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				final String selected = arg0.getItemAtPosition(arg2).toString();
+				AlertDialog.Builder confirm = new AlertDialog.Builder(Restore.this);
+				confirm.setCancelable(true);
+				confirm.setMessage(getString(R.string.confirm_restore_backup));
+				// execute the backup
+				confirm.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String backupDirectory;
+						SharedData shared = SharedData.getInstance();
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Restore.this);
+						
+						backupDirectory = prefs.getString("backup_folder","");
+						if(!backupDirectory.endsWith("/"))
+							backupDirectory += "/";
+						
+						// something like [/sdcard/][my_folder/of_backups/][backup_folder]
+						backupDirectory = "/sdcard/"+backupDirectory+selected;
+						
+						shared.setRecoveryOperations(2);
+						RecoveryManager.setupExtendedCommand();
+						RecoveryManager.restoreBackup(backupDirectory);
+						RecoveryManager.rebootRecovery();
+					}
+				});
+				
+				// delete the backup
+				confirm.setNeutralButton(getString(R.string.delete_backup), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String backupDirectory;
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Restore.this);
+						
+						backupDirectory = prefs.getString("backup_folder","");
+						if(!backupDirectory.endsWith("/"))
+							backupDirectory += "/";
+						
+						// something like [/sdcard/][my_folder/of_backups/][backup_folder]
+						backupDirectory = "/sdcard/"+backupDirectory+selected;
+						
+						File backup = new File(backupDirectory);
+						// delete the backup directory
+						Restore.deleteDirectory(backup);
+						dialog.dismiss();
+						// ends the activity
+						// TODO: update the adapter and refresh the view
+						finish();
+					}
+				});
+				
+				// cancel the restore
+				confirm.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				confirm.create().show();
+			}
+		});
 	}
 	
 	private void createRestoreList() {
@@ -99,4 +167,19 @@ public class Restore extends ROMSuperActivity {
 			dirNotExists.create().show();
 		}
 	}
+	
+	static public boolean deleteDirectory(File path) {
+	    if( path.exists() ) {
+	      File[] files = path.listFiles();
+	      for(int i=0; i<files.length; i++) {
+	         if(files[i].isDirectory()) {
+	           deleteDirectory(files[i]);
+	         }
+	         else {
+	           files[i].delete();
+	         }
+	      }
+	    }
+	    return( path.delete() );
+	  }
 }

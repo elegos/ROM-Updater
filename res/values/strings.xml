@@ -39,4 +39,5 @@
 
 
 <string name="alert">Alert</string>
+<string name="delete_backup">Delete the backup</string>
 </resources>
