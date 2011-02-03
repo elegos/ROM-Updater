@@ -76,9 +76,8 @@ public class Restore extends ROMSuperActivity {
 						// delete the backup directory
 						Restore.deleteDirectory(backup);
 						dialog.dismiss();
-						// ends the activity
-						// TODO: update the adapter and refresh the view
-						finish();
+						// recreate the list
+						createRestoreList();
 					}
 				});
 				
