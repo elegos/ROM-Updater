@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.elegosproject.romupdater"
-      android:versionName="1.11" android:versionCode="15">
+      android:versionName="1.12" android:versionCode="16">
     <application
     	android:label="@string/app_name"
     	android:icon="@drawable/ic_launcher_romupdater">
@@ -13,10 +13,11 @@
             </intent-filter>
         </activity>
 
-    <activity android:name=".VersionSelector" android:label="@string/view_available_updates"></activity>
-    <activity android:name=".VersionsList" android:label="@string/view_versions_list"></activity>
-    <activity android:name=".Preferences" android:label="@string/view_preferences"></activity>
-    <activity android:name=".RepositoriesList" android:label="@string/view_repositories"></activity>
+    <activity android:name=".VersionSelector" android:label="@string/view_available_updates" android:configChanges="orientation" />
+    <activity android:name=".VersionsList" android:label="@string/view_versions_list" android:configChanges="orientation" />
+    <activity android:name=".Preferences" android:label="@string/view_preferences" android:configChanges="orientation" />
+    <activity android:name=".RepositoriesList" android:label="@string/view_repositories" android:configChanges="orientation" />
+    <activity android:name=".Restore" android:label="@string/view_restore" android:configChanges="orientation" />
 </application>
     <uses-sdk android:minSdkVersion="7" />
     <uses-permission android:name="android.permission.INTERNET" />

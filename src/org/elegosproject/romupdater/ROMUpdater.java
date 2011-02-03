@@ -80,14 +80,17 @@ public class ROMUpdater extends ROMSuperActivity {
         		
 				Log.i(TAG,arg0.getItemAtPosition(arg2).toString()+" ("+arg2+")");
 				switch(arg2) {
+				// VersionsList
 				case 0:
 					Intent versionsList = new Intent(ROMUpdater.this, VersionsList.class);
 					startActivity(versionsList);
 					break;
+				// settings menu
 				case 1:
 					Intent preferences = new Intent(ROMUpdater.this, Preferences.class);
 					startActivity(preferences);
 					break;
+				// wipe cache
 				case 2:
 					AlertDialog.Builder dialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		dialog.setMessage(getString(R.string.wipe_cache_message))
@@ -111,6 +114,7 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		AlertDialog alert = dialog.create();
 		    		alert.show();
 					break;
+				// wipe data and (eventually) SD-EXT
 				case 3:
 					final AlertDialog.Builder sdext = new AlertDialog.Builder(ROMUpdater.this);
 					sdext.setMessage(getString(R.string.wipe_sdext_too))
@@ -153,6 +157,7 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		AlertDialog dataAlert = dataDialog.create();
 		    		dataAlert.show();
 					break;
+				// Backup the actual system
 				case 4:
 					AlertDialog.Builder backupDialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		backupDialog.setMessage(getString(R.string.backup_rom_message))
@@ -176,7 +181,13 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		AlertDialog backupAlert = backupDialog.create();
 		    		backupAlert.show();
 					break;
+				// Restore a backup
 				case 5:
+					Intent restore = new Intent(ROMUpdater.this, Restore.class);
+					startActivity(restore);
+					break;
+				// Enter recovery mode (manual operations)
+				case 6:
 					AlertDialog.Builder recoveryDialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		recoveryDialog.setMessage(getString(R.string.recovery_message))
 		    			.setTitle(getString(R.string.recovery))
@@ -207,6 +218,7 @@ public class ROMUpdater extends ROMSuperActivity {
     	versionsList.add(getString(R.string.wipe_cache));
     	versionsList.add(getString(R.string.wipe_data));
     	versionsList.add(getString(R.string.backup_rom));
+    	versionsList.add(getString(R.string.restore_rom));
     	versionsList.add(getString(R.string.recovery));
     	
     	ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, versionsList);
