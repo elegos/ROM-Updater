@@ -85,13 +85,18 @@ public class ROMUpdater extends ROMSuperActivity {
 					Intent versionsList = new Intent(ROMUpdater.this, VersionsList.class);
 					startActivity(versionsList);
 					break;
-				// settings menu
+				// Downloads
 				case 1:
+					Intent downloads = new Intent(ROMUpdater.this, Downloads.class);
+					startActivity(downloads);
+					break;
+				// settings menu
+				case 2:
 					Intent preferences = new Intent(ROMUpdater.this, Preferences.class);
 					startActivity(preferences);
 					break;
 				// wipe cache
-				case 2:
+				case 3:
 					AlertDialog.Builder dialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		dialog.setMessage(getString(R.string.wipe_cache_message))
 		    			.setTitle(getString(R.string.wipe_cache))
@@ -115,7 +120,7 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		alert.show();
 					break;
 				// wipe data and (eventually) SD-EXT
-				case 3:
+				case 4:
 					final AlertDialog.Builder sdext = new AlertDialog.Builder(ROMUpdater.this);
 					sdext.setMessage(getString(R.string.wipe_sdext_too))
 						.setCancelable(false)
@@ -158,7 +163,7 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		dataAlert.show();
 					break;
 				// Backup the actual system
-				case 4:
+				case 5:
 					AlertDialog.Builder backupDialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		backupDialog.setMessage(getString(R.string.backup_rom_message))
 		    			.setTitle(getString(R.string.backup_rom))
@@ -182,12 +187,12 @@ public class ROMUpdater extends ROMSuperActivity {
 		    		backupAlert.show();
 					break;
 				// Restore a backup
-				case 5:
+				case 6:
 					Intent restore = new Intent(ROMUpdater.this, Restore.class);
 					startActivity(restore);
 					break;
 				// Enter recovery mode (manual operations)
-				case 6:
+				case 7:
 					AlertDialog.Builder recoveryDialog = new AlertDialog.Builder(ROMUpdater.this);
 		    		recoveryDialog.setMessage(getString(R.string.recovery_message))
 		    			.setTitle(getString(R.string.recovery))
@@ -214,6 +219,7 @@ public class ROMUpdater extends ROMSuperActivity {
     private void fillActionsList() {
     	Vector<String>versionsList = new Vector<String>();
     	versionsList.add(getString(R.string.check_for_updates));
+    	versionsList.add(getString(R.string.downloaded_files));
     	versionsList.add(getString(R.string.settings));
     	versionsList.add(getString(R.string.wipe_cache));
     	versionsList.add(getString(R.string.wipe_data));

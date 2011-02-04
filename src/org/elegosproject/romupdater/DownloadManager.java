@@ -17,33 +17,20 @@
 
 package org.elegosproject.romupdater;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.DialogInterface.OnDismissListener;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DownloadManager {
 	private static final String TAG = "ROM Updater (DownloadPackage.class)";
-	private static final String download_location = "/sdcard/";
 	public static final String download_path = "romupdater/";
 	
 	public static boolean checkHttpFile(String url) {
