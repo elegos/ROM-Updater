@@ -103,7 +103,7 @@ public class VersionsList extends ROMSuperActivity {
 				String selectedItem = parent.getItemAtPosition(position).toString();
 				Log.i(TAG,"ITEM: "+selectedItem);
 				
-				String version = selectedItem.substring(selectedItem.indexOf(" ")+1);
+				String version = selectedItem.substring(selectedItem.lastIndexOf(" ")+1);
 				String changelog = "";
 				ROMVersion currentVersion = new ROMVersion();
 				Iterator<ROMVersion> iVersion = modVersions.iterator();
