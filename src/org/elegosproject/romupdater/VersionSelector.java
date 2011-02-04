@@ -17,6 +17,7 @@
 
 package org.elegosproject.romupdater;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -24,7 +25,9 @@ import org.elegosproject.romupdater.types.AvailableVersion;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,27 +69,117 @@ public class VersionSelector extends ROMSuperActivity {
 					file = myParser.parsedAvailableVersions.getFullUri();
 				else file = myParser.getUrlForVersion(shared.getDownloadVersion());
 				
-	   			DownloadPackage download = new DownloadPackage();
+				SharedData sdata = SharedData.getInstance();
+				String url = sdata.getRepositoryUrl();
+				if(!url.endsWith("/")) url += "/";
+				url += versionUri;
+				if(!url.endsWith("/")) url += "/";
+				url += file;
 				
-				if(!download.downloadFile(versionUri, file, VersionSelector.this)) {
-					AlertDialog.Builder errorDialog = new AlertDialog.Builder(VersionSelector.this);
-					errorDialog.setMessage(getString(R.string.repository_file_not_found))
-						.setCancelable(false)
-						.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						});
-					AlertDialog dialog = errorDialog.create();
-					dialog.show();
-				}
+				sdata.setDownloadedFile(DOWNLOAD_DIRECTORY+file);
+				
+				new DownloadFile().execute(url, DOWNLOAD_DIRECTORY+file);
 			}
 		});
+	}
+	
+	@Override
+	void onDownloadComplete(Boolean success) {
+		// download exit with true -> success
+		if(success) {
+			// the ROM name is different from the
+			// actual one, ask to wipe or backup and wipe before
+			final SharedData sdata = SharedData.getInstance();
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			
+			if(!sdata.getRepositoryROMName().equals(SharedData.LOCAL_ROMNAME)) {
+				alert.setMessage(getString(R.string.ask_backup_wipe));
+				alert.setPositiveButton(getString(R.string.backup_and_wipe), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// backup and wipe, then update
+						sdata.setRecoveryOperations(3);
+						RecoveryManager.doBackup(VersionSelector.this);
+						RecoveryManager.wipeData();
+						RecoveryManager.addUpdate(sdata.getDownloadedFile());
+						RecoveryManager.rebootRecovery();
+					}
+				});
+				alert.setNeutralButton(getString(R.string.backup_only), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Backup only, then update
+						sdata.setRecoveryOperations(2);
+						RecoveryManager.doBackup(VersionSelector.this);
+						RecoveryManager.addUpdate(sdata.getDownloadedFile());
+						RecoveryManager.rebootRecovery();
+					}
+				});
+				alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Just update
+						sdata.setRecoveryOperations(1);
+						RecoveryManager.addUpdate(sdata.getDownloadedFile());
+						RecoveryManager.rebootRecovery();
+					}
+				});
+			} else {
+				// ROM name are the same, just ask to install now
+				alert.setMessage(getString(R.string.upgrade_confirmation))
+					.setCancelable(false)
+					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// apply update
+							sdata.setRecoveryOperations(1);
+							RecoveryManager.addUpdate(sdata.getDownloadedFile());
+							RecoveryManager.rebootRecovery();
+						}
+					})
+					.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// end the activity
+							dialog.dismiss();
+							finish();
+						}
+					});
+			}
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(VersionSelector.this);
+			// send anonymous data (if accepted)
+			if(preferences.getBoolean("anon_stats", false))
+				DownloadManager.sendAnonymousData();
+
+			// create and show the dialog
+			alert.create().show();
+		} else {
+			// download failed
+			// alert the user and delete the file
+			AlertDialog.Builder error = new AlertDialog.Builder(this);
+			error.setMessage(getString(R.string.error_download_file))
+				.setCancelable(false)
+				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						SharedData sdata = SharedData.getInstance();
+						// delete the corrupted file, if any
+						File toDelete = new File(sdata.getDownloadedFile());
+						toDelete.delete();
+						
+						// dismiss
+						dialog.dismiss();
+					}
+				});
+			
+			// create and show the dialog
+			error.create().show();
+		}
 	}
 
 	private void setVersionView(String versionUri) {
 		versionsTextView.setText(getString(R.string.capital_version)+" "+shared.getDownloadVersion());
-		if(!DownloadPackage.checkHttpFile(shared.getRepositoryUrl()+versionUri+"/mod.json")) {
+		if(!DownloadManager.checkHttpFile(shared.getRepositoryUrl()+versionUri+"/mod.json")) {
 			AlertDialog.Builder notFoundBuilder = new AlertDialog.Builder(VersionSelector.this);
 			notFoundBuilder.setCancelable(false)
 				.setTitle(getString(R.string.version_descriptor_not_found_title))

@@ -41,7 +41,7 @@ import android.content.DialogInterface.OnDismissListener;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class DownloadPackage {
+public class DownloadManager {
 	private static final String TAG = "ROM Updater (DownloadPackage.class)";
 	private static final String download_location = "/sdcard/";
 	public static final String download_path = "romupdater/";
@@ -111,102 +111,6 @@ public class DownloadPackage {
 		} catch (Exception e) {
 			Log.e(TAG, "It was impossible to send data to the stastistics server.");
 			Log.e(TAG, "Error: "+e.toString());
-			return false;
-		}
-	}
-	
-	public boolean downloadFile(String path, final String fileName, final Context theContext) {
-		final SharedData shared = SharedData.getInstance();
-		
-		String repository = shared.getRepositoryUrl();
-		
-		if(!path.substring(path.length()-1).equals("/"))
-			path += "/";
-		Log.i(TAG,"Trying to get file "+repository+path+fileName);
-		if(!checkHttpFile(repository+path+fileName))
-			return false;
-		
-		try {
-			HttpParams httpParameters = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
-			
-			URL url = new URL(repository+path+fileName);
-			final URLConnection connection = url.openConnection();
-			HttpURLConnection httpConnection = (HttpURLConnection) connection;
-			if(httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				File file = new File(download_location+download_path);
-				file.mkdirs();
-				
-				
-				int size = connection.getContentLength();
-				
-				final ProgressDialog progress = new ProgressDialog(theContext);
-				progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				progress.setMessage("Downloading "+fileName+"...");
-				progress.setCancelable(false);
-				progress.setMax(size);
-				progress.setOnDismissListener(new OnDismissListener() {
-					public void onDismiss(DialogInterface dialog) {
-						AlertDialog.Builder progressDialogBuilder = new AlertDialog.Builder(theContext);
-			    		progressDialogBuilder.setMessage(theContext.getString(R.string.upgrade_confirmation))
-			    			.setCancelable(true)
-			    			.setPositiveButton(theContext.getString(R.string.upgrade_ok), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(theContext);
-									if(preferences.getBoolean("anon_stats", false)) {
-										Log.i(TAG, "Sending anonymous data.");
-										sendAnonymousData();
-									}
-									shared.setRecoveryOperations(2);
-									RecoveryManager.setupExtendedCommand();
-									RecoveryManager.addUpdate(download_path+fileName);
-									RecoveryManager.rebootRecovery();
-								}
-							})
-							.setNegativeButton(theContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									dialog.dismiss();
-								}
-							});
-			    		AlertDialog progressDialog = progressDialogBuilder.create();
-			    		progressDialog.show();
-					}
-				});
-				progress.show();
-				new Thread() {
-					public void run() {
-						int index = 0;
-						int current = 0;
-						
-						try {
-							FileOutputStream output = new FileOutputStream(download_location+download_path+fileName, false);
-							InputStream input = connection.getInputStream();
-							BufferedInputStream buffer = new BufferedInputStream(input);
-							byte[] bBuffer = new byte[10240];
-							
-							while((current = buffer.read(bBuffer)) != -1) {
-								try {
-									output.write(bBuffer, 0, current);
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-								index += current;
-								progress.setProgress(index);
-							}
-							output.close();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						
-						progress.dismiss();
-					}
-				}.start();
-				
-				return true;
-			}
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
 			return false;
 		}
 	}

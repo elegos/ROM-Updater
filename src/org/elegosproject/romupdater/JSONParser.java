@@ -52,7 +52,7 @@ public class JSONParser {
 		if(!repository_url.endsWith("/"))
 			repository_url += "/";
 		repository_url += "main.json";
-		return DownloadPackage.checkHttpFile(repository_url);
+		return DownloadManager.checkHttpFile(repository_url);
 	}
 	
 	public static InputStream getJSONData(String url) throws Exception {

@@ -40,4 +40,6 @@
 
 <string name="alert">Alert</string>
 <string name="delete_backup">Delete the backup</string>
+<string name="backup_and_wipe">Backup and wipe</string>
+<string name="backup_only">Backup only</string>
 </resources>

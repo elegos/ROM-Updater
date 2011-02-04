@@ -32,6 +32,7 @@ public class SharedData {
 	private String downloadVersion;
 	
 	private String repositoryUrl;
+	private String downloadedFile;
 	
 	private Boolean lockProcess; // synchronous operations
 	private Integer recoveryCounter;
@@ -82,6 +83,10 @@ public class SharedData {
 		repositoryUrl = url;
 	}
 	
+	public void setDownloadedFile(String file) {
+		downloadedFile = file;
+	}
+	
 	public void setLockProcess(Boolean b) {
 		lockProcess = b;
 	}
@@ -128,6 +133,10 @@ public class SharedData {
 	
 	public String getRepositoryUrl() {
 		return repositoryUrl;
+	}
+	
+	public String getDownloadedFile() {
+		return downloadedFile;
 	}
 	
 	public Boolean getLockProcess() {

@@ -26,4 +26,7 @@
 
 <string name="alert">Attenzione</string>
 <string name="delete_backup">Cancella il backup</string>
+<string name="backup_and_wipe">Backup e wipe</string>
+<string name="backup_only">Solo backup</string>
+
 </resources>

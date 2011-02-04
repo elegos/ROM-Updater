@@ -1,14 +1,41 @@
 package org.elegosproject.romupdater;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class ROMSuperActivity extends Activity {
+	private ProgressDialog progress;
+	protected AlertDialog.Builder alert;
+	public static final String DOWNLOAD_DIRECTORY = "/sdcard/romupdater/";
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		progress = new ProgressDialog(this);
+		alert = new AlertDialog.Builder(this);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -48,4 +75,114 @@ public class ROMSuperActivity extends Activity {
             return super.onOptionsItemSelected(item);
         }
     }
+    
+    class DownloadFile extends AsyncTask<String, Integer, Boolean> {
+		@Override
+		protected Boolean doInBackground(String... params) {
+			String toDownload = params[0];
+			String destination = params[1];
+			// File not reachable
+			if(!DownloadManager.checkHttpFile(toDownload)) {
+				alert.setMessage(getString(R.string.repository_file_not_found))
+					.setCancelable(false)
+					.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							return;
+						}
+					});
+				publishProgress(-1);
+				return false;
+			}
+			
+			try {
+				// initialize some timeouts
+				HttpParams httpParameters = new BasicHttpParams();
+				HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
+				
+				// create the connection
+				URL url = new URL(toDownload);
+				URLConnection connection = url.openConnection();
+				HttpURLConnection httpConnection = (HttpURLConnection) connection;
+				
+				// connection accepted
+				if(httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					File file = new File(destination);
+					file.mkdirs();
+					
+					
+					int size = connection.getContentLength();
+					String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
+					
+					// initialize the progress dialog
+					progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+					progress.setMessage("Downloading "+fileName+"...");
+					progress.setCancelable(false);
+					progress.setMax(100);
+					publishProgress(0);
+
+					int index = 0;
+					int current = 0;
+					
+					try {
+						FileOutputStream output = new FileOutputStream(destination, false);
+						InputStream input = connection.getInputStream();
+						BufferedInputStream buffer = new BufferedInputStream(input);
+						byte[] bBuffer = new byte[10240];
+						
+						while((current = buffer.read(bBuffer)) != -1) {
+							try {
+								output.write(bBuffer, 0, current);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							index += current;
+							publishProgress(index/(size/100));
+						}
+						output.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+						return false;
+					}
+					
+					progress.dismiss();	
+					return true;
+				}
+				
+				// connection refused
+				return false;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		@Override
+		protected void onProgressUpdate(Integer... iProgress) {
+			switch(iProgress[0]) {
+			// an error occurred, popup an error
+			case -1:
+				alert.create().show();
+				break;
+			// initialize the progress bar to 0
+			case 0:
+				progress.show();
+				progress.setProgress(iProgress[0]);
+				break;
+			default:
+				progress.setProgress(iProgress[0]);
+			}
+			super.onProgressUpdate(iProgress);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			progress.dismiss();
+			super.onPostExecute(result);
+			onDownloadComplete(result);
+		}
+    }
+    
+    void onDownloadComplete(Boolean success) {}
 }
