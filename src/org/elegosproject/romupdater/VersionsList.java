@@ -61,11 +61,11 @@ public class VersionsList extends ROMSuperActivity {
 		shared.setRepositoryUrl(preferences.getString("repository_url", ""));
 
 		// repository not set
-		if(shared.getRepositoryUrl().equals("")) {
+		if(preferences.getString("repository_url","").equals("")) {
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setMessage(getString(R.string.no_repository))
+			dialog.setMessage(getString(R.string.error_repository_not_set))
 			.setCancelable(false)
-			.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					Intent settings = new Intent(VersionsList.this, Preferences.class);
 					startActivity(settings);
