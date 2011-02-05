@@ -40,6 +40,7 @@
 	<string name="version_descriptor_not_found_title">Descrittore non trovato</string>
 	<string name="apply_repo">Sei sicuro di impostare questa ROM come repository?</string>
 	<string name="alert">Attenzione</string>
+	<string name="important">Importante</string>
 	<string name="delete_backup">Cancella il backup</string>
 	<string name="delete_zip">Cancella il file</string>
 	<string name="backup_and_wipe">Backup e wipe</string>

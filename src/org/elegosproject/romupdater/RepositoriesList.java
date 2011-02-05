@@ -19,48 +19,26 @@ import android.widget.Toast;
 public class RepositoriesList extends ROMSuperActivity {
 	private static final String repoUrl = "http://www.elegosproject.org/android/repositories.php";
 	private RepoList[] rawList;
+	private ExpandableListView theList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.repo_list);
-		ExpandableListView theList = (ExpandableListView) findViewById(R.id.repositoriesExpandableList);
-		Boolean gotList = true;
+		theList = (ExpandableListView) findViewById(R.id.repositoriesExpandableList);
 		
-		try {
-			rawList = JSONParser.getRepositoriesFromJSON(repoUrl);
-		} catch (Exception e) {
-			gotList = false;
-			e.printStackTrace();
-		}
+		new DownloadJSON().execute(repoUrl);
 		
-		if(!gotList) {
-			AlertDialog.Builder alert = new AlertDialog.Builder(this);
-			alert.setTitle(getString(R.string.alert))
-				.setMessage(getString(R.string.error_download_list))
-				.setCancelable(false)
-				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						finish();
-					}
-				});
-			alert.create().show();
-			return;
-		}
-		
-		RepositoryExpandableListAdapter adapter = new RepositoryExpandableListAdapter(rawList);
-		
-		theList.setAdapter(adapter);
+		// select the repository, do some checks, set it as repo url
 		theList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					final int groupPosition, final int childPosition, long id) {
-				//Log.i("TEST", groupPosition+" "+childPosition+" ("+rawList[groupPosition].getRepositories()[childPosition].getUrl()+")");
 				AlertDialog.Builder alert = new AlertDialog.Builder(RepositoriesList.this);
 				alert.setCancelable(false);
+				
+				// Model matches, it's a valid candidate
 				if(rawList[groupPosition].getModel().equals(SharedData.LOCAL_MODEL)) {
 					alert.setMessage(getString(R.string.apply_repo));
 					alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -69,9 +47,13 @@ public class RepositoriesList extends ROMSuperActivity {
 							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RepositoriesList.this);
 							Editor editor = prefs.edit();
 							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
+							// trim the last character until it finishes with "/" (HACK)
+							// TODO: better handling
 							while(!url.endsWith("/")) {
-								url = url.substring(0,url.length()-1); // trim the last character until it finishes with "/"
+								url = url.substring(0,url.length()-1);
 							}
+							
+							// push the url in the setting
 							editor.putString("repository_url", url);
 							editor.commit();
 							
@@ -89,6 +71,7 @@ public class RepositoriesList extends ROMSuperActivity {
 						}
 					});
 				} else {
+					// phone model mismatch, throw an error
 					alert.setMessage(getString(R.string.repo_phone_mismatch));
 					alert.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
 						@Override
@@ -102,6 +85,31 @@ public class RepositoriesList extends ROMSuperActivity {
 				return false;
 			}
 		});
+	}
+	
+	@Override
+	void onJSONDataDownloaded(Boolean success) {
+		if(!success)
+			return;
+		
+		// alert the user about the list nature
+		AlertDialog.Builder info = new AlertDialog.Builder(this);
+		info.setTitle(getString(R.string.important))
+			.setMessage(getString(R.string.info_shared_repo))
+			.setCancelable(false)
+			.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+		info.create().show();
+
+		JSONParser parser = new JSONParser();
+		rawList = parser.getRepositoriesFromJSON();
+		RepositoryExpandableListAdapter adapter = new RepositoryExpandableListAdapter(rawList);
+		
+		theList.setAdapter(adapter);
 	}
 	
 	public class RepositoryExpandableListAdapter extends BaseExpandableListAdapter {

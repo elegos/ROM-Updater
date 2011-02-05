@@ -17,7 +17,6 @@
 	<string name="repo_phone_mismatch">Your phone is not compatible with this repository.</string>
 	<string name="no_repository_available">There are actually no available repositories. Share yours sending anonymous data!</string>
 	<string name="error_model_mismatch">Attention: you\'re attempting to install a ROM not designed for your phone model. Abort.</string>
-	<string name="error_download_list">There was an error downloading the list of the repositories. Please try again later.</string>
 	<string name="error_backup_folder_empty">You have no backups in the current backup folder.</string>
 	<string name="error_backup_folder_doesnt_exist">The backup folder doesn\'t appear to exist. Check it in your settings.</string>
 	<string name="error_download_file">There was an error downloading the file.</string>
@@ -28,4 +27,5 @@
 	<string name="confirm_restore_backup">Are you sure you want to restore this backup?</string>
 	<string name="ask_backup_wipe">It seems that your ROM name differs from the one you\'ve downloaded. Do you want to wipe, or backup and wipe the user data before updating?</string>
 	<string name="info_no_downloads">There are no files in the download directory</string>
+	<string name="info_shared_repo">This list is dynamically created via the anonymous data sent by other users. The author of the application doesn\'t decide which repositories are being displayed, nor is responsible for any of them.</string>
 </resources>

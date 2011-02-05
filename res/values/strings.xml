@@ -40,6 +40,7 @@
 	<string name="version_descriptor_not_found_title">Descriptor not found</string>
 	<string name="apply_repo">Are you sure you want to set this as repository?</string>
 	<string name="alert">Alert</string>
+	<string name="important">Important</string>
 	<string name="delete_backup">Delete the backup</string>
 	<string name="delete_zip">Delete the file</string>
 	<string name="backup_and_wipe">Backup and wipe</string>

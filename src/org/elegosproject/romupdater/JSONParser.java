@@ -139,17 +139,22 @@ public class JSONParser {
 		return versions;
 	}
 	
-	public static RepoList[] getRepositoriesFromJSON(String url) throws Exception {
+	public RepoList[] getRepositoriesFromJSON() {
+		failed = false;
+		
+		// get the json input stream from the async task
+		SharedData shared = SharedData.getInstance();
+		Reader r = new InputStreamReader(shared.getInputStreamData());
+		
 		RepoList[] theList;
 		Gson gson = new Gson();
 		try {
-			Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 			theList = gson.fromJson(r, RepoList[].class);
 			return theList;
 		} catch (Exception e) {
-			Log.e(TAG, "Failed to parse "+url);
 			e.printStackTrace();
-			throw e;
+			failed = true;
+			return new RepoList[0];
 		}
 	}
 	
