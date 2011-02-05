@@ -82,6 +82,8 @@ public class JSONParser {
 	}
 	
 	public Vector<ROMVersion> getROMVersions(){
+		failed = false;
+		
 		Vector<ROMVersion> versions = new Vector<ROMVersion>();
     	Gson gson = new Gson();
     	Reader r;
@@ -111,16 +113,22 @@ public class JSONParser {
         return versions;
     }
 	
-	public Vector<AvailableVersion> getAvailableVersions(String url) {
+	public Vector<AvailableVersion> getAvailableVersions() {
+		failed = false;
+		
 		parsedAvailableVersions = new AvailableVersions();
 		Vector<AvailableVersion> versions = new Vector<AvailableVersion>();
-		Log.i(TAG,"Requesting "+url+"...");
 		Gson gson = new Gson();
+		SharedData shared = SharedData.getInstance();
+		
+		// InputStream is given from the async task
+		Reader r = new InputStreamReader(shared.getInputStreamData());
 		try {
-			Reader r = new InputStreamReader(JSONParser.getJSONData(url));
 			parsedAvailableVersions = gson.fromJson(r, AvailableVersions.class);
 		} catch (Exception e) {
 			e.printStackTrace();
+			failed = true;
+			return new Vector<AvailableVersion>();
 		}
 		
 		for(AvailableVersion av : parsedAvailableVersions.getAvailableVersions()) {

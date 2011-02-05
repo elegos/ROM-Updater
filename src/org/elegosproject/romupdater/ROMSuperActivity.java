@@ -263,7 +263,7 @@ public class ROMSuperActivity extends Activity {
     			alert.create().show();
     			progress.dismiss();
     			break;
-    			// initialize the progress bar to 0
+    		// initialize the progress bar to 0
     		case 0:
     			progress.show();
     			progress.setProgress(iProgress[0]);

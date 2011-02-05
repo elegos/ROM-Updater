@@ -194,12 +194,41 @@ public class VersionSelector extends ROMSuperActivity {
 			dialog.show();
 			return;
 		}
-		availableVersions = myParser.getAvailableVersions(shared.getRepositoryUrl()+versionUri+"/mod.json");
+		
+		new DownloadJSON().execute(shared.getRepositoryUrl()+versionUri+"/mod.json");
+	}
+	
+	@Override
+	void onJSONDataDownloaded(Boolean success) {
+		super.onJSONDataDownloaded(success);
+		// super class popups an error
+		// and finishes the activity, so just return
+		if(!success)
+			return;
+		
+		availableVersions = myParser.getAvailableVersions();
+		
+		// JSON parse failed, alert and return
+		if(myParser.failed){
+			AlertDialog.Builder error = new AlertDialog.Builder(VersionSelector.this);
+			error.setMessage(getString(R.string.error_json_download))
+				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+			error.create().show();
+			finish();
+		}
+		
 		Vector<String>versionsList = new Vector<String>();
 		Iterator<AvailableVersion> versionsIterator = availableVersions.iterator();
 		String iteratorVersion = "";
 		
+		// The "Full" element is always present
 		versionsList.add("Full");
+		// Search for an incremental update, in case add it to the list
 		if(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()))
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
