@@ -212,21 +212,28 @@ public class VersionsList extends ROMSuperActivity {
 			return;
 		}
 		
+		// Vector of versions, one per line
 		Vector<String>versionsList = new Vector<String>();
 		
 		Iterator<ROMVersion> versionsIterator = modVersions.iterator();
 		// 2. insert the versions in a vector
 		String iteratorVersion = "";
+		// iterate through the JSON result
 		while(versionsIterator.hasNext()) {
 			iteratorVersion = versionsIterator.next().getVersion();
+			// if same ROM name and greater version
+			// or different ROM name, add the update to the vector
 			if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) ||
 					(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
 				versionsList.add(myParser.modName+" "+iteratorVersion);
 		}
 		
+		// sort the vector
 		Comparator<String> r = Collections.reverseOrder();
 		Collections.sort(versionsList,r);
 		
+		// ROM name differs between the local and the remote one
+		// alert the user he'll only be able to download FULL versions
 		if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName())) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(VersionsList.this);
 			builder.setCancelable(true)
@@ -240,6 +247,7 @@ public class VersionsList extends ROMSuperActivity {
 			dialog.show();
 		}
 		
+		// if the vector is empty, alert and finish
 		if(versionsList.isEmpty()) {
 			AlertDialog.Builder updatedBuilder = new AlertDialog.Builder(VersionsList.this);
 			updatedBuilder.setCancelable(true)
