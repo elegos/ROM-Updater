@@ -149,29 +149,67 @@ public class VersionsList extends ROMSuperActivity {
 	
 	private void setMainView() {
 		String repositoryUrl = shared.getRepositoryUrl();
-		if(!repositoryUrl.equals("")) {
-			modVersions = myParser.getROMVersions(repositoryUrl+"main.json");
 		
-			if(!myParser.failed) {
-				/* Global variables */
-				shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
-				shared.setRepositoryROMName(myParser.parsedVersions.getName());
-				
-				// the repository is not for the current model
-				if(!shared.getRepositoryModel().equals(SharedData.LOCAL_MODEL)) {
-					AlertDialog.Builder modelAlert = new AlertDialog.Builder(this);
-					modelAlert.setCancelable(false)
-						.setMessage(getString(R.string.error_model_mismatch))
-						.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-								finish();
-							}
-						});
-					modelAlert.create().show();
-					return;
-				}
-			}
+		// repository URL is void -> must set it before, finish
+		if(repositoryUrl.equals("")) {
+			AlertDialog.Builder error = new AlertDialog.Builder(VersionsList.this);
+			error.setMessage(getString(R.string.error_repository_not_set))
+				.setCancelable(false)
+				.setPositiveButton(getString(R.string.settings), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent settings = new Intent(VersionsList.this, Preferences.class);
+						startActivity(settings);
+					}
+				});
+			error.create().show();
+			finish();
+		}
+		
+		new DownloadJSON().execute(repositoryUrl+"main.json");
+	}
+	@Override
+	void onJSONDataDownloaded(Boolean success) {
+		super.onJSONDataDownloaded(success);
+
+		// download failed
+		if(!success) {
+			return;
+		}
+		
+		modVersions = myParser.getROMVersions();
+
+		// JSON parse failed, alert and return
+		if(myParser.failed){
+			AlertDialog.Builder error = new AlertDialog.Builder(VersionsList.this);
+			error.setMessage(getString(R.string.error_json_download))
+				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+			error.create().show();
+			finish();
+		}
+		
+		/* Global variables */
+		shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
+		shared.setRepositoryROMName(myParser.parsedVersions.getName());
+		
+		// the repository is not for the current model
+		if(!shared.getRepositoryModel().equals(SharedData.LOCAL_MODEL)) {
+			AlertDialog.Builder modelAlert = new AlertDialog.Builder(this);
+			modelAlert.setCancelable(false)
+				.setMessage(getString(R.string.error_model_mismatch))
+				.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
+			modelAlert.create().show();
+			return;
 		}
 		
 		Vector<String>versionsList = new Vector<String>();

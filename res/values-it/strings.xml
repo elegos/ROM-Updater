@@ -44,4 +44,5 @@
 	<string name="delete_zip">Cancella il file</string>
 	<string name="backup_and_wipe">Backup e wipe</string>
 	<string name="backup_only">Solo backup</string>
+	<string name="loading">Caricamento in corso...</string>
 </resources>

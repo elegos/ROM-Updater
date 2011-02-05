@@ -22,6 +22,9 @@
 	<string name="error_backup_folder_empty">Non hai backup nell\'attuale cartella dei backup.</string>
 	<string name="error_backup_folder_doesnt_exist">La cartella di backup sembra non esistere. Per favore controlla nelle impostazioni.</string>
 	<string name="error_download_file">C\'è stato un errore durante il download del file.</string>
+	<string name="error_json_not_found">Non è stato trovato il file JSON</string>
+	<string name="error_json_download">C\'è stato un errore durante il download del file JSON</string>
+	<string name="error_repository_not_set">Non hai ancora impostato un URL del repository. Lo puoi impostare dal menu delle impostazioni.</string>
 	<string name="wipe_sdext_too">Vuoi cancellare anche la partizione SD-EXT?</string>
 	<string name="confirm_restore_backup">Sei sicuro di voler ripristinare questo backup?</string>
 	<string name="ask_backup_wipe">La tua ROM non ha lo stesso nome di quella scaricata. Vuoi effettuare un wipe, oppure un backup ed un wipe dei dati dell\'utente prima di continuare?</string>

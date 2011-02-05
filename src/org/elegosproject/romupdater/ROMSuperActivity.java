@@ -6,9 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -184,5 +188,94 @@ public class ROMSuperActivity extends Activity {
 		}
     }
     
+    class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
+    	@Override
+    	protected Boolean doInBackground(String... params) {
+    		String url = params[0];
+    		
+    		// File not reachable
+			if(!DownloadManager.checkHttpFile(url)) {
+				alert.setMessage(getString(R.string.error_json_not_found))
+					.setCancelable(false)
+					.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							return;
+						}
+					});
+				publishProgress(-1);
+				return false;
+			}
+    		// initialize the progress dialog
+			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progress.setMessage(getString(R.string.loading));
+			progress.setCancelable(false);
+			
+			// show the progress dialog
+			publishProgress(0);
+			
+			// initialize local variables
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters,3000);
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+			URI uri;
+	        InputStream data;
+	        
+	        try {
+	        	uri = new URI(url);
+	            HttpGet method = new HttpGet(uri);
+	            HttpResponse response = httpClient.execute(method);
+	            data = response.getEntity().getContent();
+	            
+	            SharedData sdata = SharedData.getInstance();
+	            sdata.setInputStreamData(data);
+	        } catch (Exception e) {
+	        	alert.setMessage(getString(R.string.error_json_download))
+	        		.setCancelable(false)
+	        		.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+	        	publishProgress(-1);
+	        	e.printStackTrace();
+	        	return false;
+	        }
+			
+	        publishProgress(100);
+    		return true;
+    	}
+    	
+    	@Override
+    	protected void onProgressUpdate(Integer... iProgress) {
+    		switch(iProgress[0]) {
+    		// an error occurred, popup an error
+    		case -1:
+    			alert.create().show();
+    			break;
+    			// initialize the progress bar to 0
+    		case 0:
+    			progress.show();
+    			progress.setProgress(iProgress[0]);
+    			break;
+    		case 100:
+    			progress.dismiss();
+    			break;
+    		default:
+    			progress.setProgress(iProgress[0]);
+    		}
+    		super.onProgressUpdate(iProgress);
+    	}
+    	
+    	@Override
+    	protected void onPostExecute(Boolean result) {
+    		onJSONDataDownloaded(result);
+    		super.onPostExecute(result);
+    	}
+    }
+    
+    void onJSONDataDownloaded(Boolean success) {}
     void onDownloadComplete(Boolean success) {}
 }

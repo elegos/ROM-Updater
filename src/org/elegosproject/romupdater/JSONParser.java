@@ -81,18 +81,17 @@ public class JSONParser {
 		return "";
 	}
 	
-	public Vector<ROMVersion> getROMVersions(String url){
+	public Vector<ROMVersion> getROMVersions(){
 		Vector<ROMVersion> versions = new Vector<ROMVersion>();
-    	Log.i(TAG,"Requesting "+url+"...");
     	Gson gson = new Gson();
     	Reader r;
 		try {
-			r = new InputStreamReader(JSONParser.getJSONData(url));
+			SharedData shared = SharedData.getInstance();
+			r = new InputStreamReader(shared.getInputStreamData());
 
         	parsedVersions = new ROMVersions();
         	parsedVersions = gson.fromJson(r, ROMVersions.class);
         	
-        	SharedData shared = SharedData.getInstance();
         	shared.setRepositoryROMName(parsedVersions.getName());
         	shared.setRespositoryModel(parsedVersions.getPhoneModel());
         } catch(Exception e) {

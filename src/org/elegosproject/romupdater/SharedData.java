@@ -17,6 +17,8 @@
 
 package org.elegosproject.romupdater;
 
+import java.io.InputStream;
+
 public class SharedData {
 	static final Object mLock = new Object();
 	static SharedData mInstance;
@@ -38,6 +40,8 @@ public class SharedData {
 	private Integer recoveryCounter;
 	private Integer recoveryOperations;
 	private String recoveryMessage;
+	
+	private InputStream data;
 
 	private SharedData() {
 		setRepositoryROMName("");
@@ -115,6 +119,10 @@ public class SharedData {
 		recoveryMessage += s;
 	}
 	
+	public void setInputStreamData(InputStream is) {
+		data = is;
+	}
+	
 	//
 	// GETTERS
 	//
@@ -153,5 +161,9 @@ public class SharedData {
 	
 	public String getRecoveryMessage() {
 		return recoveryMessage;
+	}
+	
+	public InputStream getInputStreamData() {
+		return data;
 	}
 }
