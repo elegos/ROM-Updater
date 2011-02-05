@@ -118,7 +118,6 @@ public class RepositoriesList extends ROMSuperActivity {
 		
 		public RepositoryExpandableListAdapter(RepoList[] theList) {
 			int k, i = 0;
-			if(theList.length == 0) return;
 			
 			groups = new String[theList.length];
 			children = new String[theList.length][];
