@@ -77,22 +77,6 @@ public class VersionsList extends ROMSuperActivity {
 			return;
 		}
 		
-		// repository unreachable
-		if(!JSONParser.checkRepository(shared.getRepositoryUrl())) {
-			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setMessage(getString(R.string.repository_unreachable))
-			.setCancelable(false)
-			.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-					finish();
-				}
-			});
-			AlertDialog alert = dialog.create();
-			alert.show();
-			return;
-		}
-		
 		versionsListView = (ListView)this.findViewById(R.id.versionsList);
 		Toast t = Toast.makeText(this, getString(R.string.changelog_toast),Toast.LENGTH_LONG);
 		t.show();
@@ -173,6 +157,7 @@ public class VersionsList extends ROMSuperActivity {
 		super.onJSONDataDownloaded(success);
 
 		// download failed
+		// activity ends from superclass
 		if(!success) {
 			return;
 		}

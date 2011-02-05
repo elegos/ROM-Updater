@@ -85,6 +85,17 @@ public class ROMSuperActivity extends Activity {
 		protected Boolean doInBackground(String... params) {
 			String toDownload = params[0];
 			String destination = params[1];
+
+			String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
+			
+			// initialize the progress dialog
+			progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			progress.setMessage("Downloading "+fileName+"...");
+			progress.setCancelable(false);
+			progress.setMax(100);
+			publishProgress(0);
+			
+			
 			// File not reachable
 			if(!DownloadManager.checkHttpFile(toDownload)) {
 				alert.setMessage(getString(R.string.repository_file_not_found))
@@ -93,6 +104,7 @@ public class ROMSuperActivity extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
+							finish();
 							return;
 						}
 					});
@@ -117,14 +129,6 @@ public class ROMSuperActivity extends Activity {
 					
 					
 					int size = connection.getContentLength();
-					String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
-					
-					// initialize the progress dialog
-					progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-					progress.setMessage("Downloading "+fileName+"...");
-					progress.setCancelable(false);
-					progress.setMax(100);
-					publishProgress(0);
 
 					int index = 0;
 					int current = 0;
@@ -168,6 +172,7 @@ public class ROMSuperActivity extends Activity {
 			// an error occurred, popup an error
 			case -1:
 				alert.create().show();
+				progress.dismiss();
 				break;
 			// initialize the progress bar to 0
 			case 0:
@@ -192,6 +197,14 @@ public class ROMSuperActivity extends Activity {
     	@Override
     	protected Boolean doInBackground(String... params) {
     		String url = params[0];
+
+    		// initialize the progress dialog
+			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progress.setMessage(getString(R.string.loading));
+			progress.setCancelable(false);
+			
+			// show the progress dialog
+			publishProgress(0);
     		
     		// File not reachable
 			if(!DownloadManager.checkHttpFile(url)) {
@@ -201,19 +214,13 @@ public class ROMSuperActivity extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
+							finish();
 							return;
 						}
 					});
 				publishProgress(-1);
 				return false;
 			}
-    		// initialize the progress dialog
-			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progress.setMessage(getString(R.string.loading));
-			progress.setCancelable(false);
-			
-			// show the progress dialog
-			publishProgress(0);
 			
 			// initialize local variables
 			HttpParams httpParameters = new BasicHttpParams();
@@ -254,6 +261,7 @@ public class ROMSuperActivity extends Activity {
     		// an error occurred, popup an error
     		case -1:
     			alert.create().show();
+    			progress.dismiss();
     			break;
     			// initialize the progress bar to 0
     		case 0:
