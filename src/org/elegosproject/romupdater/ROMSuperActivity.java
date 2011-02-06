@@ -81,6 +81,13 @@ public class ROMSuperActivity extends Activity {
     }
     
     class DownloadFile extends AsyncTask<String, Integer, Boolean> {
+    	@Override
+    	protected void onPreExecute() {
+    		// initialize the progress dialog
+    		progress = new ProgressDialog(ROMSuperActivity.this);
+    		super.onPreExecute();
+    	}
+    	
 		@Override
 		protected Boolean doInBackground(String... params) {
 			String toDownload = params[0];
@@ -194,6 +201,13 @@ public class ROMSuperActivity extends Activity {
     }
     
     class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
+    	@Override
+    	protected void onPreExecute() {
+    		// initialize the progress dialog
+    		progress = new ProgressDialog(ROMSuperActivity.this);
+    		super.onPreExecute();
+    	}
+    	
     	@Override
     	protected Boolean doInBackground(String... params) {
     		String url = params[0];
