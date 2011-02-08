@@ -70,8 +70,11 @@ public class RecoveryManager {
 		while(sdata.getLockProcess());
 		sdata.setLockProcess(true);
 		
+		if(file.startsWith("/sdcard/"))
+			file = file.substring(8);
+		
 		sdata.addRecoveryMessage("print Installing file SDCARD:"+file+"\n");
-		sdata.addRecoveryMessage("echo 'install_zip "+file+"' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'install_zip SDCARD:"+file+"' >> /cache/recovery/extendedcommand\n");
 		
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
