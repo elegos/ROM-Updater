@@ -131,8 +131,11 @@ public class ROMSuperActivity extends Activity {
 				
 				// connection accepted
 				if(httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					File dir = new File(destination.substring(destination.lastIndexOf("/")-1));
+					dir.mkdirs();
+					
 					File file = new File(destination);
-					file.mkdirs();
+					file.delete();
 					
 					
 					int size = connection.getContentLength();
