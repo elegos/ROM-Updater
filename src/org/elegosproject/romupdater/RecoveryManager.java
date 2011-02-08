@@ -71,7 +71,7 @@ public class RecoveryManager {
 		sdata.setLockProcess(true);
 		
 		sdata.addRecoveryMessage("print Installing file SDCARD:"+file+"\n");
-		sdata.addRecoveryMessage("echo 'install_zip SDCARD:"+file+"' >> /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo 'install_zip "+file+"' >> /cache/recovery/extendedcommand\n");
 		
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
