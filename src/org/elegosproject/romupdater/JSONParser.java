@@ -160,7 +160,7 @@ public class JSONParser {
 	
 	public String getUrlForVersion(String version) {
 		for(AvailableVersion av : parsedAvailableVersions.getAvailableVersions()) {
-			if(av.getVersion().equals(version))
+			if(Integer.parseInt(av.getVersion()) == Integer.parseInt(version))
 				return av.getUri();
 		}
 		return "";

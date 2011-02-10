@@ -67,7 +67,7 @@ public class VersionSelector extends ROMSuperActivity {
 				String file = "";
 				if(selectedDownload.equals("Full"))
 					file = myParser.parsedAvailableVersions.getFullUri();
-				else file = myParser.getUrlForVersion(shared.getDownloadVersion());
+				else file = myParser.getUrlForVersion(SharedData.LOCAL_VERSION);
 				
 				SharedData sdata = SharedData.getInstance();
 				String url = sdata.getRepositoryUrl();
