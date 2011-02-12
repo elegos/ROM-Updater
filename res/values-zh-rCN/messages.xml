@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="changelog_toast">长按以查看更新日志</string>
+	<string name="repository_changed_toast">ROM更新服务器地址以改变</string>
+	<string name="repository_unreachable">无法访问ROM更新服务器，请检查设置或者稍候再试。</string>
+	<string name="barcode_scanner_not_found">设备中好像没有安装Barcode Scanner (com.google.zxing.client.android)，请检查。</string>
+	<string name="wipe_cache_message">设备将重启到恢复模式并进行清空CACHE分区的操作</string>
+	<string name="wipe_data_message">设备将重启到恢复模式并进行清空DATA分区的操作</string>
+	<string name="backup_rom_message">设备将重启到恢复模式并进行备份ROM的操作.</string>
+	<string name="recovery_message">设备将重启到恢复模式</string>
+	<string name="repository_file_not_found">无法获得您想要下载的文件，请稍候再试，或联系更新服务器维护人员</string>
+	<string name="upgrade_confirmation">您想要现在进行更新操作吗？</string>
+	<string name="modname_mismatch">你的设备正在运行的ROM与更新服务器的ROM不匹配，你将只能下载完整版本的ROM更新。</string>
+	<string name="version_descriptor_not_found_message">没有找到版本描述文件</string>
+	<string name="rom_is_updated">你的设备正在运行的ROM已经是最新版本</string>
+	<string name="anon_send_message">您希望开发者获得更多您正在使用的ROM的版本和服务器地址信息吗？你可以在设置-选项中发送匿名信息给开发者</string>
+	<string name="repo_phone_mismatch">你的设备型号与该更新服务器不匹配</string>
+	<string name="no_repository_available">没有找到可用的更新服务器，发送匿名信息共享你的ROM信息</string>
+	<string name="error_model_mismatch">注意: 你正在试图安装与你设备不匹配的ROM，要取消吗？</string>
+	<string name="error_backup_folder_empty">当前备份目录中无备份</string>
+	<string name="error_backup_folder_doesnt_exist">备份目录不存在，请检查您的设置</string>
+	<string name="error_download_file">下载ROM更新文件时发生一个未知错误</string>
+	<string name="error_json_not_found">下载JSON文件时，未找到JSON文件</string>
+	<string name="error_json_download">下载JSON文件时发生一个未知错误</string>
+	<string name="error_repository_not_set">您还未设置更新服务器地址，点击“确定”打开设置窗口进行设置</string>
+	<string name="wipe_sdext_too">您想要同时清空SD-EXT分区吗?</string>
+	<string name="confirm_restore_backup">确定要恢复这个备份吗?</string>
+	<string name="ask_backup_wipe">好像您正在使用的ROM名字与您下载的ROM名字不一样，您想要在应用更新前恢复出厂设置或备份当前用户数据吗?</string>
+	<string name="info_no_downloads">下载目录中未找到文件</string>
+	<string name="info_shared_repo">该列表是由匿名用户分享的匿名数据创建，该应用作者没有选择被显示的更新服务器列表，因此将不承担用户使用该软件对设备造成的任何责任.</string>
+</resources>
