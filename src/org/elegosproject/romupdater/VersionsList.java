@@ -58,10 +58,20 @@ public class VersionsList extends ROMSuperActivity {
 		
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		shared = SharedData.getInstance();
-		shared.setRepositoryUrl(preferences.getString("repository_url", ""));
-
+		
+		String prefRepo = preferences.getString("repository_url", "");
+		if(!prefRepo.equals(""))
+			shared.setRepositoryUrl(prefRepo);
+		else {
+			String buildRepo = BuildParser.parseString("ro.romupdater.repository");
+			if(!buildRepo.equals(""))
+				shared.setRepositoryUrl(buildRepo);
+		}
+		
+		Log.i(TAG,"ro.romupdater.repository: "+BuildParser.parseString("ro.romupdater.repository"));
+		
 		// repository not set
-		if(preferences.getString("repository_url","").equals("")) {
+		if(shared.getRepositoryUrl().equals("")) {
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setMessage(getString(R.string.error_repository_not_set))
 			.setCancelable(false)
