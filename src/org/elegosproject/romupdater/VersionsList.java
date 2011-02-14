@@ -64,12 +64,8 @@ public class VersionsList extends ROMSuperActivity {
 			shared.setRepositoryUrl(prefRepo);
 		else {
 			String buildRepo = BuildParser.parseString("ro.romupdater.repository");
-			if(!buildRepo.equals(""))
-				shared.setRepositoryUrl(buildRepo);
-			else shared.setRepositoryUrl("");
+			shared.setRepositoryUrl(buildRepo);
 		}
-		
-		Log.i(TAG,"ro.romupdater.repository: "+BuildParser.parseString("ro.romupdater.repository"));
 		
 		// repository not set
 		if(shared.getRepositoryUrl().equals("")) {
