@@ -92,6 +92,14 @@ public class ROMSuperActivity extends Activity {
 		protected Boolean doInBackground(String... params) {
 			String toDownload = params[0];
 			String destination = params[1];
+			
+			// creates the base folder, if it doesn't exist
+			try {
+				File dir = new File(destination.substring(0,destination.lastIndexOf("/")));
+				dir.mkdirs();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
 			
@@ -131,12 +139,13 @@ public class ROMSuperActivity extends Activity {
 				
 				// connection accepted
 				if(httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-					File dir = new File(destination.substring(destination.lastIndexOf("/")-1));
-					dir.mkdirs();
-					
-					File file = new File(destination);
-					file.delete();
-					
+					try {
+						File file = new File(destination);
+						// delete the file if exists
+						file.delete();
+					} catch (Exception e) {
+						// nothing
+					}
 					
 					int size = connection.getContentLength();
 
