@@ -9,7 +9,6 @@
   			android:layout_width="fill_parent"
   			android:layout_height="50sp"
   			android:textSize="33sp"
-  			android:text="..."
   		/>
 		<ListView
 			android:id="@+id/availableVersions"

@@ -46,4 +46,5 @@
 	<string name="backup_and_wipe">Backup and wipe</string>
 	<string name="backup_only">Backup only</string>
 	<string name="loading">Loading, please wait...</string>
+	<string name="list_rom_versions">List of ROM version(s)</string>
 </resources>

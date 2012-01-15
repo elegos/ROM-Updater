@@ -1,3 +1,11 @@
+About this Fork (Android Repo Version)
+--------------------------------------------------------------------------------
+
+This project was forked by epsylon3 from elegos version to be integrated
+in a repo build process.
+
+--------------------------------------------------------------------------------
+
 ROMUpdater is meant to be an Android universal ROM updater.
 It checks for the build.prop's ro.build.display.id and
 downloads a series of JSON files that describe and give
