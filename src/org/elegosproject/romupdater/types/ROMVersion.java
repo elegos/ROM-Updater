@@ -17,6 +17,8 @@
 
 package org.elegosproject.romupdater.types;
 
+import android.text.TextUtils;
+
 public class ROMVersion {
 	private String changelog;
 	private String version;
@@ -30,7 +32,7 @@ public class ROMVersion {
 			logs += log.substring(0,pipe)+"\n";
 			log = log.substring(pipe+1);
 		}
-		if(!log.equals("")) logs += log+"\n";
+		if(!TextUtils.isEmpty(log)) logs += log+"\n";
 		return logs;
 	}
 	public void setChangelog(String c) {
