@@ -3,8 +3,9 @@
       package="org.elegosproject.romupdater"
       android:versionName="1.14.2" android:versionCode="25">
     <application
-    	android:label="@string/app_name"
-    	android:icon="@drawable/ic_launcher_romupdater">
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher_romupdater"
+        android:allowClearUserData="true" android:allowBackup="true">
         <activity android:name=".ROMUpdater"
                   android:label="@string/app_name">
             <intent-filter>
@@ -13,14 +14,29 @@
             </intent-filter>
         </activity>
 
-    <activity android:name=".VersionSelector" android:label="@string/view_available_updates" android:configChanges="orientation" />
-    <activity android:name=".VersionsList" android:label="@string/view_versions_list" android:configChanges="orientation" />
-    <activity android:name=".Preferences" android:label="@string/view_preferences" android:configChanges="orientation" />
-    <activity android:name=".RepositoriesList" android:label="@string/view_repositories" android:configChanges="orientation" />
-    <activity android:name=".Restore" android:label="@string/view_restore" android:configChanges="orientation" />
-    <activity android:name=".Downloads" android:label="@string/view_downloads" android:configChanges="orientation" />
-</application>
+        <activity android:name=".VersionSelector"
+                  android:label="@string/view_available_updates"
+                  android:configChanges="orientation" />
+        <activity android:name=".VersionsList"
+                  android:label="@string/view_versions_list"
+                  android:configChanges="orientation" />
+        <activity android:name=".Preferences"
+                  android:label="@string/view_preferences"
+                  android:configChanges="orientation" />
+        <activity android:name=".RepositoriesList"
+                  android:label="@string/view_repositories"
+                  android:configChanges="orientation" />
+        <activity android:name=".Restore"
+                  android:label="@string/view_restore"
+                  android:configChanges="orientation" />
+        <activity android:name=".Downloads"
+                  android:label="@string/view_downloads"
+                  android:configChanges="orientation" />
+    </application>
+
     <uses-sdk android:minSdkVersion="7" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-</manifest> 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REBOOT" />
+</manifest>
