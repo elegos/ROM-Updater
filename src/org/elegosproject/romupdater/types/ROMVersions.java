@@ -17,6 +17,7 @@
 
 package org.elegosproject.romupdater.types;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ROMVersions {
@@ -24,7 +25,7 @@ public class ROMVersions {
 	private List<ROMVersion> versions;
 	private String phoneModel;
 	private List<String> mirrorList;
-	
+
 	public ROMVersions() {
 		name = "";
 		phoneModel = "";
@@ -33,23 +34,28 @@ public class ROMVersions {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String sName) {
 		name = sName;
 	}
-	
+
 	public List<ROMVersion> getVersions() {
 		return versions;
 	}
-	
+
 	public void setVersions(List<ROMVersion> ROMList) {
 		versions = ROMList;
+		try {
+			boolean isEmpty = versions.isEmpty();
+		} catch (Exception e) {
+			versions = new ArrayList<ROMVersion>();
+		}
 	}
-	
+
 	public String getPhoneModel() {
 		return phoneModel;
 	}
-	
+
 	public List<String> getMirrorList() {
 		return mirrorList;
 	}
