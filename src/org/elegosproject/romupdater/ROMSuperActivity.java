@@ -65,7 +65,7 @@ public class ROMSuperActivity extends Activity {
             AlertDialog.Builder builder = new AlertDialog.Builder(ROMSuperActivity.this);
             builder.setIcon(R.drawable.ic_menu_info)
             	.setTitle("ROM Updater v."+version)
-            	.setMessage(SharedData.ABOUT_LICENCE+"\n\nPlease donate via PayPal to giacomo.furlan@fastwebnet.it.\nThanks\n\nGiacomo 'elegos' Furlan")
+            	.setMessage(SharedData.ABOUT_LICENCE)
             	.setCancelable(false)
             	.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
