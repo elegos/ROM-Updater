@@ -13,6 +13,7 @@
 	<string name="modname_mismatch">Your mod seems to be different from the repository one. You\'ll be able to download only the full versions.</string>
 	<string name="version_descriptor_not_found_message">The version descriptor file has not been found.</string>
 	<string name="rom_is_updated">Vous utilisez la dernière mise à jour disponible.</string>
+	<string name="versionlist_is_empty">Il n\'y a pas de versions disponibles sur le serveur</string>
 	<string name="anon_send_message">Voulez vous aider les développeurs en envoyant les informations (nom, url et version) des ROMs téléchargées ? Les données envoyées sont totalement anonymes.</string>
 	<string name="repo_phone_mismatch">Votre appareil n\'est pas compatible avec ce serveur.</string>
 	<string name="no_repository_available">There are actually no available repositories. Share yours sending anonymous data!</string>

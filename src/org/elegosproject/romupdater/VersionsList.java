@@ -113,6 +113,7 @@ public class VersionsList extends ROMSuperActivity {
 					.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
+							dialog = null;
 						}
 					});
 				AlertDialog alert = dialog.create();
@@ -132,7 +133,8 @@ public class VersionsList extends ROMSuperActivity {
 				shared.setDownloadVersion(selectedVersion.substring(ver.length()));
 				
 				Intent selector = new Intent(VersionsList.this, VersionSelector.class);
-				selector.putExtra("org.elegosproject.romupdater.VersionSelector.versionUri", myParser.getROMVersionUri(shared.getDownloadVersion()));
+				String dlVersion =  myParser.getROMVersionUri(shared.getDownloadVersion());
+				selector.putExtra("org.elegosproject.romupdater.VersionSelector.versionUri", dlVersion);
 				startActivity(selector);
 			}
 		});
@@ -168,7 +170,7 @@ public class VersionsList extends ROMSuperActivity {
 		if(!success) {
 			return;
 		}
-		
+
 		modVersions = myParser.getROMVersions();
 
 		// JSON parse failed, alert and return
@@ -206,7 +208,7 @@ public class VersionsList extends ROMSuperActivity {
 		
 		// Vector of versions, one per line
 		Vector<String>versionsList = new Vector<String>();
-		
+
 		Iterator<ROMVersion> versionsIterator = modVersions.iterator();
 		// 2. insert the versions in a vector
 		String iteratorVersion = "";
@@ -226,13 +228,14 @@ public class VersionsList extends ROMSuperActivity {
 		
 		// ROM name differs between the local and the remote one
 		// alert the user he'll only be able to download FULL versions
-		if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName())) {
+		if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) && !versionsList.isEmpty()) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(VersionsList.this);
 			builder.setCancelable(true)
 				.setMessage(getString(R.string.modname_mismatch))
 				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						dialog = null;
 					}
 				});
 			AlertDialog dialog = builder.create();
@@ -243,10 +246,11 @@ public class VersionsList extends ROMSuperActivity {
 		if(versionsList.isEmpty()) {
 			AlertDialog.Builder updatedBuilder = new AlertDialog.Builder(VersionsList.this);
 			updatedBuilder.setCancelable(true)
-				.setMessage(getString(R.string.rom_is_updated))
+				.setMessage(getString(R.string.versionlist_is_empty))
 				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						dialog = null;
 						finish();
 					}
 				});
