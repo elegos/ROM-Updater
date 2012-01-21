@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.elegosproject.romupdater"
-      android:versionName="1.14.2" android:versionCode="25">
+      android:versionName="1.0-CM" android:versionCode="100">
     <application
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher_romupdater"
@@ -33,8 +33,6 @@
                   android:label="@string/view_downloads"
                   android:configChanges="orientation" />
     </application>
-
-    <uses-sdk android:minSdkVersion="7" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

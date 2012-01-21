@@ -52,6 +52,7 @@ public class RecoveryManager {
 		} catch(Exception e) {
 			Log.e(TAG, "Unable to reboot into recovery");
 		}
+		
 	}
 
 	// Extended command section
@@ -59,8 +60,18 @@ public class RecoveryManager {
 		sdata.addRecoveryMessage("echo '"+ msg +"' >> /cache/recovery/extendedcommand\n");
 	}
 
-	public static void recoveryCommand(SharedData sdata, String msg) {
-		sdata.addRecoveryMessage("echo '"+ msg +"' >> /cache/recovery/command\n");
+	public static void recoveryStartScript(SharedData sdata) {
+		sdata.addRecoveryMessage("echo '#!/sbin/sh' > /cache/recovery/.romupdater.sh\n");
+		sdata.addRecoveryMessage("echo 'export PATH=/sbin:$PATH' >> /cache/recovery/.romupdater.sh\n");
+		sdata.addRecoveryMessage("chmod 755 /cache/recovery/.romupdater.sh\n");
+	}
+
+	public static void recoveryEndScript(SharedData sdata) {
+		recoveryExtCommand(sdata, "run_program(\"/cache/recovery/.romupdater.sh\");\n");
+	}
+
+	public static void recoveryAddToScript(SharedData sdata, String msg) {
+		sdata.addRecoveryMessage("echo '"+ msg +"' >> /cache/recovery/.romupdater.sh\n");
 	}
 
 	public static void setupExtendedCommand() {
@@ -87,8 +98,8 @@ public class RecoveryManager {
 		if(file.startsWith("/sdcard/"))
 			file = file.substring(8);
 
-		sdata.addRecoveryMessage("echo '--update_package=/sdcard/"+file+"' > /cache/recovery/command\n");
-		sdata.addRecoveryMessage("echo '' > /cache/recovery/command\n");
+		sdata.addRecoveryMessage("echo '--update_package=/sdcard/"+file+"\n' > /cache/recovery/command\n");
+		sdata.addRecoveryMessage("rm -f /cache/recovery/extendedcommand\n");
 
 		//recoveryExtCommand(sdata, "ui_print(\"ROM Updater\");\n");
 		//recoveryExtCommand(sdata, "ui_print(\"Installing file SDCARD:"+file+"\");\n");
@@ -145,10 +156,15 @@ public class RecoveryManager {
 		while(sdata.getLockProcess());
 		sdata.setLockProcess(true);
 		recoveryExtCommand(sdata, "ui_print(\"Wiping CACHE\");");
-		recoveryExtCommand(sdata, "delete_recursive(\"/cache/dalvik-cache\");");
-		recoveryExtCommand(sdata, "delete_recursive(\"/data/dalvik-cache\");");
-		//recoveryExtCommand(sdata, "delete_recursive(\"CACHE:dalvik-cache\");");
-		//recoveryExtCommand(sdata, "delete_recursive(\"DATA:dalvik-cache\");");
+		recoveryExtCommand(sdata, "mount(\"/data\");");
+
+		recoveryStartScript(sdata);
+		recoveryAddToScript(sdata, "rm -rf /cache/dalvik-cache");
+		recoveryAddToScript(sdata, "rm -rf /data/dalvik-cache");
+		recoveryEndScript(sdata);
+
+		//recoveryCommand(sdata, "delete_recursive(\"/cache/dalvik-cache\");");
+		//recoveryCommand(sdata, "delete_recursive(\"/data/dalvik-cache\");");
 
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
@@ -160,7 +176,13 @@ public class RecoveryManager {
 
 		sdata.setLockProcess(true);
 		recoveryExtCommand(sdata, "ui_print(\"Wiping USER DATA\");");
-		recoveryExtCommand(sdata, "delete_recursive(\"/data\");");
+		recoveryExtCommand(sdata, "mount(\"/data\");");
+
+		recoveryStartScript(sdata);
+		recoveryAddToScript(sdata, "rm -rf /data/*");
+		recoveryEndScript(sdata);
+
+		//recoveryExtCommand(sdata, "delete_recursive(\"/data\");");
 		//recoveryExtCommand(sdata, "delete_recursive(\"DATA:\");");
 
 		sdata.incrementRecoveryCounter();
@@ -174,10 +196,13 @@ public class RecoveryManager {
 		sdata.setLockProcess(true);
 
 		recoveryExtCommand(sdata, "ui_print(\"Wiping SD-EXT apps\");");
-		recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app\");");
-		recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app-private\");");
-		//recoveryExtCommand(sdata, "delete_recursive(\"SDEXT:app\");");
-		//recoveryExtCommand(sdata, "delete_recursive(\"SDEXT:app-private\");");
+		recoveryStartScript(sdata);
+		recoveryAddToScript(sdata, "rm -rf /sd-ext/app");
+		recoveryAddToScript(sdata, "rm -rf /sd-ext/app-private");
+		recoveryEndScript(sdata);
+
+		//recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app\");");
+		//recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app-private\");");
 
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
