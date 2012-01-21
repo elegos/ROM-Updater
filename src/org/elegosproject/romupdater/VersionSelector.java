@@ -36,7 +36,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import android.util.Log;
+
 public class VersionSelector extends ROMSuperActivity {
+	private String TAG = "VersionSelector";
 	private SharedData shared;
 	
 	private String versionUri;
@@ -67,22 +70,60 @@ public class VersionSelector extends ROMSuperActivity {
 				String file = "";
 				if(selectedDownload.equals(getString(R.string.start_full_download)))
 					file = myParser.parsedAvailableVersions.getFullUri();
-				else file = myParser.getUrlForVersion(SharedData.LOCAL_VERSION);
+				else
+					file = myParser.getUrlForVersion(SharedData.LOCAL_VERSION);
 				
-				SharedData sdata = SharedData.getInstance();
-				String url = sdata.getRepositoryUrl();
-				if(!url.endsWith("/")) url += "/";
-				url += versionUri;
-				if(!url.endsWith("/")) url += "/";
-				url += file;
+				Log.w(TAG, "getUrlFor("+file+")");
+				String url = getUrlFor(versionUri, file);
 				
-				sdata.setDownloadedFile(DOWNLOAD_DIRECTORY+file);
-				
+				shared.setDownloadedFile(DOWNLOAD_DIRECTORY+file);
 				new DownloadFile().execute(url, DOWNLOAD_DIRECTORY+file);
 			}
 		});
 	}
-	
+
+	/**
+	 * Construct Full URL, allow dynamic pages
+	 */
+	public String getUrlFor(String versionUri, String file)
+	{
+		String url = "";
+		SharedData sdata = SharedData.getInstance();
+
+		if(!versionUri.startsWith("http://")) {
+			url = sdata.getRepositoryUrl();
+			if(!url.endsWith("/")) url += "/";
+		}
+		url += versionUri;
+		if(!url.endsWith("=")) {
+			if(!url.endsWith("/")) url += "/";
+			url += file;
+		} else {
+			url += sdata.getDownloadVersion();
+			url += "&f=" + file;
+		}
+		return url;
+	}
+
+	public String getJsonUrlFor(String uri)
+	{
+		String url = "";
+		SharedData sdata = SharedData.getInstance();
+		if(!uri.startsWith("http://")) {
+			url = sdata.getRepositoryUrl();
+			if(!url.endsWith("/")) url += "/";
+		}
+		url += uri;
+		if(!url.endsWith("=")) {
+			if(!url.endsWith("/")) url += "/";
+			url += "mod.json";
+		} else {
+			//mod.php?v=...
+			url += sdata.getDownloadVersion();
+		}
+		return url;
+	}
+
 	@Override
 	void onDownloadComplete(Boolean success) {
 		// download exit with true -> success
@@ -179,7 +220,9 @@ public class VersionSelector extends ROMSuperActivity {
 
 	private void setVersionView(String versionUri) {
 		versionsTextView.setText(getString(R.string.capital_version)+" "+shared.getDownloadVersion());
-		if(!DownloadManager.checkHttpFile(shared.getRepositoryUrl()+versionUri+"/mod.json")) {
+		String uri = getJsonUrlFor(versionUri);
+		//uri = shared.getRepositoryUrl()+versionUri+"/mod.json";
+		if(!DownloadManager.checkHttpFile(uri)) {
 			AlertDialog.Builder notFoundBuilder = new AlertDialog.Builder(VersionSelector.this);
 			notFoundBuilder.setCancelable(false)
 				.setTitle(getString(R.string.version_descriptor_not_found_title))
@@ -195,7 +238,7 @@ public class VersionSelector extends ROMSuperActivity {
 			return;
 		}
 		
-		new DownloadJSON().execute(shared.getRepositoryUrl()+versionUri+"/mod.json");
+		new DownloadJSON().execute(uri);
 	}
 	
 	@Override
