@@ -10,8 +10,8 @@
 	<string name="check_for_updates">Check for updates</string>
 	<string name="downloaded_files">Downloaded files</string>
 	<string name="settings">Settings</string>
-	<string name="wipe_cache">Wipe cache</string>
-	<string name="wipe_data">Wipe data</string>
+	<string name="wipe_cache">Wipe dalvik cache</string>
+	<string name="wipe_data">Wipe appl. and data</string>
 	<string name="backup">Backup</string>
 	<string name="backup_rom">Backup the ROM</string>
 	<string name="restore_rom">Restore a ROM backup</string>
@@ -47,4 +47,6 @@
 	<string name="backup_only">Backup only</string>
 	<string name="loading">Loading, please wait...</string>
 	<string name="list_rom_versions">List of ROM version(s)</string>
+
+	<string translatable="false" name="repository_url"></string>
 </resources>

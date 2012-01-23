@@ -9,8 +9,8 @@
 	<string name="check_for_updates">Rechercher mises à jour</string>
 	<string name="downloaded_files">Fichiers téléchargés</string>
 	<string name="settings">Paramètres</string>
-	<string name="wipe_cache">Wipe cache</string>
-	<string name="wipe_data">Wipe data</string>
+	<string name="wipe_cache">Vider cache dalvik</string>
+	<string name="wipe_data">Effacer appli. et données</string>
 	<string name="backup">Sauvegarder</string>
 	<string name="backup_rom">Sauvegarde de ROM</string>
 	<string name="restore_rom">Restaurer une sauvegarde</string>
