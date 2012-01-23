@@ -92,7 +92,7 @@ public class VersionSelector extends ROMSuperActivity {
 			final SharedData sdata = SharedData.getInstance();
 			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 			
-			if(!sdata.getRepositoryROMName().equals(SharedData.LOCAL_ROMNAME)) {
+			if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName())) {
 				alert.setMessage(getString(R.string.ask_backup_wipe));
 				alert.setPositiveButton(getString(R.string.backup_and_wipe), new DialogInterface.OnClickListener() {
 					@Override
@@ -229,7 +229,7 @@ public class VersionSelector extends ROMSuperActivity {
 		// The "Full" element is always present
 		versionsList.add("Full");
 		// Search for an incremental update, in case add it to the list
-		if(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()))
+		if(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()))
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
 				if(Integer.parseInt(SharedData.LOCAL_VERSION) == Integer.parseInt(iteratorVersion)) {

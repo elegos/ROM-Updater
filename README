@@ -7,8 +7,8 @@ in a repo build process.
 --------------------------------------------------------------------------------
 
 ROMUpdater is meant to be an Android universal ROM updater.
-It checks for the build.prop's ro.build.display.id and
-downloads a series of JSON files that describe and give
+It checks for the build.prop's ro.modversion or ro.cm.version
+an downloads a series of JSON files that describe and give
 a link to the available versions (from the next one
 upwards, if available). It can also execute the most
 common Recovery actions (via /cache/recovery/command

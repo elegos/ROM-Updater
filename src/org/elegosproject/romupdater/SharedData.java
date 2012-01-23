@@ -18,13 +18,14 @@
 package org.elegosproject.romupdater;
 
 import java.io.InputStream;
+import android.os.SystemProperties;
 
 public class SharedData {
 	static final Object mLock = new Object();
 	static SharedData mInstance;
 
 	public static final String LOCAL_MODEL = android.os.Build.MODEL;
-	public static final String LOCAL_ROMNAME = android.os.Build.DISPLAY;
+	public static final String LOCAL_ROMNAME = SystemProperties.get("ro.modversion", android.os.Build.DISPLAY);
 	public static final String LOCAL_VERSION = android.os.Build.VERSION.INCREMENTAL;
 	
 	public static final String ABOUT_LICENCE = "ROM Updater Copyright (C) 2011 by elegos, 2012 by Tanguy Pruvot\nThis program comes with ABSOLUTELY NO WARRANTY;\nThis is free software, and you are welcome to redistribute it under certain conditions;";

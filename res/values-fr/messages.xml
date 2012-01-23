@@ -10,7 +10,7 @@
 	<string name="recovery_message">L\'appareil va maintenant redémarrer en mode recovery.</string>
 	<string name="repository_file_not_found">The file you\'re trying to download is unreachable or unavailable. Please try again later, or contact the repository maintainer.</string>
 	<string name="upgrade_confirmation">Voulez-vous appliquer la mise à jour maintenant ?</string>
-	<string name="modname_mismatch">Your mod seems to be different from the repository one. You\'ll be able to download only the full versions.</string>
+	<string name="modname_mismatch">Votre ROM semble être différente de celle disponible sur le serveur. Vous pouvez la télécharger mais il est recommandé d\'effacer les données avant l\'installation.</string>
 	<string name="version_descriptor_not_found_message">The version descriptor file has not been found.</string>
 	<string name="rom_is_updated">Vous utilisez la dernière mise à jour disponible.</string>
 	<string name="versionlist_is_empty">Il n\'y a pas de versions disponibles sur le serveur</string>

@@ -217,8 +217,8 @@ public class VersionsList extends ROMSuperActivity {
 			iteratorVersion = versionsIterator.next().getVersion();
 			// if same ROM name and greater version
 			// or different ROM name, add the update to the vector
-			if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) ||
-					(SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
+			if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) ||
+					(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
 				versionsList.add(myParser.modName+" "+iteratorVersion);
 		}
 		
@@ -228,10 +228,13 @@ public class VersionsList extends ROMSuperActivity {
 		
 		// ROM name differs between the local and the remote one
 		// alert the user he'll only be able to download FULL versions
-		if(!SharedData.LOCAL_ROMNAME.equals(shared.getRepositoryROMName()) && !versionsList.isEmpty()) {
+		if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) && !versionsList.isEmpty()) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(VersionsList.this);
 			builder.setCancelable(true)
-				.setMessage(getString(R.string.modname_mismatch))
+				.setMessage(getString(R.string.modname_mismatch) + "\n\n" +
+					"Local:" + SharedData.LOCAL_ROMNAME  + "\n" +
+					"Server:" + shared.getRepositoryROMName()
+				)
 				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
