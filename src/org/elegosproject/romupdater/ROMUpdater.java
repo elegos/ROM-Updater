@@ -56,7 +56,6 @@ public class ROMUpdater extends ROMSuperActivity {
 					
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
-						
 					}
 				})
 				.setPositiveButton(R.string.settings, new DialogInterface.OnClickListener() {

@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -59,16 +60,16 @@ public class VersionsList extends ROMSuperActivity {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		shared = SharedData.getInstance();
 		
-		String prefRepo = preferences.getString("repository_url", "");
-		if(!prefRepo.equals(""))
+		String prefRepo = preferences.getString("repository_url", getString(R.string.repository_url));
+		if(!TextUtils.isEmpty(prefRepo))
 			shared.setRepositoryUrl(prefRepo);
 		else {
 			String buildRepo = BuildParser.parseString("ro.romupdater.repository");
 			shared.setRepositoryUrl(buildRepo);
 		}
-		
+
 		// repository not set
-		if(shared.getRepositoryUrl().equals("")) {
+		if(TextUtils.isEmpty(shared.getRepositoryUrl())) {
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setMessage(getString(R.string.error_repository_not_set))
 			.setCancelable(false)
@@ -134,7 +135,7 @@ public class VersionsList extends ROMSuperActivity {
 				
 				Intent selector = new Intent(VersionsList.this, VersionSelector.class);
 				String dlVersion =  myParser.getROMVersionUri(shared.getDownloadVersion());
-				selector.putExtra("org.elegosproject.romupdater.VersionSelector.versionUri", dlVersion);
+				selector.putExtra(PackageName + ".VersionSelector.versionUri", dlVersion);
 				startActivity(selector);
 			}
 		});

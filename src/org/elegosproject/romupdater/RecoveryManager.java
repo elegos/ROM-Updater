@@ -59,6 +59,10 @@ public class RecoveryManager {
 		sdata.addRecoveryMessage("echo '"+ msg +"' >> /cache/recovery/extendedcommand\n");
 	}
 
+	public static void recoveryCommand(SharedData sdata, String msg) {
+		sdata.addRecoveryMessage("echo '"+ msg +"' >> /cache/recovery/command\n");
+	}
+
 	public static void setupExtendedCommand() {
 		SharedData sdata = SharedData.getInstance();
 

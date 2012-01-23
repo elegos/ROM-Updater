@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,7 +55,12 @@ public class VersionSelector extends ROMSuperActivity {
 		super.onCreate(savedInstanceState);
 		
 		shared = SharedData.getInstance();
-		versionUri = getIntent().getExtras().getString("org.elegosproject.romupdater.VersionSelector.versionUri");
+		versionUri = getIntent().getExtras().getString(PackageName + ".VersionSelector.versionUri");
+
+		if (TextUtils.isEmpty(versionUri)) {
+			// forced repository, not compatible with original version
+			versionUri = getString(R.string.repository_url);
+		}
 
 		setContentView(R.layout.version);
 		
