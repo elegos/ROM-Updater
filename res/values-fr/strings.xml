@@ -45,5 +45,7 @@
 	<string name="backup_and_wipe">Sauvegarder et effacer tout</string>
 	<string name="backup_only">Sauvegarde simple</string>
 	<string name="loading">Chargement, veuillez patienter...</string>
+
 	<string name="list_rom_versions">Liste des ROMs</string>
+	<string name="start_full_download">Télécharger</string>
 </resources>

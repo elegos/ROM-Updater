@@ -65,7 +65,7 @@ public class VersionSelector extends ROMSuperActivity {
 					int arg2, long arg3) {
 				String selectedDownload = arg0.getItemAtPosition(arg2).toString();
 				String file = "";
-				if(selectedDownload.equals("Full"))
+				if(selectedDownload.equals(getString(R.string.start_full_download)))
 					file = myParser.parsedAvailableVersions.getFullUri();
 				else file = myParser.getUrlForVersion(SharedData.LOCAL_VERSION);
 				
@@ -227,13 +227,18 @@ public class VersionSelector extends ROMSuperActivity {
 		String iteratorVersion = "";
 		
 		// The "Full" element is always present
-		versionsList.add("Full");
+		versionsList.add(getString(R.string.start_full_download));
 		// Search for an incremental update, in case add it to the list
 		if(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()))
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
-				if(Integer.parseInt(SharedData.LOCAL_VERSION) == Integer.parseInt(iteratorVersion)) {
-					versionsList.add("Incremental");
+				try {
+					if(Integer.parseInt(SharedData.LOCAL_VERSION) == Integer.parseInt(iteratorVersion)) {
+						versionsList.add("Incremental");
+						break;
+					}
+				} catch (NumberFormatException e) {
+					Log.w(TAG, "ignoring incremental "+iteratorVersion);
 					break;
 				}
 			}

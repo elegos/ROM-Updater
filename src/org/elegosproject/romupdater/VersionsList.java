@@ -217,9 +217,13 @@ public class VersionsList extends ROMSuperActivity {
 			iteratorVersion = versionsIterator.next().getVersion();
 			// if same ROM name and greater version
 			// or different ROM name, add the update to the vector
-			if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) ||
+			try {
+				if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) ||
 					(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
+					versionsList.add(myParser.modName+" "+iteratorVersion);
+			} catch (NumberFormatException e) {
 				versionsList.add(myParser.modName+" "+iteratorVersion);
+			}
 		}
 		
 		// sort the vector
