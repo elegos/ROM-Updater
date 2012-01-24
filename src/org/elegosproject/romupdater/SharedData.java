@@ -22,6 +22,7 @@ import java.io.InputStream;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.SystemProperties;
+import android.text.TextUtils;
 
 public class SharedData {
 	static final Object mLock = new Object();
@@ -86,10 +87,12 @@ public class SharedData {
 	}
 	
 	public void setRepositoryUrl(String url) {
-		if(!url.startsWith("http://"))
-			url = "http://"+url;
-		if(!url.endsWith("/"))
-			url += "/";
+		if(!TextUtils.isEmpty(url)) {
+			if(!url.startsWith("http://"))
+				url = "http://"+url;
+			if(!url.endsWith("/"))
+				url += "/";
+		}
 		repositoryUrl = url;
 	}
 	

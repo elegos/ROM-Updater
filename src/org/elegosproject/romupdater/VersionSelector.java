@@ -24,6 +24,7 @@ import java.util.Vector;
 import org.elegosproject.romupdater.types.AvailableVersion;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -59,7 +60,7 @@ public class VersionSelector extends ROMSuperActivity {
 
 		if (TextUtils.isEmpty(versionUri)) {
 			// forced repository, not compatible with original version
-			versionUri = getString(R.string.repository_url);
+			versionUri = getApplicationContext().getString(R.string.reposerver_url);
 		}
 
 		setContentView(R.layout.version);
@@ -196,7 +197,7 @@ public class VersionSelector extends ROMSuperActivity {
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(VersionSelector.this);
 			// send anonymous data (if accepted)
 			if(preferences.getBoolean("anon_stats", false))
-				DownloadManager.sendAnonymousData();
+				DownloadManager.sendAnonymousData(getApplicationContext());
 
 			// create and show the dialog
 			alert.create().show();

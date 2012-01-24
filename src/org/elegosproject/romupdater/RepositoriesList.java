@@ -47,9 +47,8 @@ public class RepositoriesList extends ROMSuperActivity {
 							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RepositoriesList.this);
 							Editor editor = prefs.edit();
 							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
-							// trim the last character until it finishes with "/" (HACK)
-							// TODO: better handling
-							while(!url.endsWith("/")) {
+							// trim the last character until it finishes with "/"
+							while(url.contains("/") && !url.endsWith("/")) {
 								url = url.substring(0,url.length()-1);
 							}
 							

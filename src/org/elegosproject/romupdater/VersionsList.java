@@ -60,7 +60,7 @@ public class VersionsList extends ROMSuperActivity {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		shared = SharedData.getInstance();
 		
-		String prefRepo = preferences.getString("repository_url", getString(R.string.repository_url));
+		String prefRepo = preferences.getString("repository_url", getString(R.string.reposerver_url));
 		if(!TextUtils.isEmpty(prefRepo))
 			shared.setRepositoryUrl(prefRepo);
 		else {
@@ -84,6 +84,8 @@ public class VersionsList extends ROMSuperActivity {
 			alert.show();
 			return;
 		}
+
+		Log.i(TAG, "Repository set to " + shared.getRepositoryUrl());
 		
 		versionsListView = (ListView)this.findViewById(R.id.versionsList);
 		Toast t = Toast.makeText(this, getString(R.string.changelog_toast),Toast.LENGTH_LONG);
@@ -145,7 +147,7 @@ public class VersionsList extends ROMSuperActivity {
 		String repositoryUrl = shared.getRepositoryUrl();
 		
 		// repository URL is void -> must set it before, finish
-		if(repositoryUrl.equals("")) {
+		if(TextUtils.isEmpty(repositoryUrl)) {
 			AlertDialog.Builder error = new AlertDialog.Builder(VersionsList.this);
 			error.setMessage(getString(R.string.error_repository_not_set))
 				.setCancelable(false)
