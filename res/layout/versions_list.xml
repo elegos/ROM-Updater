@@ -8,8 +8,8 @@
 	<TextView
 		android:id="@+id/programNameTextView"
 		android:layout_width="fill_parent"
-		android:layout_height="50sp"
-		android:textSize="32sp"
+		android:layout_height="42sp"
+		android:textSize="28sp"
 		android:text="@string/list_rom_versions"
 	/>
 	<ListView android:id="@+id/versionsList"
