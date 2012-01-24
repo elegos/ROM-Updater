@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -64,6 +65,10 @@ public class ROMSuperActivity extends Activity {
         case R.id.menu_exit:
             finish();
             return true;
+        case R.id.menu_settings:
+            Intent p = new Intent(this, Preferences.class);
+            startActivity(p);
+            return true;
         case R.id.menu_info:
             PackageManager pm = getPackageManager();
             String version = "";
@@ -74,9 +79,9 @@ public class ROMSuperActivity extends Activity {
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ROMSuperActivity.this);
-            builder.setIcon(R.drawable.ic_menu_info)
-                .setTitle("ROM Updater v"+version)
-                .setMessage(SharedData.ABOUT_LICENCE)
+            builder.setIcon(android.R.drawable.ic_menu_help)
+                .setTitle(getString(R.string.app_name) + " v"+version)
+                .setMessage("\n" + SharedData.ABOUT_LICENCE)
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

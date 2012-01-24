@@ -9,7 +9,7 @@
 	<string name="view_downloads">File zip scaricati</string>
 	<string name="check_for_updates">Controlla per aggiornamenti</string>
 	<string name="downloaded_files">File scaricati</string>
-	<string name="settings">Impostazioni</string>
+	<string name="settings">Impostazioni...</string>
 	<string name="wipe_cache">Svuota cache</string>
 	<string name="wipe_data">Cancella i dati</string>
 	<string name="backup">Backup</string>
@@ -35,6 +35,7 @@
 	<string name="recovery_ok">Recovery</string>
 	<string name="upgrade_ok">Installa</string>
 	<string name="menu_info_title">Informazioni</string>
+	<string name="menu_settings">Impostazioni</string>
 	<string name="menu_info_exit">Esci</string>
 	<string name="capital_version">Versione</string>
 	<string name="version_descriptor_not_found_title">Descrittore non trovato</string>

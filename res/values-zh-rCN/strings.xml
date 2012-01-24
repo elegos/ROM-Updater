@@ -35,6 +35,7 @@
 	<string name="recovery_ok">恢复</string>
 	<string name="upgrade_ok">更新</string>
 	<string name="menu_info_title">信息</string>
+	<string name="menu_settings">设置</string>
 	<string name="menu_info_exit">退出</string>
 	<string name="capital_version">版本</string>
 	<string name="version_descriptor_not_found_title">未发现描述</string>
