@@ -4,22 +4,22 @@
 	<string name="repository_changed_toast">L\'url du serveur de ROM a été modifiée</string>
 	<string name="repository_unreachable">Le serveur de ROM n\'est pas disponible. Vérifiez votre connexion ou réessayer ultérieurement.</string>
 	<string name="barcode_scanner_not_found">Il semble que Barcode Scanner (com.google.zxing.client.android) n\'est pas installé.</string>
-	<string name="wipe_cache_message">L\'appareil va redémarrer en mode recovery et va vider le cache (wipe cache).</string>
-	<string name="wipe_data_message">L\'appareil va redémarrer en mode recovery et va effacer les données (wipe data).</string>
+	<string name="wipe_cache_message">L\'appareil va redémarrer en mode recovery et va vider le cache dalvik.</string>
+	<string name="wipe_data_message">L\'appareil va redémarrer en mode recovery et va effacer les données (wipe data/app).</string>
 	<string name="backup_rom_message">L\'appareil va redémarrer en mode recovery pour effectuer la sauvegarde.</string>
 	<string name="recovery_message">L\'appareil va maintenant redémarrer en mode recovery.</string>
-	<string name="repository_file_not_found">The file you\'re trying to download is unreachable or unavailable. Please try again later, or contact the repository maintainer.</string>
+	<string name="repository_file_not_found">Le fichier que vous souhaitez télécharger n\'est pas disponible actuellement. Veuillez réessayer ultérieurement.</string>
 	<string name="upgrade_confirmation">Voulez-vous appliquer la mise à jour maintenant ?</string>
 	<string name="modname_mismatch">Votre ROM semble être différente de celle disponible sur le serveur. Vous pouvez la télécharger mais il est recommandé d\'effacer les données avant l\'installation.</string>
-	<string name="version_descriptor_not_found_message">The version descriptor file has not been found.</string>
+	<string name="version_descriptor_not_found_message">La description de cette version n\'a pas été trouvée.</string>
 	<string name="rom_is_updated">Vous utilisez la dernière mise à jour disponible.</string>
 	<string name="versionlist_is_empty">Il n\'y a pas de versions disponibles sur le serveur</string>
-	<string name="anon_send_message">Voulez vous aider les développeurs en envoyant les informations (nom, url et version) des ROMs téléchargées ? Les données envoyées sont totalement anonymes.</string>
+	<string name="anon_send_message">Envoyer les informations (nom, url et version) des ROMs téléchargées ? Les données envoyées sont anonymes mais permetteront de détecter les versions défectueuses.</string>
 	<string name="repo_phone_mismatch">Votre appareil n\'est pas compatible avec ce serveur.</string>
-	<string name="no_repository_available">There are actually no available repositories. Share yours sending anonymous data!</string>
+	<string name="no_repository_available">Il n\'y a pas de serveur disponible.</string>
 	<string name="error_model_mismatch">Attention: vous essayez d\'installer une ROM qui n\'est pas conçue pour votre appareil. Annulation.</string>
 	<string name="error_backup_folder_empty">Il n\'y a aucune sauvegarde dans le répertoire spécifié.</string>
-	<string name="error_backup_folder_doesnt_exist">Le répertoire de sauvegarde ne semble pas exister. Vérifiez les vos paramètres.</string>
+	<string name="error_backup_folder_doesnt_exist">Le répertoire de sauvegarde ne semble pas exister. Vérifiez vos paramètres.</string>
 	<string name="error_download_file">Erreur lors du téléchargement du fichier.</string>
 	<string name="error_json_not_found">Fichier JSON non trouvé</string>
 	<string name="error_json_download">Impossible de télécharger le fichier JSON</string>
@@ -28,5 +28,5 @@
 	<string name="confirm_restore_backup">Confirmez-vous la restauration de cette sauvegarde ?</string>
 	<string name="ask_backup_wipe">Il semble que le nom de votre ROM soit différente de celle téléchargée. Il est nécessaire d\'effacer vos données utilisateur (wipe data), souhaitez vous sauvegarder avant de les effacer ?</string>
 	<string name="info_no_downloads">Il n\'y a aucun fichier dans le répertoire de téléchargement</string>
-	<string name="info_shared_repo">Cette liste est fabriquée automatiquement à partir des données anonymes envoyées par les utilisateurs. The author of the application doesn\'t decide which repositories are being displayed, nor is responsible for any of them.</string>
+	<string name="info_shared_repo">Cette liste est fabriquée automatiquement à partir des données envoyées par les utilisateurs. The author of the application doesn\'t decide which repositories are being displayed, nor is responsible for any of them.</string>
 </resources>
