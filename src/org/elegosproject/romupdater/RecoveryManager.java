@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class RecoveryManager {
-	private static String TAG = "ROM Updater/Recovery";
+	private static String TAG = "ROM Updater (RecoveryManager.class)";
 
 	public static void rebootRecovery() {
 		SharedData sdata = SharedData.getInstance();
@@ -36,13 +36,13 @@ public class RecoveryManager {
 			while(sdata.getLockProcess());
 		}
 
-		sdata.addRecoveryMessage("rm /cache/recovery/command\n");
+		sdata.addRecoveryMessage("mkdir -p /cache/recovery\n");
 		sdata.addRecoveryMessage("mkdir -p /sdcard/clockworkmod\n");
 
-		//put a random md5sum for sdcard marker
+		//put a random md5sum for sdcard marker !?! for firsts 5.0.x.x koush CWM variants
 		sdata.addRecoveryMessage("echo '3f42727dd8641a3bb5734fa7ee78185f' > /sdcard/clockworkmod/.salted_hash\n");
-		//sdata.addRecoveryMessage("md5sum /cache/recovery/extendedcommand > /sdcard/clockworkmod/.salted_hash\n");
-		sdata.addRecoveryMessage("echo 1 > /sdcard/clockworkmod/.recoverycheckpoint\n");
+		sdata.addRecoveryMessage("echo 0 > /sdcard/clockworkmod/.recoverycheckpoint\n");
+		sdata.addRecoveryMessage("cp /cache/recovery/command /cache/recovery/.last_command\n");
 		sdata.addRecoveryMessage("toolbox reboot recovery\n");
 		try {
 			Process p = Runtime.getRuntime().exec("su");
@@ -52,7 +52,6 @@ public class RecoveryManager {
 		} catch(Exception e) {
 			Log.e(TAG, "Unable to reboot into recovery");
 		}
-		
 	}
 
 	// Extended command section
@@ -68,6 +67,7 @@ public class RecoveryManager {
 
 	public static void recoveryEndScript(SharedData sdata) {
 		recoveryExtCommand(sdata, "run_program(\"/cache/recovery/.romupdater.sh\");\n");
+		sdata.addRecoveryMessage("echo 'boot-recovery' > /cache/recovery/command\n");
 	}
 
 	public static void recoveryAddToScript(SharedData sdata, String msg) {
@@ -80,9 +80,13 @@ public class RecoveryManager {
 		while(sdata.getLockProcess());
 		sdata.setLockProcess(true);
 
-		sdata.addRecoveryMessage("mkdir -p /cache/recovery/\n");
+		sdata.addRecoveryMessage("mkdir -p /sdcard/clockworkmod\n");
+		sdata.addRecoveryMessage("mkdir -p /cache/recovery\n");
+
 		sdata.addRecoveryMessage("echo 'boot-recovery' > /cache/recovery/command\n");
-		sdata.addRecoveryMessage("echo '' > /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("echo > /cache/recovery/extendedcommand\n");
+		sdata.addRecoveryMessage("rm -f /cache/recovery/.romupdater.sh\n");
+
 		recoveryExtCommand(sdata, "ui_print(\"ROM Updater\");");
 
 		sdata.incrementRecoveryCounter();
@@ -94,16 +98,14 @@ public class RecoveryManager {
 
 		while(sdata.getLockProcess());
 		sdata.setLockProcess(true);
-		
-		if(file.startsWith("/sdcard/"))
-			file = file.substring(8);
 
-		sdata.addRecoveryMessage("echo '--update_package=/sdcard/"+file+"\n' > /cache/recovery/command\n");
+		if(file.startsWith("/mnt/"))
+			file = file.substring(4);
+		else if(!file.startsWith("/"))
+			file = "/sdcard/"+file;
+
+		sdata.addRecoveryMessage("echo '--update_package="+file+"' > /cache/recovery/command\n");
 		sdata.addRecoveryMessage("rm -f /cache/recovery/extendedcommand\n");
-
-		//recoveryExtCommand(sdata, "ui_print(\"ROM Updater\");\n");
-		//recoveryExtCommand(sdata, "ui_print(\"Installing file SDCARD:"+file+"\");\n");
-		//sdata.addRecoveryMessage("echo 'install_zip SDCARD:"+file+"' >> /cache/recovery/extendedcommand\n");
 
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
@@ -208,19 +210,4 @@ public class RecoveryManager {
 		sdata.setLockProcess(false);
 	}
 
-	// Command section
-	public static void setupCommand() {
-		try {
-			Process p = Runtime.getRuntime().exec("su");
-			OutputStream os = p.getOutputStream();
-
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			os.write("echo 'boot-recovery' > /cache/recovery/command\n".getBytes());
-
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG,"Unable to reboot into Recovery mode to wipe cache");
-			e.printStackTrace();
-		}
-	}
 }
