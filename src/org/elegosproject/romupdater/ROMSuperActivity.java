@@ -121,6 +121,11 @@ public class ROMSuperActivity extends Activity {
 
             String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
 
+            // for dynamic json, only show filename param
+            if (fileName.contains("?")) {
+                fileName = fileName.substring(fileName.lastIndexOf("f=")+2);
+            }
+
             // initialize the progress dialog
             progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progress.setMessage("Downloading "+fileName+"...");
