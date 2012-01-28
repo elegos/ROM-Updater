@@ -158,8 +158,10 @@ public class VersionsList extends ROMSuperActivity {
 			error.create().show();
 			finish();
 		}
-		
-		new DownloadJSON().execute(repositoryUrl+"main.json");
+		if (!repositoryUrl.contains("json") && !repositoryUrl.contains("php"))
+			new DownloadJSON().execute(repositoryUrl+"main.json");
+		else
+			new DownloadJSON().execute(repositoryUrl);
 	}
 	@Override
 	void onJSONDataDownloaded(Boolean success) {

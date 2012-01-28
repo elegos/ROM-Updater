@@ -50,11 +50,12 @@ public class JSONParser {
 	public Boolean failed = false;
 
 	public static boolean checkRepository(String repository_url) {
-		if(!repository_url.startsWith("http://"))
+		if(!repository_url.contains("://"))
 			repository_url = "http://"+repository_url;
-		if(!repository_url.endsWith("/"))
+		if(!repository_url.endsWith("/") && !repository_url.contains(".php")) {
 			repository_url += "/";
-		repository_url += "main.json";
+			repository_url += "main.json";
+		}
 		return DownloadManager.checkHttpFile(repository_url);
 	}
 	
