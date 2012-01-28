@@ -10,5 +10,6 @@
 
 $(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/JAVA_LIBRARIES/libGson_intermediates)
 $(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/RomUpdater_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/R/org/elegosproject)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/APPS/RomUpdater_intermediates)
 
