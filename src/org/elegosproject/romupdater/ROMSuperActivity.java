@@ -128,7 +128,7 @@ public class ROMSuperActivity extends Activity {
 
             // initialize the progress dialog
             progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progress.setMessage("Downloading "+fileName+"...");
+            progress.setMessage(getString(R.string.downloading)+":\n" + fileName);
             progress.setCancelable(false);
             progress.setMax(100);
             publishProgress(0);
