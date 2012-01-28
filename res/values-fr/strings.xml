@@ -25,7 +25,7 @@
 	<string name="backup_folder_summary">Chemin sur la carte SD, par ex. clockworkmod/backup pour /sdcard/clockworkmod/backup</string>
 	<string name="pref_other">Autres paramètres</string>
 	<string name="send_anon_title">Statistiques anonymes</string>
-	<string name="send_anon_summary">Envoyer anonymement les noms, versions et URLs des ROMs installées pour l\'application disponible sur le Market. Aucune donnée personelle ne sera utilisée.</string>
+	<string name="send_anon_summary">Envoyer anonymement les versions des ROMs installées. Aucune donnée personelle ne sera utilisée.</string>
 	<string name="OK">OK</string>
 	<string name="cancel">Annuler</string>
 	<string name="yes">Oui</string>
