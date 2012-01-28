@@ -191,14 +191,17 @@ public class RecoveryManager {
 		sdata.setLockProcess(false);
 	}
 
-	public static void wipeSDExt() {
+	public static void wipeDataAndSDExt() {
 		SharedData sdata = SharedData.getInstance();
 		
 		while(sdata.getLockProcess());
 		sdata.setLockProcess(true);
 
-		recoveryExtCommand(sdata, "ui_print(\"Wiping SD-EXT apps\");");
+		recoveryExtCommand(sdata, "ui_print(\"Wiping Data and SD-EXT apps\");");
+		recoveryExtCommand(sdata, "mount(\"/data\");");
+
 		recoveryStartScript(sdata);
+		recoveryAddToScript(sdata, "rm -rf /data/*");
 		recoveryAddToScript(sdata, "rm -rf /sd-ext/app");
 		recoveryAddToScript(sdata, "rm -rf /sd-ext/app-private");
 		recoveryEndScript(sdata);
