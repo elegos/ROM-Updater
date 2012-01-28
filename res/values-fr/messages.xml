@@ -28,5 +28,5 @@
 	<string name="confirm_restore_backup">Confirmez-vous la restauration de cette sauvegarde ?</string>
 	<string name="ask_backup_wipe">Il semble que le nom de votre ROM soit différente de celle téléchargée. Il est nécessaire d\'effacer vos données utilisateur (wipe data), souhaitez vous sauvegarder avant de les effacer ?</string>
 	<string name="info_no_downloads">Il n\'y a aucun fichier dans le répertoire de téléchargement</string>
-	<string name="info_shared_repo">Cette liste est fabriquée automatiquement à partir des données envoyées par les utilisateurs. The author of the application doesn\'t decide which repositories are being displayed, nor is responsible for any of them.</string>
+	<string name="info_shared_repo">Cette liste est fabriquée automatiquement à partir des données envoyées par les utilisateurs. L\'auteur de cette application n\'est pas responsable du contenu de ceux-ci.</string>
 </resources>
