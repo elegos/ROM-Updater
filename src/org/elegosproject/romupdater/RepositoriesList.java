@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RepositoriesList extends ROMSuperActivity {
-	private static final String repoUrl = "http://www.elegosproject.org/android/repositories.php";
+	private static String repoUrl;
 	private RepoList[] rawList;
 	private ExpandableListView theList;
 	
@@ -27,6 +27,8 @@ public class RepositoriesList extends ROMSuperActivity {
 		
 		setContentView(R.layout.repo_list);
 		theList = (ExpandableListView) findViewById(R.id.repositoriesExpandableList);
+
+		repoUrl = getString(R.string.all_repos_url);
 		
 		new DownloadJSON().execute(repoUrl);
 		
