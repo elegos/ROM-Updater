@@ -165,8 +165,8 @@ public class RecoveryManager {
 		recoveryAddToScript(sdata, "rm -rf /data/dalvik-cache");
 		recoveryEndScript(sdata);
 
-		//recoveryCommand(sdata, "delete_recursive(\"/cache/dalvik-cache\");");
-		//recoveryCommand(sdata, "delete_recursive(\"/data/dalvik-cache\");");
+		//recoveryExtCommand(sdata, "delete_recursive(\"/cache/dalvik-cache\");");
+		//recoveryExtCommand(sdata, "delete_recursive(\"/data/dalvik-cache\");");
 
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
@@ -185,7 +185,6 @@ public class RecoveryManager {
 		recoveryEndScript(sdata);
 
 		//recoveryExtCommand(sdata, "delete_recursive(\"/data\");");
-		//recoveryExtCommand(sdata, "delete_recursive(\"DATA:\");");
 
 		sdata.incrementRecoveryCounter();
 		sdata.setLockProcess(false);
@@ -199,12 +198,15 @@ public class RecoveryManager {
 
 		recoveryExtCommand(sdata, "ui_print(\"Wiping Data and SD-EXT apps\");");
 		recoveryExtCommand(sdata, "mount(\"/data\");");
+		recoveryExtCommand(sdata, "mount(\"/sd-ext\");");
 
 		recoveryStartScript(sdata);
 		recoveryAddToScript(sdata, "rm -rf /data/*");
 		recoveryAddToScript(sdata, "rm -rf /sd-ext/app");
 		recoveryAddToScript(sdata, "rm -rf /sd-ext/app-private");
 		recoveryEndScript(sdata);
+
+		recoveryExtCommand(sdata, "umount(\"/sd-ext\");");
 
 		//recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app\");");
 		//recoveryExtCommand(sdata, "delete_recursive(\"/sd-ext/app-private\");");
