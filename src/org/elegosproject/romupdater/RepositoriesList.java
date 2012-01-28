@@ -49,20 +49,19 @@ public class RepositoriesList extends ROMSuperActivity {
 							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RepositoriesList.this);
 							Editor editor = prefs.edit();
 							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
+
 							// trim the last character until it finishes with "/"
-							while(url.contains("/") && !url.endsWith("/")) {
+							while(url.contains("/") && !url.endsWith("/") && !url.contains("json") && !url.contains("?")) {
 								url = url.substring(0,url.length()-1);
 							}
-							
 							// push the url in the setting
 							editor.putString("repository_url", url);
 							editor.commit();
-							
+
 							Toast t = Toast.makeText(RepositoriesList.this, getString(R.string.repository_changed_toast)+" ("+url+")",Toast.LENGTH_LONG);
-					        t.show();
-					        
-					        dialog.dismiss();
-					        finish();
+							t.show();
+							dialog.dismiss();
+							finish();
 						}
 					});
 					alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
