@@ -97,12 +97,12 @@ public class VersionSelector extends ROMSuperActivity {
 		String url = "";
 		SharedData sdata = SharedData.getInstance();
 
-		if(!versionUri.startsWith("http://")) {
+		if(!versionUri.contains("://")) {
 			url = sdata.getRepositoryUrl();
 			if(!url.endsWith("/")) url += "/";
 		}
 		url += versionUri;
-		if(!url.endsWith("=")) {
+		if(!url.endsWith("=") && !url.contains("?")) {
 			if(!url.endsWith("/")) url += "/";
 			url += file;
 		} else {
@@ -116,12 +116,12 @@ public class VersionSelector extends ROMSuperActivity {
 	{
 		String url = "";
 		SharedData sdata = SharedData.getInstance();
-		if(!uri.startsWith("http://")) {
+		if(!uri.contains("://")) {
 			url = sdata.getRepositoryUrl();
 			if(!url.endsWith("/")) url += "/";
 		}
 		url += uri;
-		if(!url.endsWith("=")) {
+		if(!url.endsWith("=") && !url.contains("?")) {
 			if(!url.endsWith("/")) url += "/";
 			url += "mod.json";
 		} else {

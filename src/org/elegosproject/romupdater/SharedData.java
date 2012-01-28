@@ -86,7 +86,7 @@ public class SharedData {
 	
 	public void setRepositoryUrl(String url) {
 		if(!TextUtils.isEmpty(url)) {
-			if(!url.startsWith("http://"))
+			if(!url.contains("://"))
 				url = "http://"+url;
 			if(!url.endsWith("/"))
 				url += "/";
