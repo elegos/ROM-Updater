@@ -97,7 +97,11 @@ public class VersionsList extends ROMSuperActivity {
 				String selectedItem = parent.getItemAtPosition(position).toString();
 				Log.i(TAG,"ITEM: "+selectedItem);
 				
-				String version = selectedItem.substring(selectedItem.lastIndexOf(" ")+1);
+				String version;
+				if (selectedItem.lastIndexOf(" ") > 0)
+					version = selectedItem.substring(selectedItem.lastIndexOf(" ")+1);
+				else
+					version = selectedItem;
 				String changelog = "";
 				ROMVersion currentVersion = new ROMVersion();
 				Iterator<ROMVersion> iVersion = modVersions.iterator();
@@ -129,12 +133,11 @@ public class VersionsList extends ROMSuperActivity {
 		versionsListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+
 				String selectedVersion = arg0.getItemAtPosition(arg2).toString();
 				Log.i(TAG,"Item selected: "+selectedVersion);
-				String ver = shared.getRepositoryROMName()+" ";
-				
-				shared.setDownloadVersion(selectedVersion.substring(ver.length()));
-				
+				shared.setDownloadVersion(selectedVersion);
+
 				Intent selector = new Intent(VersionsList.this, VersionSelector.class);
 				String dlVersion =  myParser.getROMVersionUri(shared.getDownloadVersion());
 				selector.putExtra(PackageName + ".VersionSelector.versionUri", dlVersion);
@@ -161,7 +164,7 @@ public class VersionsList extends ROMSuperActivity {
 			error.create().show();
 			finish();
 		}
-		if (!repositoryUrl.contains("json") && !repositoryUrl.contains("php"))
+		if (!repositoryUrl.contains("json") && !repositoryUrl.contains("php") && !repositoryUrl.contains("?"))
 			new DownloadJSON().execute(repositoryUrl+"main.json");
 		else
 			new DownloadJSON().execute(repositoryUrl);
@@ -195,9 +198,9 @@ public class VersionsList extends ROMSuperActivity {
 		/* Global variables */
 		shared.setRespositoryModel(myParser.parsedVersions.getPhoneModel());
 		shared.setRepositoryROMName(myParser.parsedVersions.getName());
-		
-		// the repository is not for the current model
-		if(!shared.getRepositoryModel().equals(SharedData.LOCAL_MODEL)) {
+
+		// the repository is not for the current model (and not empty for common stuff)
+		if(!shared.getRepositoryModel().equals(SharedData.LOCAL_MODEL) && !TextUtils.isEmpty(shared.getRepositoryModel())) {
 			AlertDialog.Builder modelAlert = new AlertDialog.Builder(this);
 			modelAlert.setCancelable(false)
 				.setMessage(getString(R.string.error_model_mismatch))
@@ -225,16 +228,16 @@ public class VersionsList extends ROMSuperActivity {
 			try {
 				if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) ||
 					(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) && Integer.parseInt(SharedData.LOCAL_VERSION) < Integer.parseInt(iteratorVersion)))
-					versionsList.add(myParser.modName+" "+iteratorVersion);
+					versionsList.add(iteratorVersion);
 			} catch (NumberFormatException e) {
-				versionsList.add(myParser.modName+" "+iteratorVersion);
+				versionsList.add(iteratorVersion);
 			}
 		}
-		
+
 		// sort the vector
 		Comparator<String> r = Collections.reverseOrder();
 		Collections.sort(versionsList,r);
-		
+
 		// ROM name differs between the local and the remote one
 		// alert the user he'll only be able to download FULL versions
 		if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()) && !versionsList.isEmpty()) {
@@ -270,7 +273,7 @@ public class VersionsList extends ROMSuperActivity {
 			upToDateDialog.show();
 			return;
 		}
-		
+
 		// 3. set the versions list
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, versionsList);
 		versionsListView.setAdapter(adapter);

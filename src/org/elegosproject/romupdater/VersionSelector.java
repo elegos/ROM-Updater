@@ -27,6 +27,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -43,18 +44,18 @@ import android.util.Log;
 public class VersionSelector extends ROMSuperActivity {
 	private String TAG = "VersionSelector";
 	private SharedData shared;
-	
+
 	private String versionUri;
 
 	private ListView versionsAvailableListView;
 	private TextView versionsTextView;
 	private Vector<AvailableVersion> availableVersions;
-	
+
 	private JSONParser myParser = new JSONParser();
-	
+
 	@Override public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		shared = SharedData.getInstance();
 		versionUri = getIntent().getExtras().getString(PackageName + ".VersionSelector.versionUri");
 
@@ -64,12 +65,12 @@ public class VersionSelector extends ROMSuperActivity {
 		}
 
 		setContentView(R.layout.version);
-		
+
 		versionsAvailableListView = (ListView)this.findViewById(R.id.availableVersions);
 		versionsTextView = (TextView)this.findViewById(R.id.versionsTextView);
-		
+
 		setVersionView(versionUri);
-		
+
 		versionsAvailableListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -79,10 +80,10 @@ public class VersionSelector extends ROMSuperActivity {
 					file = myParser.parsedAvailableVersions.getFullUri();
 				else
 					file = myParser.getUrlForVersion(SharedData.LOCAL_VERSION);
-				
+
 				Log.w(TAG, "getUrlFor("+file+")");
 				String url = getUrlFor(versionUri, file);
-				
+
 				shared.setDownloadedFile(DOWNLOAD_DIRECTORY+file);
 				new DownloadFile().execute(url, DOWNLOAD_DIRECTORY+file);
 			}
@@ -131,16 +132,54 @@ public class VersionSelector extends ROMSuperActivity {
 		return url;
 	}
 
-	@Override
-	void onDownloadComplete(Boolean success) {
+	class CheckHttpFile extends AsyncTask<String, Integer, Boolean>
+	{
+		public boolean success=false;
+		@Override
+		protected Boolean doInBackground(String... params) {
+			String urlToCheck = params[0];
+			success = DownloadManager.checkHttpFile(urlToCheck);
+			Log.d(TAG, "CheckHttpFile: "+success);
+			return success;
+		}
+	}
+
+	private void setVersionView(String versionUri) {
+		versionsTextView.setText(shared.getDownloadVersion());
+		String uri = getJsonUrlFor(versionUri);
+
+		CheckHttpFile check = new CheckHttpFile();
+		try {
+			check.execute(uri);
+			check.get();
+		}
+		catch (Exception e) {
+			AlertDialog.Builder notFoundBuilder = new AlertDialog.Builder(VersionSelector.this);
+			notFoundBuilder.setCancelable(false)
+				.setTitle(getString(R.string.version_descriptor_not_found_title))
+				.setMessage(getString(R.string.version_descriptor_not_found_message)+
+				"\n" + e.toString()
+				)
+				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
+			AlertDialog dialog = notFoundBuilder.create();
+			dialog.show();
+			return;
+		}
+
 		// download exit with true -> success
-		if(success) {
+		if(check.success) {
 			// the ROM name is different from the
 			// actual one, ask to wipe or backup and wipe before
 			final SharedData sdata = SharedData.getInstance();
-			AlertDialog.Builder alert = new AlertDialog.Builder(this);
-			
+
 			if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName())) {
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setMessage(getString(R.string.ask_backup_wipe));
 				alert.setPositiveButton(getString(R.string.backup_and_wipe), new DialogInterface.OnClickListener() {
 					@Override
@@ -174,6 +213,7 @@ public class VersionSelector extends ROMSuperActivity {
 				});
 			} else {
 				// ROM name are the same, just ask to install now
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setMessage(getString(R.string.upgrade_confirmation))
 					.setCancelable(false)
 					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -214,42 +254,20 @@ public class VersionSelector extends ROMSuperActivity {
 					public void onClick(DialogInterface dialog, int which) {
 						SharedData sdata = SharedData.getInstance();
 						// delete the corrupted file, if any
-						File toDelete = new File(sdata.getDownloadedFile());
-						toDelete.delete();
-						
+						//File toDelete = new File(sdata.getDownloadedFile());
+						//toDelete.delete();
+
 						// dismiss
 						dialog.dismiss();
 					}
 				});
-			
+
 			// create and show the dialog
 			error.create().show();
 		}
-	}
-
-	private void setVersionView(String versionUri) {
-		versionsTextView.setText(getString(R.string.capital_version)+" "+shared.getDownloadVersion());
-		String uri = getJsonUrlFor(versionUri);
-		//uri = shared.getRepositoryUrl()+versionUri+"/mod.json";
-		if(!DownloadManager.checkHttpFile(uri)) {
-			AlertDialog.Builder notFoundBuilder = new AlertDialog.Builder(VersionSelector.this);
-			notFoundBuilder.setCancelable(false)
-				.setTitle(getString(R.string.version_descriptor_not_found_title))
-				.setMessage(getString(R.string.version_descriptor_not_found_message))
-				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						finish();
-					}
-				});
-			AlertDialog dialog = notFoundBuilder.create();
-			dialog.show();
-			return;
-		}
-		
 		new DownloadJSON().execute(uri);
 	}
-	
+
 	@Override
 	void onJSONDataDownloaded(Boolean success) {
 		super.onJSONDataDownloaded(success);
@@ -257,9 +275,9 @@ public class VersionSelector extends ROMSuperActivity {
 		// and finishes the activity, so just return
 		if(!success)
 			return;
-		
+
 		availableVersions = myParser.getAvailableVersions();
-		
+
 		// JSON parse failed, alert and return
 		if(myParser.failed){
 			AlertDialog.Builder error = new AlertDialog.Builder(VersionSelector.this);
@@ -273,11 +291,11 @@ public class VersionSelector extends ROMSuperActivity {
 			error.create().show();
 			finish();
 		}
-		
+
 		Vector<String>versionsList = new Vector<String>();
 		Iterator<AvailableVersion> versionsIterator = availableVersions.iterator();
 		String iteratorVersion = "";
-		
+
 		// The "Full" element is always present
 		versionsList.add(getString(R.string.start_full_download));
 		// Search for an incremental update, in case add it to the list

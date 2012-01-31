@@ -4,13 +4,6 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<TextView
-		android:id="@+id/programNameTextView"
-		android:layout_width="fill_parent"
-		android:layout_height="42sp"
-		android:textSize="28sp"
-		android:text="@string/app_name"
-	/>
 	<ListView android:id="@+id/listOfActions"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"

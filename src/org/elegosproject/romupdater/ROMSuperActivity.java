@@ -122,7 +122,7 @@ public class ROMSuperActivity extends Activity {
             String fileName = toDownload.substring(toDownload.lastIndexOf("/")+1);
 
             // for dynamic json, only show filename param
-            if (fileName.contains("?")) {
+            if (fileName.contains("f=")) {
                 fileName = fileName.substring(fileName.lastIndexOf("f=")+2);
             }
 

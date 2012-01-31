@@ -41,7 +41,7 @@ import android.util.Log;
 import android.content.Context;
 
 public class DownloadManager {
-    private static final String TAG = "ROM Updater (DownloadPackage.class)";
+    private static final String TAG = "ROM Updater (DownloadManager)";
     public static final String download_path = "romupdater/";
 
     // always verify the host - dont check for certificate
@@ -103,6 +103,7 @@ public class DownloadManager {
                 Log.d(TAG, "Cookie sent :" + cookies);
             }
             conn.connect();
+
             String setcookie="";
             switch (conn.getResponseCode()) {
             case HttpURLConnection.HTTP_OK:
