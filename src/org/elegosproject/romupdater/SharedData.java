@@ -32,7 +32,7 @@ public class SharedData {
 	public static final String LOCAL_ROMNAME = SystemProperties.get("ro.cm.version", android.os.Build.DISPLAY);
 	public static final String LOCAL_VERSION = android.os.Build.VERSION.INCREMENTAL;
 	
-	public static final String ABOUT_LICENCE = "Based on Rom Updater by elegos\nEnhanced for AOSP ROMs\n\nThis program comes with ABSOLUTELY NO WARRANTY\n\nThis is free software, and you are welcome to redistribute it under certain conditions";
+	public static final String ABOUT_LICENCE = "Based on elegos version\nEnhanced for AOSP ROMs\n\nThis program comes with ABSOLUTELY NO WARRANTY\n\nThis is free software, and you are welcome to redistribute it under certain conditions";
 
 	private String repositoryModel;
 	private String repositoryROMName;

@@ -33,7 +33,7 @@
 	<string name="wipe">Wipe</string>
 	<string name="recovery_ok">Recovery</string>
 	<string name="upgrade_ok">Update</string>
-	<string name="menu_info_title">Informations</string>
+	<string name="menu_info_title">A Propos...</string>
 	<string name="menu_settings">Paramètres</string>
 	<string name="menu_info_exit">Quitter</string>
 	<string name="capital_version">Version</string>

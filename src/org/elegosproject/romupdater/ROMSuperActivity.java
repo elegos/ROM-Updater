@@ -80,7 +80,7 @@ public class ROMSuperActivity extends Activity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ROMSuperActivity.this);
             builder.setIcon(android.R.drawable.ic_menu_help)
-                .setTitle(getString(R.string.app_name) + " v"+version)
+                .setTitle(getString(R.string.app_name) + "\nv"+version)
                 .setMessage("\n" + SharedData.ABOUT_LICENCE)
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
