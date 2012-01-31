@@ -100,10 +100,9 @@ public class VersionSelector extends ROMSuperActivity {
 
 		if(!versionUri.contains("://")) {
 			url = sdata.getRepositoryUrl();
-			if(!url.endsWith("/")) url += "/";
 		}
 		url += versionUri;
-		if(!url.endsWith("=") && !url.contains("?")) {
+		if(!url.contains("?") && !url.contains(".php")) {
 			if(!url.endsWith("/")) url += "/";
 			url += file;
 		} else {
@@ -119,10 +118,9 @@ public class VersionSelector extends ROMSuperActivity {
 		SharedData sdata = SharedData.getInstance();
 		if(!uri.contains("://")) {
 			url = sdata.getRepositoryUrl();
-			if(!url.endsWith("/")) url += "/";
 		}
 		url += uri;
-		if(!url.endsWith("=") && !url.contains("?")) {
+		if(!url.contains("?") && !url.contains(".php")) {
 			if(!url.endsWith("/")) url += "/";
 			url += "mod.json";
 		} else {

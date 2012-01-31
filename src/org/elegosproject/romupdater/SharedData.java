@@ -86,10 +86,11 @@ public class SharedData {
 	
 	public void setRepositoryUrl(String url) {
 		if(!TextUtils.isEmpty(url)) {
-			if(!url.contains("://"))
+			if (!url.contains("://"))
 				url = "http://"+url;
-			if(!url.endsWith("/"))
-				url += "/";
+			if (!url.contains("?") && !url.contains("json") && !url.contains("php")) {
+				if (!url.endsWith("/")) url += "/";
+			}
 		}
 		repositoryUrl = url;
 	}

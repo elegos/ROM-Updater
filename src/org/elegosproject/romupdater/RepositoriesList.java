@@ -51,8 +51,8 @@ public class RepositoriesList extends ROMSuperActivity {
 							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
 
 							// trim the last character until it finishes with "/"
-							while(url.contains("/") && !url.endsWith("/") && !url.contains("json") && !url.contains("?")) {
-								url = url.substring(0,url.length()-1);
+							if (url.contains("/") && !url.contains("json") && !url.contains("?")) {
+								url = url.substring(0, url.lastIndexOf("/")+1);
 							}
 							// push the url in the setting
 							editor.putString("repository_url", url);
