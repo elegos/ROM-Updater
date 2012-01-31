@@ -34,8 +34,8 @@ import java.security.cert.*;
 import javax.net.ssl.*;
 
 import org.apache.http.params.BasicHttpParams;
-//import org.apache.http.params.HttpParams;
 
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 import android.content.Context;
@@ -186,7 +186,19 @@ public class DownloadManager {
         return true;
     }
 
-    public static boolean sendAnonymousData(Context ctx) {
+    class CheckHttpFile extends AsyncTask<String, Integer, Boolean>
+    {
+         public boolean success=false;
+         @Override
+         protected Boolean doInBackground(String... params) {
+             String urlToCheck = params[0];
+             success = DownloadManager.checkHttpFile(urlToCheck);
+             Log.d(TAG, "CheckHttpFile: "+success);
+             return success;
+         }
+    }
+
+    public boolean sendAnonymousData(Context ctx) {
 
         // <string name="statserver_url">http://www.elegosproject.org/android/upload.php</string>
 
@@ -210,7 +222,16 @@ public class DownloadManager {
         }
 
         cookies = "";
-        if(!checkHttpFile(link)) return false;
+
+        CheckHttpFile check = new CheckHttpFile();
+        try {
+            check.execute(link);
+            check.get();
+        } catch (Exception e) {
+            return false;
+        }
+
+        if (!check.success) return false;
         try {
             data = URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(romPhone, "UTF-8");
             data += "&"+URLEncoder.encode("rom_name", "UTF-8") + "=" + URLEncoder.encode(romName, "UTF-8");

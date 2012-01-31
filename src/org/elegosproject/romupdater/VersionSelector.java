@@ -196,8 +196,10 @@ public class VersionSelector extends ROMSuperActivity {
 			}
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(VersionSelector.this);
 			// send anonymous data (if accepted)
-			if(preferences.getBoolean("anon_stats", false))
-				DownloadManager.sendAnonymousData(getApplicationContext());
+			if(preferences.getBoolean("anon_stats", false)) {
+				DownloadManager dm = new DownloadManager();
+				dm.sendAnonymousData(getApplicationContext());
+			}
 
 			// create and show the dialog
 			alert.create().show();
