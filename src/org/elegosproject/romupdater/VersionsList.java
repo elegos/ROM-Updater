@@ -88,8 +88,8 @@ public class VersionsList extends ROMSuperActivity {
 		Log.i(TAG, "Repository set to " + shared.getRepositoryUrl());
 		
 		versionsListView = (ListView)this.findViewById(R.id.versionsList);
-		Toast t = Toast.makeText(this, getString(R.string.changelog_toast),Toast.LENGTH_LONG);
-		t.show();
+		//Toast t = Toast.makeText(this, getString(R.string.changelog_toast),Toast.LENGTH_LONG);
+		//t.show();
 		setMainView();
 
 		versionsListView.setOnItemLongClickListener(new OnItemLongClickListener() {
