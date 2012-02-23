@@ -32,11 +32,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.util.Log;
+
 public class ROMSuperActivity extends Activity {
+    private final boolean DBG = false;
 
     private ProgressDialog progress;
     protected AlertDialog.Builder alert;
-    public static final String DOWNLOAD_DIRECTORY = "/sdcard/romupdater/";
+    public static String DOWNLOAD_DIRECTORY = "/sdcard/romupdater/";
 
     public static String PackageName;
     public static String Namespace;
@@ -336,6 +339,8 @@ public class ROMSuperActivity extends Activity {
     } // class DownloadJSON
 
     void onJSONDataDownloaded(Boolean success) {}
-    void onDownloadComplete(Boolean success) {}
+    void onDownloadComplete(Boolean success) {
+        if (DBG) Log.v("SuperActivity", "onDownloadComplete "+success);
+    }
 
 } // class ROMSuperActivity

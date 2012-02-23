@@ -43,8 +43,9 @@
 	<string name="important">Important</string>
 	<string name="delete_backup">Supprimer la sauvegarde</string>
 	<string name="delete_zip">Supprimer le fichier</string>
-	<string name="backup_and_wipe">Sauvegarder et effacer tout</string>
-	<string name="backup_only">Sauvegarde simple</string>
+	<string name="backup_and_wipe">Sauvegarde et Effacer</string>
+	<string name="backup_only">Sauvegarde et Installer</string>
+	<string name="install">Installer</string>
 	<string name="loading">Chargement, veuillez patienter...</string>
 	<string name="version_changelog_title">Nouveautés :</string>
 

@@ -184,16 +184,28 @@ public class VersionSelector extends ROMSuperActivity {
 			dialog.show();
 			return;
 		}
+		if (!check.success) {
+			// http header check failed
+			Log.w(TAG, "CheckHttpFile reported a failure !");
+			return;
+		}
+		new DownloadJSON().execute(uri);
+	}
+
+	@Override
+	void onDownloadComplete(Boolean success) {
+		super.onDownloadComplete(success);
+		Log.v(TAG, "DownloadComplete success="+success);
 
 		// download exit with true -> success
-		if(check.success) {
+		if(success) {
 			// the ROM name is different from the
 			// actual one, ask to wipe or backup and wipe before
 			final SharedData sdata = SharedData.getInstance();
+			AlertDialog.Builder alert = new AlertDialog.Builder(VersionSelector.this);
 
 			if(!SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName())) {
 
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setMessage(getString(R.string.ask_backup_wipe));
 				alert.setPositiveButton(getString(R.string.backup_and_wipe), new DialogInterface.OnClickListener() {
 					@Override
@@ -216,7 +228,7 @@ public class VersionSelector extends ROMSuperActivity {
 						RecoveryManager.rebootRecovery();
 					}
 				});
-				alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+				alert.setNegativeButton(getString(R.string.install), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// Just update
@@ -227,7 +239,6 @@ public class VersionSelector extends ROMSuperActivity {
 				});
 			} else {
 				// ROM name are the same, just ask to install now
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 				alert.setMessage(getString(R.string.upgrade_confirmation))
 					.setCancelable(false)
 					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -249,18 +260,21 @@ public class VersionSelector extends ROMSuperActivity {
 					});
 			}
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(VersionSelector.this);
+
+
+			// create and show the dialog
+			alert.create().show();
+
 			// send anonymous data (if accepted)
 			if(preferences.getBoolean("anon_stats", false)) {
 				DownloadManager dm = new DownloadManager();
 				dm.sendAnonymousData(getApplicationContext());
 			}
 
-			// create and show the dialog
-			alert.create().show();
 		} else {
 			// download failed
 			// alert the user and delete the file
-			AlertDialog.Builder error = new AlertDialog.Builder(this);
+			AlertDialog.Builder error = new AlertDialog.Builder(VersionSelector.this);
 			error.setMessage(getString(R.string.error_download_file))
 				.setCancelable(false)
 				.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
@@ -268,8 +282,8 @@ public class VersionSelector extends ROMSuperActivity {
 					public void onClick(DialogInterface dialog, int which) {
 						SharedData sdata = SharedData.getInstance();
 						// delete the corrupted file, if any
-						//File toDelete = new File(sdata.getDownloadedFile());
-						//toDelete.delete();
+						File toDelete = new File(sdata.getDownloadedFile());
+						toDelete.delete();
 
 						// dismiss
 						dialog.dismiss();
@@ -279,7 +293,6 @@ public class VersionSelector extends ROMSuperActivity {
 			// create and show the dialog
 			error.create().show();
 		}
-		new DownloadJSON().execute(uri);
 	}
 
 	@Override

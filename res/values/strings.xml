@@ -46,6 +46,7 @@
 	<string name="delete_zip">Delete the file</string>
 	<string name="backup_and_wipe">Backup and wipe</string>
 	<string name="backup_only">Backup only</string>
+	<string name="install">Install</string>
 	<string name="loading">Loading, please wait...</string>
 	<string name="version_changelog_title">Change Log :</string>
 
