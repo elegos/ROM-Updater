@@ -91,7 +91,7 @@ public class RepositoriesList extends ROMSuperActivity {
 	void onJSONDataDownloaded(Boolean success) {
 		if(!success)
 			return;
-		
+		/*
 		// alert the user about the list nature
 		AlertDialog.Builder info = new AlertDialog.Builder(this);
 		info.setTitle(getString(R.string.important))
@@ -104,6 +104,7 @@ public class RepositoriesList extends ROMSuperActivity {
 				}
 			});
 		info.create().show();
+		*/
 
 		JSONParser parser = new JSONParser();
 		rawList = parser.getRepositoriesFromJSON();

@@ -25,7 +25,7 @@
 	<string name="backup_folder_summary">SD卡目录，比如设置clockworkmod/backup表示设置备份目录为 /sdcard/clockworkmod/backup</string>
 	<string name="repository_url_qr">设置更新服务器（二维码）</string>
 	<string name="repository_url_qr_summary">通过二维码识别软件获得更新服务器URL，比如（Barcode Scanner）</string>
-	<string name="repository_list_summary">ROM更新列表，通过匿名数据创建</string>
+	<string name="repository_list_summary">ROM更新列表</string>
 	<string name="OK">确定</string>
 	<string name="cancel">取消</string>
 	<string name="yes">是</string>

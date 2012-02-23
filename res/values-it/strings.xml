@@ -25,7 +25,7 @@
 	<string name="backup_folder_summary">Nella SD card, ad esempio clockworkmod/backup per /sdcard/clockworkmod/backup</string>
 	<string name="repository_url_qr">Respository URL (codice QR)</string>
 	<string name="repository_url_qr_summary">Imposta l\'URL tramite Barcode Scanner (dev\'essere installato)</string>
-	<string name="repository_list_summary">Una lista di ROM, creata grazie ai dati anonimi.</string>
+	<string name="repository_list_summary">Una lista di ROM e addons.</string>
 	<string name="OK">OK</string>
 	<string name="cancel">Annulla</string>
 	<string name="yes">Sì</string>

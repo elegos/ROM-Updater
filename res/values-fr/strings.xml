@@ -20,7 +20,7 @@
 	<string name="repository_url_manual_summary">Saisir l\'URL du serveur de ROMs</string>
 	<string name="repository_url_qr">URL du serveur (QR code)</string>
 	<string name="repository_url_qr_summary">Scanner une url QR Code avec Barcode Scanner (doit être installé)</string>
-	<string name="repository_list_summary">Liste de ROMs, issue des données statistiques</string>
+	<string name="repository_list_summary">Liste des ROMs et addons disponibles</string>
 	<string name="backup_folder_title">Répertoire Backup</string>
 	<string name="backup_folder_summary">Chemin sur la carte SD, par ex. clockworkmod/backup pour /sdcard/clockworkmod/backup</string>
 	<string name="pref_other">Autres paramètres</string>
