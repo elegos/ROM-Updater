@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.elegosproject.romupdater"
-      android:versionName="2.04-ICS" android:versionCode="9204">
+      android:versionName="2.05-ICS" android:versionCode="9205">
     <application
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher_romupdater"
@@ -15,7 +15,7 @@
         </activity>
 
         <activity android:name=".VersionSelector"
-                  android:label="@string/view_available_updates"
+                  android:label="@string/view_version"
                   android:configChanges="orientation" />
         <activity android:name=".VersionsList"
                   android:label="@string/view_versions_list"

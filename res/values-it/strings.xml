@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">ROM Updater</string>
 	<string name="view_versions_list">Lista delle versioni</string>
-	<string name="view_available_updates">Tipi di aggiornamento disponibili</string>
 	<string name="view_preferences">Preferenze</string>
 	<string name="view_repositories">Lista di repository</string>
 	<string name="view_restore">Ripristina un backup</string>

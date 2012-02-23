@@ -46,9 +46,14 @@ public class VersionSelector extends ROMSuperActivity {
 	private SharedData shared;
 
 	private String versionUri;
+	private String changeLog;
 
 	private ListView versionsAvailableListView;
 	private TextView versionsTextView;
+
+	private TextView changelogTitle;
+	private TextView changelogTextView;
+
 	private Vector<AvailableVersion> availableVersions;
 
 	private JSONParser myParser = new JSONParser();
@@ -58,6 +63,7 @@ public class VersionSelector extends ROMSuperActivity {
 
 		shared = SharedData.getInstance();
 		versionUri = getIntent().getExtras().getString(PackageName + ".VersionSelector.versionUri");
+		changeLog = getIntent().getExtras().getString(PackageName + ".VersionSelector.changeLog");
 
 		if (TextUtils.isEmpty(versionUri)) {
 			// forced repository, not compatible with original version
@@ -68,6 +74,9 @@ public class VersionSelector extends ROMSuperActivity {
 
 		versionsAvailableListView = (ListView)this.findViewById(R.id.availableVersions);
 		versionsTextView = (TextView)this.findViewById(R.id.versionsTextView);
+
+		changelogTitle    = (TextView)this.findViewById(R.id.versionChangeLog);
+		changelogTextView = (TextView)this.findViewById(R.id.versionChangeLog);
 
 		setVersionView(versionUri);
 
@@ -144,8 +153,15 @@ public class VersionSelector extends ROMSuperActivity {
 
 	private void setVersionView(String versionUri) {
 		versionsTextView.setText(shared.getDownloadVersion());
-		String uri = getJsonUrlFor(versionUri);
 
+		if (!TextUtils.isEmpty(changeLog))
+			changelogTextView.setText(changeLog);
+		else {
+			changelogTitle.setVisibility(View.GONE);
+			changelogTextView.setVisibility(View.GONE);
+		}
+
+		String uri = getJsonUrlFor(versionUri);
 		CheckHttpFile check = new CheckHttpFile();
 		try {
 			check.execute(uri);

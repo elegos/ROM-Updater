@@ -7,12 +7,28 @@
 	<TextView
 		android:id="@+id/versionsTextView"
 		android:layout_width="fill_parent"
-		android:layout_height="42sp"
-		android:textSize="28sp"
+		android:layout_height="38sp"
+		android:textSize="26sp"
+		android:singleLine="true"
 	/>
 	<ListView
 		android:id="@+id/availableVersions"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="22sp"
+	/>
+	<TextView
+		android:id="@+id/titleChangeLog"
+		android:layout_height="24sp"
+		android:layout_width="fill_parent"
+		android:textSize="18sp"
+		android:text="@string/version_changelog_title"
+	/>
+	<TextView
+		android:id="@+id/versionChangeLog"
+		android:layout_height="42sp"
+		android:layout_width="fill_parent"
+		android:textSize="16sp"
+		android:singleLine="false"
 	/>
 </LinearLayout>

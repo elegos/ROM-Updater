@@ -91,7 +91,7 @@ public class VersionsList extends ROMSuperActivity {
 		Toast t = Toast.makeText(this, getString(R.string.changelog_toast),Toast.LENGTH_LONG);
 		t.show();
 		setMainView();
-		
+
 		versionsListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				String selectedItem = parent.getItemAtPosition(position).toString();
@@ -102,18 +102,9 @@ public class VersionsList extends ROMSuperActivity {
 					version = selectedItem.substring(selectedItem.lastIndexOf(" ")+1);
 				else
 					version = selectedItem;
-				String changelog = "";
-				ROMVersion currentVersion = new ROMVersion();
-				Iterator<ROMVersion> iVersion = modVersions.iterator();
-				
-				while(iVersion.hasNext()) {
-					currentVersion = iVersion.next();
-					if(currentVersion.getVersion().equals(version)) {
-						changelog = currentVersion.getChangelog();
-						break;
-					}
-				}
-				
+
+				String changelog = getChangeLog(version);
+
 				AlertDialog.Builder dialog = new AlertDialog.Builder(VersionsList.this);
 				dialog.setMessage(selectedItem+" changelog:\n\n"+changelog)
 					.setCancelable(false)
@@ -141,11 +132,26 @@ public class VersionsList extends ROMSuperActivity {
 				Intent selector = new Intent(VersionsList.this, VersionSelector.class);
 				String dlVersion =  myParser.getROMVersionUri(shared.getDownloadVersion());
 				selector.putExtra(PackageName + ".VersionSelector.versionUri", dlVersion);
+				selector.putExtra(PackageName + ".VersionSelector.changeLog", getChangeLog(selectedVersion));
 				startActivity(selector);
 			}
 		});
 	}
-	
+
+	private String getChangeLog(String version) {
+		String changelog = "";
+		ROMVersion currentVersion = new ROMVersion();
+		Iterator<ROMVersion> iVersion = modVersions.iterator();
+		while(iVersion.hasNext()) {
+			currentVersion = iVersion.next();
+			if(currentVersion.getVersion().equals(version)) {
+				changelog = currentVersion.getChangelog();
+				break;
+			}
+		}
+		return changelog;
+	}
+
 	private void setMainView() {
 		String repositoryUrl = shared.getRepositoryUrl();
 		

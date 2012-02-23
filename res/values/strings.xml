@@ -2,11 +2,11 @@
 <resources>
 	<string name="app_name">ROM Updater</string>
 	<string name="view_versions_list">Versions list</string>
-	<string name="view_available_updates">Available update types</string>
 	<string name="view_preferences">Preferences</string>
 	<string name="view_repositories">Repositories list</string>
 	<string name="view_restore">Restore a backup</string>
 	<string name="view_downloads">Downloaded zip files</string>
+	<string name="view_version">Package details</string>
 	<string name="check_for_updates">Check for updates</string>
 	<string name="downloaded_files">Downloaded files</string>
 	<string name="settings">Settings...</string>
@@ -47,6 +47,7 @@
 	<string name="backup_and_wipe">Backup and wipe</string>
 	<string name="backup_only">Backup only</string>
 	<string name="loading">Loading, please wait...</string>
+	<string name="version_changelog_title">Change Log :</string>
 
 	<string name="list_rom_versions">List of ROM version(s)</string>
 	<string name="start_full_download">Start Download</string>

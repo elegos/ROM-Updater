@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="view_versions_list">Liste des versions</string>
-	<string name="view_available_updates">Mises à jour disponibles</string>
 	<string name="view_preferences">Paramètres...</string>
 	<string name="view_repositories">Liste des serveurs</string>
 	<string name="view_restore">Voir les sauvegardes</string>
 	<string name="view_downloads">Fichiers zip téléchargés</string>
+	<string name="view_version">Détails du paquet</string>
 	<string name="check_for_updates">Rechercher mises à jour</string>
 	<string name="downloaded_files">Fichiers téléchargés</string>
 	<string name="settings">Paramètres...</string>
@@ -46,6 +46,7 @@
 	<string name="backup_and_wipe">Sauvegarder et effacer tout</string>
 	<string name="backup_only">Sauvegarde simple</string>
 	<string name="loading">Chargement, veuillez patienter...</string>
+	<string name="version_changelog_title">Nouveautés :</string>
 
 	<string name="list_rom_versions">Liste des ROMs</string>
 	<string name="start_full_download">Télécharger</string>

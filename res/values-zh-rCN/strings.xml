@@ -2,7 +2,6 @@
 <resources>
 	<string name="app_name">ROM更新器</string>
 	<string name="view_versions_list">版本列表</string>
-	<string name="view_available_updates">可用更新类别</string>
 	<string name="view_preferences">选项</string>
 	<string name="view_repositories">更新服务器列表</string>
 	<string name="view_restore">恢复备份</string>
