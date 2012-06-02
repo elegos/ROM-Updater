@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ROM Updater</string>
 	<string name="view_versions_list">Lista delle versioni</string>
 	<string name="view_preferences">Preferenze</string>
 	<string name="view_repositories">Lista di repository</string>

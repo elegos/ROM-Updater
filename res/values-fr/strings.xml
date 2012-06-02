@@ -15,6 +15,7 @@
 	<string name="backup_rom">Effectuer une sauvegarde</string>
 	<string name="restore_rom">Restaurer une sauvegarde</string>
 	<string name="recovery">Mode Recovery</string>
+	<string name="bootmenu">Bootmenu</string>
 	<string name="rom_repository">Serveur de ROM (Repository)</string>
 	<string name="repository_url_manual">URL du serveur</string>
 	<string name="repository_url_manual_summary">Saisir l\'URL du serveur de ROMs</string>
@@ -25,7 +26,7 @@
 	<string name="backup_folder_summary">Chemin sur la carte SD, par ex. clockworkmod/backup pour /sdcard/clockworkmod/backup</string>
 	<string name="pref_other">Autres paramètres</string>
 	<string name="send_anon_title">Statistiques anonymes</string>
-	<string name="send_anon_summary">Envoyer anonymement les versions des ROMs installées. Aucune donnée personelle ne sera utilisée.</string>
+	<string name="send_anon_summary">Envoyer anonymement les versions des ROMs installées. Vos données personnelles ne sont pas utilisées.</string>
 	<string name="OK">OK</string>
 	<string name="cancel">Annuler</string>
 	<string name="yes">Oui</string>

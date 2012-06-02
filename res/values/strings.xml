@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">ROM Updater</string>
+	<string name="app_name" translatable="false">ROM Updater</string>
+
 	<string name="view_versions_list">Versions list</string>
 	<string name="view_preferences">Preferences</string>
 	<string name="view_repositories">Repositories list</string>
@@ -16,10 +17,11 @@
 	<string name="backup_rom">Backup the ROM</string>
 	<string name="restore_rom">Restore a ROM backup</string>
 	<string name="recovery">Recovery mode</string>
+	<string name="bootmenu">Bootmenu</string>
 	<string name="rom_repository">ROM Repository</string>
 	<string name="pref_other">Other settings</string>
 	<string name="send_anon_title">Send anonymous data</string>
-	<string name="send_anon_summary">Anonymously send the ROM name, version and URL to the app author. No personal data will be used.</string>
+	<string name="send_anon_summary">Anonymously send installed ROM name, version and URL to the app author. No personal data will be used.</string>
 	<string name="repository_url_manual">Repository URL (manual)</string>
 	<string name="repository_url_manual_summary">Manually insert the repository URL in a textbox</string>
 	<string name="backup_folder_title">Backup folder</string>
