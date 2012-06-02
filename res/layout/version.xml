@@ -26,7 +26,7 @@
 	/>
 	<TextView
 		android:id="@+id/versionChangeLog"
-		android:layout_height="42sp"
+		android:layout_height="82sp"
 		android:layout_width="fill_parent"
 		android:textSize="16sp"
 		android:singleLine="false"
