@@ -345,8 +345,9 @@ public class VersionSelector extends ROMSuperActivity {
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
 				try {
-					if(Integer.parseInt(SharedData.LOCAL_VERSION) == Integer.parseInt(iteratorVersion)) {
+					if(SharedData.LOCAL_VERSION.equals(iteratorVersion)) {
 						versionsList.add("Incremental");
+						Log.w(TAG, "adding incremental "+iteratorVersion);
 						break;
 					}
 				} catch (NumberFormatException e) {

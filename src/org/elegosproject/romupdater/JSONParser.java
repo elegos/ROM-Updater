@@ -182,7 +182,7 @@ public class JSONParser {
 	
 	public String getUrlForVersion(String version) {
 		for(AvailableVersion av : parsedAvailableVersions.getAvailableVersions()) {
-			if(Integer.parseInt(av.getVersion()) == Integer.parseInt(version))
+			if(av.getVersion().equals(version))
 				return av.getUri();
 		}
 		return "";
