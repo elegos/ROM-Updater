@@ -341,11 +341,15 @@ public class VersionSelector extends ROMSuperActivity {
 		// The "Full" element is always present
 		versionsList.add(getString(R.string.start_full_download));
 		// Search for an incremental update, in case add it to the list
-		if(SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()))
+		if (SharedData.LOCAL_ROMNAME != null &&
+		    SharedData.LOCAL_ROMNAME.contains(shared.getRepositoryROMName()))
+		{
 			while(versionsIterator.hasNext()) {
 				iteratorVersion = versionsIterator.next().getVersion();
 				try {
-					if(SharedData.LOCAL_VERSION.equals(iteratorVersion)) {
+					if (SharedData.LOCAL_VERSION != null &&
+					    SharedData.LOCAL_VERSION.equals(iteratorVersion))
+					{
 						versionsList.add("Incremental");
 						Log.w(TAG, "adding incremental "+iteratorVersion);
 						break;
@@ -355,6 +359,7 @@ public class VersionSelector extends ROMSuperActivity {
 					break;
 				}
 			}
+		}
 
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, versionsList);
 		versionsAvailableListView.setAdapter(adapter);
