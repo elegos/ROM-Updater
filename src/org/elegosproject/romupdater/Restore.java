@@ -18,6 +18,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class Restore extends ROMSuperActivity {
+	private static final String TAG = "RomUpdater[Restore]";
+
 	private ListView listOfRestores;
 	
 	@Override

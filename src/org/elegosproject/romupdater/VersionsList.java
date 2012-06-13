@@ -42,7 +42,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class VersionsList extends ROMSuperActivity {
-	private static final String TAG = "ROM Updater (VersionsList.class)";
+	private static final String TAG = "RomUpdater[VersionsList]";
 	
 	private SharedPreferences preferences;
 	private SharedData shared;

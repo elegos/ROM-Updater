@@ -18,6 +18,8 @@
 package org.elegosproject.romupdater;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -42,7 +44,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.util.Log;
 
 public class VersionSelector extends ROMSuperActivity {
-	private String TAG = "VersionSelector";
+	private static final String TAG = "RomUpdater[VersionSelector]";
+
 	private SharedData shared;
 
 	private String versionUri;
@@ -99,6 +102,18 @@ public class VersionSelector extends ROMSuperActivity {
 		});
 	}
 
+	public String urlParamEncode(String param)
+	{
+		String res;
+		try {
+			res = URLEncoder.encode(param, "UTF-8");
+		}
+		catch (UnsupportedEncodingException e) {
+			res = param;
+		}
+		return res;
+	}
+
 	/**
 	 * Construct Full URL, allow dynamic pages
 	 */
@@ -116,7 +131,7 @@ public class VersionSelector extends ROMSuperActivity {
 			url += file;
 		} else {
 			url += sdata.getDownloadVersion();
-			url += "&f=" + file;
+			url += "&f=" + urlParamEncode(file);
 		}
 		return url;
 	}

@@ -43,7 +43,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class JSONParser {
-	private static final String TAG = "ROM Updater (JSONParser.class)";
+	private static final String TAG = "RomUpdater[JSONParser]";
 	public String modName = "";
 	public AvailableVersions parsedAvailableVersions;
 	public ROMVersions parsedVersions;

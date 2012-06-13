@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RepositoriesList extends ROMSuperActivity {
+	private static final String TAG = "RomUpdater[RepositoriesList]";
 	private static String repoUrl;
 	private RepoList[] rawList;
 	private ExpandableListView theList;

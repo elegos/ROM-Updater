@@ -35,19 +35,19 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ROMUpdater extends ROMSuperActivity {
-	private static final String TAG = "ROM Updater (ROMUpdater.class)";
-	
-	private ListView actions;
-	
+    private static final String TAG = "RomUpdater[Activity]";
+
+    private ListView actions;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         actions = (ListView)this.findViewById(R.id.listOfActions);
-    	fillActionsList();
-    	
-    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        fillActionsList();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 /*
     	if(!preferences.getBoolean("anon_stats_verified", false)) {
     		AlertDialog.Builder anonBuilder = new AlertDialog.Builder(this);

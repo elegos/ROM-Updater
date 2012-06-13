@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class RecoveryManager {
-	private static String TAG = "ROM Updater (RecoveryManager.class)";
+	private static String TAG = "RomUpdater[RecoveryManager]";
 
 	public static void rebootRecovery() {
 		SharedData sdata = SharedData.getInstance();

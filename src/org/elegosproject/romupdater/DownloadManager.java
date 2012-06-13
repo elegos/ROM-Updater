@@ -41,7 +41,7 @@ import android.util.Log;
 import android.content.Context;
 
 public class DownloadManager {
-    private static final String TAG = "ROM Updater (DownloadManager)";
+    private static final String TAG = "RomUpdater[DownloadManager]";
     public static final String download_path = "romupdater/";
 
     // always verify the host - dont check for certificate
@@ -266,11 +266,11 @@ public class DownloadManager {
             if(status == 1)
                 return true;
 
-            Log.e(TAG, "It was impossible to send data to the stastistics server ("+conn.getHeaderField("ROMUpdater-error")+").");
+            Log.e(TAG, "It was impossible to send data to the statistics server ("+conn.getHeaderField("ROMUpdater-error")+").");
             return false;
 
         } catch (Exception e) {
-            Log.e(TAG, "It was impossible to send data to the stastistics server.");
+            Log.e(TAG, "It was impossible to send data to the statistics server.");
             Log.e(TAG, "Error: "+e.toString());
             return false;
         }

@@ -36,7 +36,7 @@ import android.widget.Toast;
 
 public class Preferences extends PreferenceActivity {
     private SharedPreferences preferences;
-    private static final String TAG = "ROM Updater (Preferences.class)";
+    private static final String TAG = "RomUpdater[Preferences]";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
