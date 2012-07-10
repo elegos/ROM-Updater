@@ -3,7 +3,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE_NAME := libGson
 LOCAL_MODULE_TAGS := optional
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libGson:Gson/gson-2.1.jar
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libGson:Gson/gson-2.2.2.jar
 include $(BUILD_MULTI_PREBUILT)
 
 
