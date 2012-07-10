@@ -2,7 +2,10 @@ About this Fork (Android Repo Version)
 --------------------------------------------------------------------------------
 
 This project was forked by epsylon3 from elegos version to be integrated
-in a repo build process and to support one single dynamic json file (php or other)
+in a repo build process and to support dynamic json file (via php or other)
+
+This version is customized via an overlay xml placed in device tree
+to customize default repositories urls and Application name.
 
 --------------------------------------------------------------------------------
 
@@ -13,14 +16,14 @@ a link to the available versions (from the next one
 upwards, if available). It can also execute the most
 common Recovery actions (via /cache/recovery/command
 and extendedcommand), for example Nandroid backup,
-cache/data wipe, or simply enter the removery mode.
+dalvik and cache wipe, or simply enter the recovery mode.
 
 This application requires root.
 
 ROMUpdater is a free software and its source code
 is being distributed under the GNU GPL v.3.
 
-You can find the final APK in the market as
+You can find the original APK in the market as
 "ROMUpdater" by Giacomo Furlan
 
 For more informations please visit the following sites:
