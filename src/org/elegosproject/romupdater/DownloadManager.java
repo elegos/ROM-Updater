@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
@@ -81,6 +82,9 @@ public class DownloadManager {
     public static String cookies;
 
     public static boolean checkHttpFile(String theUrl) {
+
+        int retries = 3;
+
         try {
             Log.i(TAG, "Testing "+theUrl+"...");
             URL url = new URL(theUrl);
@@ -96,13 +100,21 @@ public class DownloadManager {
             }
             conn.setInstanceFollowRedirects(false);
             conn.setRequestMethod("HEAD");
-            conn.setConnectTimeout(3000);
+            conn.setConnectTimeout(1500);
             if (!TextUtils.isEmpty(cookies)) {
                 conn.addRequestProperty("Referer", referer);
                 conn.addRequestProperty("Cookie", cookies);
                 Log.d(TAG, "Cookie sent :" + cookies);
             }
-            conn.connect();
+
+            while (retries > 0) {
+                try {
+                    conn.connect();
+                } catch (SocketTimeoutException te) {
+                    conn.disconnect();
+                }
+                retries--;
+            }
 
             String setcookie="";
             switch (conn.getResponseCode()) {

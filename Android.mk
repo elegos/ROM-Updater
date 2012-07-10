@@ -9,8 +9,8 @@ include $(BUILD_MULTI_PREBUILT)
 
 include $(CLEAR_VARS)
 LOCAL_PACKAGE_NAME := RomUpdater
-LOCAL_MODULE_TAGS := optional
-LOCAL_CERTIFICATE := shared
+LOCAL_MODULE_TAGS  := optional
+LOCAL_CERTIFICATE  := shared
 LOCAL_SRC_FILES := \
 	$(call all-java-files-under, google) \
 	$(call all-java-files-under, src) \

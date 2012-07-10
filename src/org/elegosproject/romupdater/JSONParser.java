@@ -39,6 +39,9 @@ import org.elegosproject.romupdater.types.RepoList;
 
 import com.google.gson.Gson;
 
+import android.os.NetworkOnMainThreadException;
+import android.os.StrictMode;
+import android.os.StrictMode.ThreadPolicy.Builder;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -92,15 +95,27 @@ public class JSONParser {
 		Vector<ROMVersion> versions = new Vector<ROMVersion>();
 		Gson gson = new Gson();
 
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+							.permitNetwork().build();
+		StrictMode.setThreadPolicy(policy);
+
 		try {
 			parsedVersions = new ROMVersions();
 
 			SharedData shared = SharedData.getInstance();
 			Reader r = new InputStreamReader(shared.getInputStreamData());
-			parsedVersions = gson.fromJson(r, ROMVersions.class);
 
-			shared.setRepositoryROMName(parsedVersions.getName());
-			shared.setRespositoryModel(parsedVersions.getPhoneModel());
+			try {
+				parsedVersions = gson.fromJson(r, ROMVersions.class);
+			} catch (NetworkOnMainThreadException mte) {
+				Log.w(TAG, "Strict mode is activated, " + mte);
+				failed = true;
+			}
+
+			if (!failed) {
+				shared.setRepositoryROMName(parsedVersions.getName());
+				shared.setRespositoryModel(parsedVersions.getPhoneModel());
+			}
 
 		} catch(Exception e) {
 			e.printStackTrace();

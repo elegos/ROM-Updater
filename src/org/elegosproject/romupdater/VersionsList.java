@@ -195,10 +195,12 @@ public class VersionsList extends ROMSuperActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						dialog = null;
+						finish();
 					}
 				});
 			error.create().show();
-			finish();
+			return;
 		}
 		
 		/* Global variables */
@@ -213,6 +215,7 @@ public class VersionsList extends ROMSuperActivity {
 				.setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						dialog = null;
 						finish();
 					}
 				});
