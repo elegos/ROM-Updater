@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_NAME := libGson
 LOCAL_MODULE_TAGS := optional
 LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libGson:Gson/gson-2.2.2.jar
-LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
+#LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
 include $(BUILD_MULTI_PREBUILT)
 
 
@@ -13,7 +13,7 @@ LOCAL_PACKAGE_NAME := RomUpdater
 LOCAL_MODULE_TAGS  := optional
 
 LOCAL_CERTIFICATE  := shared
-LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
+#LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
 
 LOCAL_SRC_FILES := \
 	$(call all-java-files-under, google) \
