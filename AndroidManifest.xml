@@ -14,16 +14,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".VersionSelector"
-                  android:label="@string/view_version"
+        <activity android:name=".VersionsList"
+                  android:label="@string/view_versions_list"
                   android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
                 <category android:name="android.intent.category.CATEGORY_PREFERENCE" />
             </intent-filter>
         </activity>
-        <activity android:name=".VersionsList"
-                  android:label="@string/view_versions_list"
+        <activity android:name=".VersionSelector"
+                  android:label="@string/view_version"
                   android:configChanges="orientation" />
         <activity android:name=".Preferences"
                   android:label="@string/view_preferences"
