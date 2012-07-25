@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.elegosproject.romupdater"
-      android:versionName="2.08-ICS" android:versionCode="9208">
+      android:versionName="2.10-JB" android:versionCode="10210">
     <application
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher_romupdater"
@@ -16,7 +16,12 @@
 
         <activity android:name=".VersionSelector"
                   android:label="@string/view_version"
-                  android:configChanges="orientation" />
+                  android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
+                <category android:name="android.intent.category.CATEGORY_PREFERENCE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".VersionsList"
                   android:label="@string/view_versions_list"
                   android:configChanges="orientation" />
