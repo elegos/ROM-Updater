@@ -13,7 +13,7 @@ LOCAL_PACKAGE_NAME := RomUpdater
 LOCAL_MODULE_TAGS  := optional
 
 LOCAL_CERTIFICATE  := shared
-#LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
+LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
 
 LOCAL_SRC_FILES := \
 	$(call all-java-files-under, google) \
