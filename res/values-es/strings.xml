@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="view_versions_list">Lista de versiones</string>
+	<string name="view_preferences">Preferencias</string>
+	<string name="view_repositories">Lista de repositorios</string>
+	<string name="view_restore">Restoaurar una copia de seguridad</string>
+	<string name="view_downloads">Archivos .zip descargados</string>
+	<string name="view_version">Detalles de la versión</string>
+	<string name="check_for_updates">Comprobar actualizaciones</string>
+	<string name="downloaded_files">Archivos descargados</string>
+	<string name="settings">Ajustes...</string>
+	<string name="wipe_cache">Limpiar Dalvik caché</string>
+	<string name="wipe_data">Eliminar aplicaciones y datos</string>
+	<string name="backup">Copia de seguridad</string>
+	<string name="backup_rom">Respaldar ROM</string>
+	<string name="restore_rom">Restaurar la copia de seguridad de la ROM</string>
+	<string name="recovery">Modo recovery</string>
+	<string name="bootmenu">Bootmenu</string>
+	<string name="rom_repository">Respositorio del ROM</string>
+	<string name="pref_other">Otros ajustes</string>
+	<string name="send_anon_title">Enviar información anónima</string>
+	<string name="send_anon_summary">Envíe anonimamente el nombre de la ROM instalada, versión y URL al autor de la aplicación. No se usará información personal.</string>
+	<string name="repository_url_manual">"URL del repositorio (manual)"</string>
+	<string name="repository_url_manual_summary">Ingrese manualmente la URL del repositorio</string>
+	<string name="backup_folder_title">Carpeta de respaldos</string>
+	<string name="backup_folder_summary">Cambiar carpeta de destino de los respaldos, Por ejemplo de clockworkmod/backup a /sdcard/clockworkmod/backup</string>
+	<string name="repository_url_qr">"URL del repositorio (Código QR)"</string>
+	<string name="repository_url_qr_summary">"Ingresar la URL del repositorio a través del Escáner de barras (Debe estar instalado)"</string>
+	<string name="repository_list_summary">Una lista de ROMs disponibles y complementos</string>
+	<string name="OK">Realizado</string>
+	<string name="cancel">Cancelar</string>
+	<string name="yes">Si</string>
+	<string name="no">No</string>
+	<string name="wipe">Limpiar</string>
+	<string name="recovery_ok">Respaldado</string>
+	<string name="upgrade_ok">Actualización</string>
+	<string name="menu_info_title">Informaciones</string>
+	<string name="menu_settings">Ajustes</string>
+	<string name="menu_info_exit">Salir</string>
+	<string name="capital_version">Versión</string>
+	<string name="version_descriptor_not_found_title">Descriptor no encontrado</string>
+	<string name="apply_repo">Está seguro de querer ingresarlo como repositorio?</string>
+	<string name="alert">Alerta</string>
+	<string name="important">Importante</string>
+	<string name="delete_backup">Eliminar la copia de seguridad</string>
+	<string name="delete_zip">Eliminar el archivo</string>
+	<string name="backup_and_wipe">Realizar copia de sgeuridad y limpiar</string>
+	<string name="backup_only">Copia de seguridad solamente</string>
+	<string name="install">Instalar</string>
+	<string name="loading">Cargando, porfavor espere</string>
+	<string name="version_changelog_title">Lista de cambios :</string>
+
+	<string name="list_rom_versions">Lista de versiones de ROM</string>
+	<string name="start_full_download">Comenzar Descarga</string>
+	<string name="downloading">Descargando</string>
+</resources>

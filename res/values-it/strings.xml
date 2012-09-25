@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ROM Updater</string>
 	<string name="view_versions_list">Lista delle versioni</string>
-	<string name="view_available_updates">Tipi di aggiornamento disponibili</string>
 	<string name="view_preferences">Preferenze</string>
 	<string name="view_repositories">Lista di repository</string>
 	<string name="view_restore">Ripristina un backup</string>
 	<string name="view_downloads">File zip scaricati</string>
 	<string name="check_for_updates">Controlla per aggiornamenti</string>
 	<string name="downloaded_files">File scaricati</string>
-	<string name="settings">Impostazioni</string>
+	<string name="settings">Impostazioni...</string>
 	<string name="wipe_cache">Svuota cache</string>
 	<string name="wipe_data">Cancella i dati</string>
 	<string name="backup">Backup</string>
@@ -26,7 +24,7 @@
 	<string name="backup_folder_summary">Nella SD card, ad esempio clockworkmod/backup per /sdcard/clockworkmod/backup</string>
 	<string name="repository_url_qr">Respository URL (codice QR)</string>
 	<string name="repository_url_qr_summary">Imposta l\'URL tramite Barcode Scanner (dev\'essere installato)</string>
-	<string name="repository_list_summary">Una lista di ROM, creata grazie ai dati anonimi.</string>
+	<string name="repository_list_summary">Una lista di ROM e addons.</string>
 	<string name="OK">OK</string>
 	<string name="cancel">Annulla</string>
 	<string name="yes">Sì</string>
@@ -35,6 +33,7 @@
 	<string name="recovery_ok">Recovery</string>
 	<string name="upgrade_ok">Installa</string>
 	<string name="menu_info_title">Informazioni</string>
+	<string name="menu_settings">Impostazioni</string>
 	<string name="menu_info_exit">Esci</string>
 	<string name="capital_version">Versione</string>
 	<string name="version_descriptor_not_found_title">Descrittore non trovato</string>

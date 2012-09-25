@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RepositoriesList extends ROMSuperActivity {
-	private static final String repoUrl = "http://www.elegosproject.org/android/repositories.php";
+	private static final String TAG = "RomUpdater[RepositoriesList]";
+	private static String repoUrl;
 	private RepoList[] rawList;
 	private ExpandableListView theList;
 	
@@ -27,6 +28,8 @@ public class RepositoriesList extends ROMSuperActivity {
 		
 		setContentView(R.layout.repo_list);
 		theList = (ExpandableListView) findViewById(R.id.repositoriesExpandableList);
+
+		repoUrl = getString(R.string.all_repos_url);
 		
 		new DownloadJSON().execute(repoUrl);
 		
@@ -47,21 +50,19 @@ public class RepositoriesList extends ROMSuperActivity {
 							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RepositoriesList.this);
 							Editor editor = prefs.edit();
 							String url = rawList[groupPosition].getRepositories()[childPosition].getUrl();
-							// trim the last character until it finishes with "/" (HACK)
-							// TODO: better handling
-							while(!url.endsWith("/")) {
-								url = url.substring(0,url.length()-1);
+
+							// trim the last character until it finishes with "/"
+							if (url.contains("/") && !url.contains("json") && !url.contains("?")) {
+								url = url.substring(0, url.lastIndexOf("/")+1);
 							}
-							
 							// push the url in the setting
 							editor.putString("repository_url", url);
 							editor.commit();
-							
+
 							Toast t = Toast.makeText(RepositoriesList.this, getString(R.string.repository_changed_toast)+" ("+url+")",Toast.LENGTH_LONG);
-					        t.show();
-					        
-					        dialog.dismiss();
-					        finish();
+							t.show();
+							dialog.dismiss();
+							finish();
 						}
 					});
 					alert.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -91,7 +92,7 @@ public class RepositoriesList extends ROMSuperActivity {
 	void onJSONDataDownloaded(Boolean success) {
 		if(!success)
 			return;
-		
+		/*
 		// alert the user about the list nature
 		AlertDialog.Builder info = new AlertDialog.Builder(this);
 		info.setTitle(getString(R.string.important))
@@ -104,6 +105,7 @@ public class RepositoriesList extends ROMSuperActivity {
 				}
 			});
 		info.create().show();
+		*/
 
 		JSONParser parser = new JSONParser();
 		rawList = parser.getRepositoriesFromJSON();

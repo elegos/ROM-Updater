@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.http.HttpResponse;
@@ -37,21 +39,26 @@ import org.elegosproject.romupdater.types.RepoList;
 
 import com.google.gson.Gson;
 
+import android.os.NetworkOnMainThreadException;
+import android.os.StrictMode;
+import android.os.StrictMode.ThreadPolicy.Builder;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class JSONParser {
-	private static final String TAG = "ROM Updater (JSONParser.class)";
+	private static final String TAG = "RomUpdater[JSONParser]";
 	public String modName = "";
 	public AvailableVersions parsedAvailableVersions;
 	public ROMVersions parsedVersions;
 	public Boolean failed = false;
-	
+
 	public static boolean checkRepository(String repository_url) {
-		if(!repository_url.startsWith("http://"))
+		if(!repository_url.contains("://"))
 			repository_url = "http://"+repository_url;
-		if(!repository_url.endsWith("/"))
-			repository_url += "/";
-		repository_url += "main.json";
+		if(!repository_url.contains("?") && !repository_url.contains("json")) {
+			if (!repository_url.endsWith("/")) repository_url += "/";
+			repository_url += "main.json";
+		}
 		return DownloadManager.checkHttpFile(repository_url);
 	}
 	
@@ -74,6 +81,7 @@ public class JSONParser {
 	}
 	
 	public String getROMVersionUri(String version) {
+
 		for(ROMVersion rv : parsedVersions.getVersions()) {
 			if(rv.getVersion().equals(version))
 				return rv.getUri();
@@ -81,38 +89,61 @@ public class JSONParser {
 		return "";
 	}
 	
-	public Vector<ROMVersion> getROMVersions(){
+	public Vector<ROMVersion> getROMVersions() {
 		failed = false;
-		
-		Vector<ROMVersion> versions = new Vector<ROMVersion>();
-    	Gson gson = new Gson();
-    	Reader r;
-		try {
-			SharedData shared = SharedData.getInstance();
-			r = new InputStreamReader(shared.getInputStreamData());
 
-        	parsedVersions = new ROMVersions();
-        	parsedVersions = gson.fromJson(r, ROMVersions.class);
-        	
-        	shared.setRepositoryROMName(parsedVersions.getName());
-        	shared.setRespositoryModel(parsedVersions.getPhoneModel());
-        } catch(Exception e) {
-            e.printStackTrace();
-            failed = true;
-            return new Vector<ROMVersion>();
-        }
-        
-        modName = parsedVersions.getName();
-    	for(ROMVersion rv : parsedVersions.getVersions()){
-    		Log.i(TAG, "Version: " + rv.getVersion() + " - " + rv.getUri());
-    		Log.i(TAG, rv.getChangelog());
-    		versions.add(rv);
-    		rv.getUri();
-    	}
-    	
-        return versions;
-    }
-	
+		Vector<ROMVersion> versions = new Vector<ROMVersion>();
+		Gson gson = new Gson();
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+							.permitNetwork().build();
+		StrictMode.setThreadPolicy(policy);
+
+		try {
+			parsedVersions = new ROMVersions();
+
+			SharedData shared = SharedData.getInstance();
+			Reader r = new InputStreamReader(shared.getInputStreamData());
+
+			try {
+				parsedVersions = gson.fromJson(r, ROMVersions.class);
+			} catch (NetworkOnMainThreadException mte) {
+				Log.w(TAG, "Strict mode is activated, " + mte);
+				failed = true;
+			}
+
+			if (!failed) {
+				shared.setRepositoryROMName(parsedVersions.getName());
+				shared.setRespositoryModel(parsedVersions.getPhoneModel());
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			failed = true;
+		}
+
+		if (failed) {
+			Log.w(TAG, "Failed to parse ROMVersions !");
+			return versions;
+		}
+
+		modName = parsedVersions.getName();
+		if (TextUtils.isEmpty(modName)) {
+			failed = true;
+			Log.e(TAG, "Failed to parse ROMVersions ! (no name)");
+			return versions;
+                }
+
+		List<ROMVersion> lst = parsedVersions.getVersions();
+		for(ROMVersion rv : lst) {
+			Log.i(TAG, "Version: " + rv.getVersion() + " - " + rv.getUri());
+			Log.i(TAG, rv.getChangelog());
+			versions.add(rv);
+			rv.getUri();
+		}
+		return versions;
+	}
+
 	public Vector<AvailableVersion> getAvailableVersions() {
 		failed = false;
 		
@@ -128,14 +159,20 @@ public class JSONParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 			failed = true;
-			return new Vector<AvailableVersion>();
 		}
 		
-		for(AvailableVersion av : parsedAvailableVersions.getAvailableVersions()) {
+		if (failed) {
+			failed = true;
+			Log.w(TAG, "No available version !");
+			return new Vector<AvailableVersion>();
+		}
+
+		List<AvailableVersion> lst = parsedAvailableVersions.getAvailableVersions();
+		for(AvailableVersion av : lst) {
 			Log.i(TAG, "Version: " + av.getVersion() + " ("+av.getUri()+")");
 			versions.add(av);
 		}
-		
+
 		return versions;
 	}
 	
@@ -160,7 +197,7 @@ public class JSONParser {
 	
 	public String getUrlForVersion(String version) {
 		for(AvailableVersion av : parsedAvailableVersions.getAvailableVersions()) {
-			if(Integer.parseInt(av.getVersion()) == Integer.parseInt(version))
+			if(av.getVersion().equals(version))
 				return av.getUri();
 		}
 		return "";

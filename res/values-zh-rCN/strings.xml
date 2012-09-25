@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">ROM更新器</string>
 	<string name="view_versions_list">版本列表</string>
-	<string name="view_available_updates">可用更新类别</string>
 	<string name="view_preferences">选项</string>
 	<string name="view_repositories">更新服务器列表</string>
 	<string name="view_restore">恢复备份</string>
@@ -26,7 +24,7 @@
 	<string name="backup_folder_summary">SD卡目录，比如设置clockworkmod/backup表示设置备份目录为 /sdcard/clockworkmod/backup</string>
 	<string name="repository_url_qr">设置更新服务器（二维码）</string>
 	<string name="repository_url_qr_summary">通过二维码识别软件获得更新服务器URL，比如（Barcode Scanner）</string>
-	<string name="repository_list_summary">ROM更新列表，通过匿名数据创建</string>
+	<string name="repository_list_summary">ROM更新列表</string>
 	<string name="OK">确定</string>
 	<string name="cancel">取消</string>
 	<string name="yes">是</string>
@@ -35,6 +33,7 @@
 	<string name="recovery_ok">恢复</string>
 	<string name="upgrade_ok">更新</string>
 	<string name="menu_info_title">信息</string>
+	<string name="menu_settings">设置</string>
 	<string name="menu_info_exit">退出</string>
 	<string name="capital_version">版本</string>
 	<string name="version_descriptor_not_found_title">未发现描述</string>

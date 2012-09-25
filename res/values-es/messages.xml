@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="changelog_toast">Mantener pulsado para ver la lista de cambios</string>
+	<string name="repository_changed_toast">La URL del repositorio de ROM ha sido modificado</string>
+	<string name="repository_unreachable">Actualmente el repositorio de ROM  es inaccesible. Porfavor compúebalo, o intenta más tarde.</string>
+	<string name="barcode_scanner_not_found">Al parecer el escaneador de codigo de barras (com.google.zxing.client.android) no está instalado.</string>
+	<string name="wipe_cache_message">El teléfono se reinciará al modo recovery y realizará la limpieza.</string>
+	<string name="wipe_data_message">El teléfono se reinciará al modo recovery y realizará la limpieza.</string>
+	<string name="backup_rom_message">El teléfono se reinciará al modo recovery y realizará la copia de seguridad.</string>
+	<string name="recovery_message">El teléfono se reinciará al modo recovery.</string>
+	<string name="repository_file_not_found">el archivo que usted intenta descargar es inaccesible o inválido. Por favor intente descargar luego, o contáctese con el mantenedor del repositorio.</string>
+	<string name="upgrade_confirmation">Desea aplicar la actuaización?</string>
+	<string name="modname_mismatch">Your mod seems to be different from the repository one. You\'ll be able to download only the full versions.</string>
+	<string name="version_descriptor_not_found_message">El archivo descriptor de la versión no fue encontrado</string>
+	<string name="rom_is_updated">su ROM ya está actualizado a la última versión</string>
+	<string name="versionlist_is_empty">No hay información disponible de la versión en el repositorio</string>
+	<string name="anon_send_message">Would you like to help the developer know more about the ROM name and version you\'ll download? You can anonymously send this data. If you want, you can find the setting under the preferences pane.</string>
+	<string name="repo_phone_mismatch">Su teléfono no es compatible con este repositorio.</string>
+	<string name="no_repository_available">Actualmente no hay repositorios disponibles</string>
+	<string name="error_model_mismatch">Precaución: Está intentando instalar una ROM que no ha sido diseñada para su modelo de teléfono. Aborte</string>
+	<string name="error_backup_folder_empty">Usted no tiene copias de seguridad en la actual carpeta de respaldos..</string>
+	<string name="error_backup_folder_doesnt_exist">La carpeta de respaldos aparentemente no existe. Revisar en sus ajustes.</string>
+	<string name="error_download_file">Ocurrió un error mientras se descargaba el archivo.</string>
+	<string name="error_json_not_found">El archivo JSON no fue encontrado</string>
+	<string name="error_json_download">Ocurrió un error mientras se descargaba el archivo JSON</string>
+	<string name="error_repository_not_set">You haven\'t set the ROM repository from the settings menu. Clicking on Ok the Settings window will appear.</string>
+	<string name="wipe_sdext_too">Desea realizar la limpieza de la partición SD-EXT también?</string>
+	<string name="confirm_restore_backup">Está seguro de que desea restaurar esta copia de seguridad?</string>
+	<string name="ask_backup_wipe">Al parecer el nombre de la ROM difiere de la que descargó. Desea realizar una limpieza, o una copia de seguridad y limpieza de los datos de usuario antes de actualizar?</string>
+	<string name="info_no_downloads">No hay archivos en el directorio de descargas</string>
+	<string name="info_shared_repo">This list is dynamically created via the anonymous data sent by other users. The author of the application doesn\'t decide which repositories are being displayed, nor is responsible for any of them.</string>
+</resources>

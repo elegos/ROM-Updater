@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="view_versions_list">Liste des versions</string>
+	<string name="view_preferences">Paramètres...</string>
+	<string name="view_repositories">Liste des serveurs</string>
+	<string name="view_restore">Voir les sauvegardes</string>
+	<string name="view_downloads">Fichiers zip téléchargés</string>
+	<string name="view_version">Détails du paquet</string>
+	<string name="check_for_updates">Rechercher mises à jour</string>
+	<string name="downloaded_files">Fichiers téléchargés</string>
+	<string name="settings">Paramètres...</string>
+	<string name="wipe_cache">Vider cache dalvik</string>
+	<string name="wipe_data">Effacer appli. et données</string>
+	<string name="backup">Sauvegarder</string>
+	<string name="backup_rom">Effectuer une sauvegarde</string>
+	<string name="restore_rom">Restaurer une sauvegarde</string>
+	<string name="recovery">Mode Recovery</string>
+	<string name="bootmenu">Bootmenu</string>
+	<string name="rom_repository">Serveur de ROM (Repository)</string>
+	<string name="repository_url_manual">URL du serveur</string>
+	<string name="repository_url_manual_summary">Saisir l\'URL du serveur de ROMs</string>
+	<string name="repository_url_qr">URL du serveur (QR code)</string>
+	<string name="repository_url_qr_summary">Scanner une url QR Code avec Barcode Scanner (doit être installé)</string>
+	<string name="repository_list_summary">Liste des ROMs et addons disponibles</string>
+	<string name="backup_folder_title">Répertoire Backup</string>
+	<string name="backup_folder_summary">Chemin sur la carte SD, par ex. clockworkmod/backup pour /sdcard/clockworkmod/backup</string>
+	<string name="pref_other">Autres paramètres</string>
+	<string name="send_anon_title">Statistiques anonymes</string>
+	<string name="send_anon_summary">Envoyer anonymement les versions des ROMs installées. Vos données personnelles ne sont pas utilisées.</string>
+	<string name="OK">OK</string>
+	<string name="cancel">Annuler</string>
+	<string name="yes">Oui</string>
+	<string name="no">Non</string>
+	<string name="wipe">Wipe</string>
+	<string name="recovery_ok">Recovery</string>
+	<string name="upgrade_ok">Update</string>
+	<string name="menu_info_title">A Propos...</string>
+	<string name="menu_settings">Paramètres</string>
+	<string name="menu_info_exit">Quitter</string>
+	<string name="capital_version">Version</string>
+	<string name="version_descriptor_not_found_title">Descriptor not found</string>
+	<string name="apply_repo">Are you sure you want to set this as repository?</string>
+	<string name="alert">Alerte</string>
+	<string name="important">Important</string>
+	<string name="delete_backup">Supprimer la sauvegarde</string>
+	<string name="delete_zip">Supprimer le fichier</string>
+	<string name="backup_and_wipe">Sauvegarde et Effacer</string>
+	<string name="backup_only">Sauvegarde et Installer</string>
+	<string name="install">Installer</string>
+	<string name="loading">Chargement, veuillez patienter...</string>
+	<string name="version_changelog_title">Nouveautés :</string>
+
+	<string name="list_rom_versions">Liste des ROMs</string>
+	<string name="start_full_download">Télécharger</string>
+	<string name="downloading">Téléchargement</string>
+</resources>

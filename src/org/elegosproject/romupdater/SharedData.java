@@ -19,15 +19,20 @@ package org.elegosproject.romupdater;
 
 import java.io.InputStream;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.SystemProperties;
+import android.text.TextUtils;
+
 public class SharedData {
 	static final Object mLock = new Object();
 	static SharedData mInstance;
 
 	public static final String LOCAL_MODEL = android.os.Build.MODEL;
-	public static final String LOCAL_ROMNAME = android.os.Build.DISPLAY;
 	public static final String LOCAL_VERSION = android.os.Build.VERSION.INCREMENTAL;
-	
-	public static final String ABOUT_LICENCE = "ROM Updater Copyright (C) 2011 by elegos\nThis program comes with ABSOLUTELY NO WARRANTY;\nThis is free software, and you are welcome to redistribute it under certain conditions;";
+	public static String LOCAL_ROMNAME = SystemProperties.get("ro.cm.version", SystemProperties.get("ro.modversion", android.os.Build.DISPLAY));
+
+	public static final String ABOUT_LICENCE = "Based on elegos version\nEnhanced for AOSP ROMs\n\nThis program comes with ABSOLUTELY NO WARRANTY\n\nThis is free software, and you are welcome to redistribute it under certain conditions";
 
 	private String repositoryModel;
 	private String repositoryROMName;
@@ -80,10 +85,13 @@ public class SharedData {
 	}
 	
 	public void setRepositoryUrl(String url) {
-		if(!url.startsWith("http://"))
-			url = "http://"+url;
-		if(!url.endsWith("/"))
-			url += "/";
+		if(!TextUtils.isEmpty(url)) {
+			if (!url.contains("://"))
+				url = "http://"+url;
+			if (!url.contains("?") && !url.contains("json") && !url.contains("php")) {
+				if (!url.endsWith("/")) url += "/";
+			}
+		}
 		repositoryUrl = url;
 	}
 	

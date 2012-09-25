@@ -14,6 +14,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class Downloads extends ROMSuperActivity {
+	private static final String TAG = "RomUpdater[Downloads]";
+
 	private ListView listOfDownloads;
 	
 	@Override

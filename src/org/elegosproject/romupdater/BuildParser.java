@@ -3,6 +3,8 @@ package org.elegosproject.romupdater;
 import java.io.*;
 
 public class BuildParser {
+	private static final String TAG = "RomUpdater[BuildParser]";
+
 	private static String build_prop = "/system/build.prop";
 	
 	private static String readProperty(String prop) {

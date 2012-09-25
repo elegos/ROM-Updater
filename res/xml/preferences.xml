@@ -7,7 +7,7 @@
 		android:key="repository_url"
 		android:title="@string/repository_url_manual"
 		android:summary="@string/repository_url_manual_summary"
-		android:defaultValue=""
+		android:defaultValue="@string/reposerver_url"
 	/>
 	<Preference
 		android:key="repository_url_qr"

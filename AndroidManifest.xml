@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.elegosproject.romupdater"
-      android:versionName="1.14.2" android:versionCode="25">
+      android:versionName="2.10-JB" android:versionCode="10210">
     <application
-    	android:label="@string/app_name"
-    	android:icon="@drawable/ic_launcher_romupdater">
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher_romupdater"
+        android:allowClearUserData="true" android:allowBackup="true">
         <activity android:name=".ROMUpdater"
                   android:label="@string/app_name">
             <intent-filter>
@@ -13,14 +14,37 @@
             </intent-filter>
         </activity>
 
-    <activity android:name=".VersionSelector" android:label="@string/view_available_updates" android:configChanges="orientation" />
-    <activity android:name=".VersionsList" android:label="@string/view_versions_list" android:configChanges="orientation" />
-    <activity android:name=".Preferences" android:label="@string/view_preferences" android:configChanges="orientation" />
-    <activity android:name=".RepositoriesList" android:label="@string/view_repositories" android:configChanges="orientation" />
-    <activity android:name=".Restore" android:label="@string/view_restore" android:configChanges="orientation" />
-    <activity android:name=".Downloads" android:label="@string/view_downloads" android:configChanges="orientation" />
-</application>
-    <uses-sdk android:minSdkVersion="7" />
+        <activity android:name=".VersionsList"
+                  android:label="@string/view_versions_list"
+                  android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
+                <category android:name="android.intent.category.CATEGORY_PREFERENCE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".VersionSelector"
+                  android:label="@string/view_version"
+                  android:configChanges="orientation" />
+        <activity android:name=".Preferences"
+                  android:label="@string/view_preferences"
+                  android:configChanges="orientation" />
+        <activity android:name=".RepositoriesList"
+                  android:label="@string/view_repositories"
+                  android:configChanges="orientation" />
+        <activity android:name=".Restore"
+                  android:label="@string/view_restore"
+                  android:configChanges="orientation" />
+        <activity android:name=".Downloads"
+                  android:label="@string/view_downloads"
+                  android:configChanges="orientation" />
+    </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-</manifest> 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DELETE_CACHE_FILES" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.REBOOT" />
+
+    <uses-sdk android:minSdkVersion="11" />
+</manifest>

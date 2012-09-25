@@ -17,12 +17,13 @@
 
 package org.elegosproject.romupdater.types;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AvailableVersions {
 	private String full;
 	private List<AvailableVersion> fromVersion;
-	
+
 	public String getFullUri() {
 		return full;
 	}
@@ -34,9 +35,14 @@ public class AvailableVersions {
 	public List<AvailableVersion> getAvailableVersions() {
 		return fromVersion;
 	}
-	
+
 	public void setAvailableVersions(List<AvailableVersion> VersionsList) {
 		fromVersion = VersionsList;
+		try {
+			boolean isEmpty = fromVersion.isEmpty();
+		} catch (Exception e) {
+			fromVersion = new ArrayList<AvailableVersion>();
+		}
 	}
 	
 	public String getVersionFileName(String version) {
